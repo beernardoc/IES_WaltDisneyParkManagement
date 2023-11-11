@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  mq:
+    image: rabbitmq:management
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    healthcheck:
+      test: rabbitmq-diagnostics -q status
+      interval: 20s
+      timeout: 10s
+      retries: 2
+
+  data:
+    build: ./Data
+    depends_on:
+      mq:
+        condition: service_healthy
+
+    links:
+      - mq
+
+  management:
+    build: ./WaltDisneyManagement
+    depends_on:
+      mq:
+        condition: service_healthy
+
+    environment:
+      SPRING_APPLICATION_JSON: '{
+              "spring.rabbitmq.host" : "mq",
+              "spring.rabbitmq.port" : 5672,
+              "spring.rabbitmq.username" : "guest",
+              "spring.rabbitmq.password": "guest",
+              "server.port": 8000
+
+              }'
+
+    ports:
+      - "8080:8000"

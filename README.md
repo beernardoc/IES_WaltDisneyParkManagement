@@ -2,11 +2,19 @@
 
 ## Instruções de instalação e execução
 
+
+### Instalação:
 #### No projeto SpringBoot:
 - mvn package -DskipTests
 
 #### Na pasta raiz:
 - docker compose up
+
+### Execução:
+De forma a conseguir visualizar o nosso protótipo, no index, deverá carregar no card "Magic Kingdom", e em seguida na atração "Walt Disney World Railroad".
+Além disso, de volta no index, deverá carregar no card "Parking Cars 2" para acessar a página do parque de estacionamento.
+
+
 
 
 

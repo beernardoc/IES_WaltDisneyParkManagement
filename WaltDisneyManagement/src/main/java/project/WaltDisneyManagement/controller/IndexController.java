@@ -1,5 +1,4 @@
-package project.WaltDisneyManagement;
-
+package project.WaltDisneyManagement.controller;
 
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -14,7 +13,7 @@ public class IndexController {
 
     @RabbitListener(queues = "minha_fila")
     public void receberMensagem(String mensagem) {
-        System.out.println("[x] Recebido: " + mensagem);
+        //System.out.println("[x] Recebido: " + mensagem);
         primeiraMensagemRecebida = mensagem;
     }
 
@@ -23,4 +22,6 @@ public class IndexController {
         model.addAttribute("mensagem", primeiraMensagemRecebida);
         return "index";
     }
+
+
 }

@@ -1,6 +1,20 @@
 version: '3.7'
 
 services:
+
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password 
+    ports: 
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: disney
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: user
+    volumes:
+      - datafiles:/var/lib/mysql
+      
   mq:
     image: rabbitmq:management
     environment:
@@ -20,7 +34,6 @@ services:
     depends_on:
       mq:
         condition: service_healthy
-
     links:
       - mq
 
@@ -29,7 +42,6 @@ services:
     depends_on:
       mq:
         condition: service_healthy
-
     environment:
       SPRING_APPLICATION_JSON: '{
               "spring.rabbitmq.host" : "mq",
@@ -37,8 +49,9 @@ services:
               "spring.rabbitmq.username" : "guest",
               "spring.rabbitmq.password": "guest",
               "server.port": 8000
-
               }'
-
     ports:
       - "8080:8000"
+
+volumes:
+  datafiles:

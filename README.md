@@ -5,10 +5,7 @@
 
 ### Instalação:
 #### No projeto SpringBoot:
-- mvn package -DskipTests
-
-#### Na pasta raiz:
-- docker compose up
+bash run.sh
 
 ### Execução:
 De forma a conseguir visualizar o nosso protótipo, no index, deverá carregar no card "Magic Kingdom", e em seguida na atração "Walt Disney World Railroad".

@@ -19,7 +19,7 @@ public class Config {
 
     @Bean
     Queue queue1() {
-        return new Queue(MagicKingdomQueue, true);
+        return new Queue(MagicKingdomQueue, false);
     }
 
 

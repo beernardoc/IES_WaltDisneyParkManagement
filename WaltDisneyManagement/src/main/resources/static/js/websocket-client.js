@@ -6,10 +6,17 @@ function connect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/atualizacao', function (mensagem) {
-            console.log('Mensagem recebida via WebSocket:', mensagem.body);
-            var jsonRecebido = mensagem.body;
-            document.getElementById('jsonRecebido').innerText = jsonRecebido;
+        stompClient.subscribe('/topic/MagicKingdom', function (mensagem) {
+
+            var jsonRecebido = JSON.parse(mensagem.body);
+
+
+
+
+            document.getElementById('jsonRecebido').innerText = JSON.stringify(jsonRecebido); // ja como string
+
+            document.getElementById('railRoadVel').innerText = jsonRecebido.railRoad.velocity_kmh;
+
         });
 
     });

@@ -65,7 +65,7 @@ class Generators:
             }
 
             self.channel.basic_publish(exchange='', routing_key='MagicKingdom', body=json.dumps(data))
-            print(f'Queue: MagicKingdom, Mensagem enviada: {data}')
+            #print(f'Queue: MagicKingdom, Mensagem enviada: {data}')
 
             await asyncio.sleep(1)
 

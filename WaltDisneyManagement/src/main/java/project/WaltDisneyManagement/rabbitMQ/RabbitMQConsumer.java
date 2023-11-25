@@ -1,6 +1,6 @@
 package project.WaltDisneyManagement.rabbitMQ;
 
-import org.json.JSONException;
+
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

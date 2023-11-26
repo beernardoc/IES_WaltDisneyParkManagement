@@ -11,8 +11,8 @@
     
     <!-- Formulário de Login -->
     <form id="loginForm">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
         
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
@@ -24,38 +24,39 @@
     <script>
         function submitLoginForm() {
             // Obter os valores do formulário
-            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
-
+            console.log(email);
+            console.log(password);
             // Criar objeto para enviar ao servidor
             var loginDto = {
-                username: username,
+                email: email,
                 password: password
             };
-
+            
+            console.log(loginDto);
+            console.log(JSON.stringify(loginDto));
             // Fazer uma requisição ao servidor (pode usar AJAX ou Fetch API)
-            fetch('/employee/login', {
-                method: 'POST',
+            fetch("/login", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(loginDto)
             })
-            .then(response => response.json())
-            .then(data => {
-                // Verificar o resultado do login
-                if (data.success) {
-                    // Redirecionar para a próxima página
-                    window.location.href = '/index';
+            .then(response => {
+                if (response.status == 200) {
+                    // Login efetuado com sucesso
+                    // Redirecionar para a página principal
+                    window.location.href = "/login";
                 } else {
-                    // Exibir mensagem de erro na página atual
-                    alert('Login failed. Please check your credentials.');
+                    // Login falhou
+                    // Exibir mensagem de erro
+                    alert("Login failed");
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
             });
         }
     </script>
 </body>
 </html>
+

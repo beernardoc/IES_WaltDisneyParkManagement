@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@RestController
 @CrossOrigin
 @Controller
 public class EmployeeController {
@@ -25,7 +24,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
     
-    @GetMapping("/")
+    @RequestMapping("/")
     public String login() {
         return "login";
     }
@@ -40,9 +39,11 @@ public class EmployeeController {
     public String loginEmployee(@RequestBody LoginDto loginDto) {
         boolean loginMessage = employeeService.loginEmployee(loginDto);
         if(loginMessage == true){
+            System.out.println("Login successful");
             return "index";
         }
         else{
+            System.out.println("Login failed");
             return "login";
         }
     }

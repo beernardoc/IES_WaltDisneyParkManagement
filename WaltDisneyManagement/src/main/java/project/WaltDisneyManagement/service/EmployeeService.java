@@ -1,22 +1,16 @@
 package project.WaltDisneyManagement.service;
 
+import org.springframework.stereotype.Service;
 
-import project.WaltDisneyManagement.entity.Employee;
+import project.WaltDisneyManagement.Dto.EmployeeDto;
+import project.WaltDisneyManagement.Dto.LoginDto;
 
-import java.util.List;
-
+@Service
 public interface EmployeeService {
 
-    Employee createEmployee(Employee employee);
 
-    Employee getEmployeeById(Long id);
+    String addEmployee(EmployeeDto employeeDto);
 
-    List<Employee> findByEmail(String email);
+    boolean loginEmployee(LoginDto loginDto);  
 
-    Employee updateEmployee(Employee employee);
-
-    List<Employee> getAllEmployees();
-
-
-    void deleteEmployee(Long id);
 }

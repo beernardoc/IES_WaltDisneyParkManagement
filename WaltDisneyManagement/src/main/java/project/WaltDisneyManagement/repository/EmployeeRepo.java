@@ -10,9 +10,9 @@ import project.WaltDisneyManagement.entity.Employee;
 @Repository
 public interface EmployeeRepo extends JpaRepository<Employee, Integer> {
 
-    Employee findByEmployeeName(String employeeName);
+    Employee findByName(String employeeName);
 
-    Employee findByEmployeeId(int employeeId);
+    Employee findById(int employeeId);
 
     Employee findByEmail(String email);
 

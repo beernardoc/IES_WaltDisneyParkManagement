@@ -1,5 +1,6 @@
 package project.WaltDisneyManagement.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rabbitmq.client.RpcClient.Response;
@@ -23,28 +24,24 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
-    
-    @RequestMapping("/")
-    public String login() {
-        return "login";
-    }
 
-    @PostMapping("/save")
+    @PostMapping("/register")
     public String saveEmployee(@RequestBody EmployeeDto employeeDto) {
         String id = employeeService.addEmployee(employeeDto);
-        return id;
+        return "index";
     }
 
     @PostMapping("/login")
-    public String loginEmployee(@RequestBody LoginDto loginDto) {
+    public String loginEmployee(@RequestBody LoginDto loginDto, HttpServletRequest request) {
         boolean loginMessage = employeeService.loginEmployee(loginDto);
         if(loginMessage == true){
+            System.out.println(request.getSession().getAttribute("employee_role"));
             System.out.println("Login successful");
-            return "index";
+            return "redirect:/index";
         }
         else{
             System.out.println("Login failed");
-            return "login";
+            return "redirect:/";
         }
     }
 

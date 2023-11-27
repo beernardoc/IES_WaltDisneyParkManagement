@@ -1,6 +1,7 @@
 package project.WaltDisneyManagement.controller;
 
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ParkCarsController {
 
     @GetMapping("/Cars/{parkName}")
-    public String park(Model model, @PathVariable("parkName") String parkName) {
+    public String park(Model model, @PathVariable("parkName") String parkName, HttpServletRequest request) {
 
+        if (request.getSession().getAttribute("employee_role") == null) {
+            return "redirect:/";
+        }
         return "parking-lot";
     }
 

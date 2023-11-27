@@ -5,6 +5,12 @@ import pika
 import time
 
 
+previous_railroad = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
+previous_pirates = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
+previous_dwarfs = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
+previous_haunted = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
+previous_tomorrowland = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
+
 class Generators:
     def __init__(self):
 
@@ -23,14 +29,14 @@ class Generators:
 
         while True:
             (velocity_walt_disney, height_walt_disney, temperature_walt_disney,
-             vibration_walt_disney) = await generate_data("Rollercoaster")
-            (velocity_pirates, temperature_pirates, vibration_pirates) = await generate_data("Darkride")
+             vibration_walt_disney) = await generate_data("Rollercoaster", previous_railroad)
+            (velocity_pirates, temperature_pirates, vibration_pirates) = await generate_data("Darkride", previous_pirates)
             (velocity_haunted_mansion, temperature_haunted_mansion,
-             vibration_haunted_mansion) = await generate_data("Darkride")
+             vibration_haunted_mansion) = await generate_data("Darkride", previous_haunted)
             (velocity_seven_dwarfs, height_seven_dwarfs, temperature_seven_dwarfs,
-             vibration_seven_dwarfs) = await generate_data("Rollercoaster")
+             vibration_seven_dwarfs) = await generate_data("Rollercoaster", previous_dwarfs)
             (velocity_tomorrowland, height_tomorrowland, temperature_tomorrowland,
-             vibration_tomorrowland) = await generate_data("Rollercoaster")
+             vibration_tomorrowland) = await generate_data("Rollercoaster", previous_tomorrowland)
 
             data = {
                 "Walt Disney World RailRoad": {
@@ -67,26 +73,35 @@ class Generators:
             self.channel.basic_publish(exchange='', routing_key='MagicKingdom', body=json.dumps(data))
             #print(f'Queue: MagicKingdom, Mensagem enviada: {data}')
 
-            await asyncio.sleep(1)
+            await asyncio.sleep(20)
 
 
-async def random_value(lower, upper, precision=2):
-    value = random.uniform(lower, upper)
+async def random_value(previous, max_difference, precision=2):
+    lower_limit = max(0.0, previous - max_difference)
+    upper_limit = min(120, previous + max_difference)
+    value = random.uniform(lower_limit, upper_limit)
     return round(value, precision)
 
-
-async def generate_data(type):
+async def generate_data(type, previous_data, max_difference=20.0):
     if type == "Rollercoaster":
-        velocity = await random_value(0.0, 150.0)
-        height = await random_value(0.0, 140.0)
-        temperature = await random_value(0.0, 100.0)
-        vibration = await random_value(0.0, 100.0)
+        velocity = await random_value(previous_data['velocity'], max_difference)
+        previous_data['velocity'] = velocity
+        height = await random_value(previous_data['height'], max_difference)
+        previous_data['height'] = height
+        temperature = await random_value(previous_data['temperature'], max_difference)
+        previous_data['temperature'] = temperature
+        vibration = await random_value(previous_data['vibration'], max_difference)
+        previous_data['vibration'] = vibration
         return velocity, height, temperature, vibration
     elif type == "Darkride":
-        velocity = await random_value(0.0, 100.0)
-        temperature = await random_value(0.0, 100.0)
-        vibration = await random_value(0.0, 100.0)
+        velocity = await random_value(previous_data['velocity'], max_difference)
+        previous_data['velocity'] = velocity
+        temperature = await random_value(previous_data['temperature'], max_difference)
+        previous_data['temperature'] = temperature
+        vibration = await random_value(previous_data['vibration'], max_difference)
+        previous_data['vibration'] = vibration
         return velocity, temperature, vibration
+
 
 
 

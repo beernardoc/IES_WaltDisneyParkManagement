@@ -39,8 +39,8 @@ public class RabbitMQConsumer {
 
 
 
-        //System.out.println(routingKey); nome da fila
-        //System.out.println("Message recieved from queue : " + message);
+        //System.out.println(routingKey); 
+        System.out.println("Message recieved from queue : " + message);
         messagingTemplate.convertAndSend("/topic/atualizacao", message);
     }
 

@@ -1,6 +1,12 @@
 package project.WaltDisneyManagement.Dto;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
+
+@Getter
+@Setter
 public class LoginDto {
     
     private String email;
@@ -16,21 +22,6 @@ public class LoginDto {
     }
 
 
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 
     @Override

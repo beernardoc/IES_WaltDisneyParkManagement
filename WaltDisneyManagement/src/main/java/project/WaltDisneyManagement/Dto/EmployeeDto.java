@@ -4,66 +4,40 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 public class EmployeeDto {
    
-    private int employeeId;
-    private String employeeName;
+
+    private String name;
     private String email;
     private String password;
+    private String role;
 
 
     public EmployeeDto() {
     }
 
-    public EmployeeDto(int employeeId, String employeeName, String email, String password) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
+    public EmployeeDto(String name, String email, String password, String role) {
+        this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
 
-    public int getEmployeeId() {
-        return this.employeeId;
-    }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getEmployeeName() {
-        return this.employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     @Override
     public String toString() {
         return "{" +
-            " employeeId='" + getEmployeeId() + "'" +
-            ", employeeName='" + getEmployeeName() + "'" +
+            " employeeName='" + getName() + "'" +
             ", email='" + getEmail() + "'" +
             ", password='" + getPassword() + "'" +
+            ", role='" + getRole() + "'" +
             "}";
     }
     

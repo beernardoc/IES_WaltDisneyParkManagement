@@ -1,5 +1,6 @@
 package project.WaltDisneyManagement.service.IMPL;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import project.WaltDisneyManagement.Dto.EmployeeDto;
@@ -20,6 +21,8 @@ public class EmployeeIMPL implements EmployeeService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private HttpServletRequest request;
 
     @Override
     public String addEmployee(EmployeeDto employeeDto) {
@@ -27,20 +30,24 @@ public class EmployeeIMPL implements EmployeeService {
         System.out.println("Received employeeDto: " + employeeDto);
 
         Employee employee = new Employee(
-            employeeDto.getEmployeeId(),
-            employeeDto.getEmployeeName(),
+            employeeDto.getName(),
             employeeDto.getEmail(),
+            this.passwordEncoder.encode(employeeDto.getPassword()),
+            employeeDto.getRole()
             
-            this.passwordEncoder.encode(employeeDto.getPassword())
+
             );
 
-            System.out.println("Saving employee: " + employee);
+
 
             employeeRepo.save(employee);
 
+            request.getSession().setAttribute("employee_role", employee.getRole());
+
+
             System.out.println("Employee saved successfully.");
 
-            return employee.getEmployeeName();
+            return employee.getName();
 
 
     }
@@ -56,6 +63,10 @@ public class EmployeeIMPL implements EmployeeService {
         if(!this.passwordEncoder.matches(loginDto.getPassword(), employee.getPassword())){
             return false;
         }
+
+        request.getSession().setAttribute("employee_role", employee.getRole());
+
+        System.out.println("Login successful");
 
         return true;
         

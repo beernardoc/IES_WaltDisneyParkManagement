@@ -530,7 +530,9 @@
           <div class="row">
 
             <!-- Magic Kingdom Park Card -->
-            <div class="col-xxl-4 col-xl-12">
+
+
+            <div class="col-xxl-4 col-xl-12" > <!--th:if="${role eq 'EMPLOYEE'}" -->
               <a th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">
                 <div class="card info-card customers-card" style="background-image: url('/img/magicKingdomPark.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
                   <div class="card-body">
@@ -541,7 +543,7 @@
             </div><!-- End Customers Card -->
 
             <!-- Epcot Card -->
-            <div class="col-xxl-4 col-xl-12">
+            <div class="col-xxl-4 col-xl-12" > <!--th:if="${role eq 'ADMIN'}" -->
 
               <div class="card info-card customers-card"  style="background-image: url('/img/epcot.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
 

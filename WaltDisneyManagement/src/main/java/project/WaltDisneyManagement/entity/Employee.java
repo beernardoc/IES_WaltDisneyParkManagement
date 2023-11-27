@@ -6,10 +6,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
 @Entity
 @Table(name = "employee")
+@Getter
+@Setter
 public class Employee {
     @Id
     @Column(name = "employee_id", length = 45)
@@ -17,7 +22,7 @@ public class Employee {
     private int employeeId;
 
     @Column(name = "employee_name", length = 45)
-    private String employeeName;
+    private String name;
 
     @Column(name = "employee_email", length = 45, unique = true)
     private String email;
@@ -25,58 +30,29 @@ public class Employee {
     @Column(name = "employee_password")
     private String password;
 
+    @Column(name = "employee_role")
+    private String role;
+
 
 
     public Employee() {
     }
 
-    public Employee(int employeeId, String employeeName, String email, String password) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
+    public Employee(String name, String email, String password, String role) {
+        this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
-
-    public int getEmployeeId() {
-        return this.employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getEmployeeName() {
-        return this.employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 
     public String toString() {
         return "Employee{" +
-            " employeeId='" + getEmployeeId() + "'" +
-            ", employeeName='" + getEmployeeName() + "'" +
+            " employeeName='" + getName() + "'" +
             ", email='" + getEmail() + "'" +
             ", password='" + getPassword() + "'" +
+            ", role='" + getRole() + "'" +
             "}";
     }
 

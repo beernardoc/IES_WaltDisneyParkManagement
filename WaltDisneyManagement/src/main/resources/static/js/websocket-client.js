@@ -1,5 +1,6 @@
 var stompClient = null;
 var jsonRecebido = null;
+var chart = null;
 
 function connect() {
     var socket = new SockJS('/websocket-endpoint');
@@ -10,9 +11,6 @@ function connect() {
             jsonRecebido = JSON.parse(mensagem.body);
             console.log('Dados recebidos:', jsonRecebido);
 
-            //document.getElementById('jsonRecebido').innerText = JSON.stringify(jsonRecebido);
-            //document.getElementById('railRoadVel').innerText = jsonRecebido["railRoad"]["velocity_kmh"];
-
             renderChart();
         });
     });
@@ -22,7 +20,13 @@ function renderChart() {
     console.log('Renderizando gráfico');
     // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
-        new ApexCharts(document.querySelector("#barChart"), {
+        // Limpe o gráfico se já existir uma instância
+        if (chart) {
+            chart.destroy();
+        }
+
+        // Renderize o novo gráfico
+        chart = new ApexCharts(document.querySelector("#barChart"), {
             series: [{
                 data: [
                     parseInt(jsonRecebido["railRoad"]["velocity_kmh"]),
@@ -47,8 +51,9 @@ function renderChart() {
             xaxis: {
                 categories: ['Velocity km/h', 'Height m', 'Temperature ºC', 'Vibration'],
             }
-        }).render();
+        });
 
+        chart.render(); // Renderize o gráfico
         console.log('ApexCharts version:', ApexCharts.version);
     }
 }

@@ -18,7 +18,7 @@ public class IndexController {
         if (request.getSession().getAttribute("employee_role") != null) {
             return "redirect:/index";
         }
-        return "pages-login";
+        return "login";
     }
 
 

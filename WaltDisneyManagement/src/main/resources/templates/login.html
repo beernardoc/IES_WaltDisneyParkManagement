@@ -5,45 +5,97 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+
+    <!-- Favicons -->
+    <link href="/img/favicon.png" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+
 </head>
 <body>
-    <h1>Login</h1>
-    
-    <!-- Formulário de Login -->
-    <form id="loginForm">
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email" required>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        
-        <button type="button" onclick="submitLoginForm()">Login</button>
-    </form>
+<main>
+    <section class="container">
+        <div class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <div class="d-flex justify-content-center py-4">
+                            <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                <img src="/img/logo.png" alt="">
+                                <span class="d-none d-lg-block">NiceAdmin</span>
+                            </a>
+                        </div><!-- End Logo -->
 
-    <!-- Script JavaScript para lidar com o envio do formulário -->
-    <script>
-        function submitLoginForm() {
-            // Obter os valores do formulário
-            var email = document.getElementById("email").value;
-            var password = document.getElementById("password").value;
-            console.log(email);
-            console.log(password);
-            // Criar objeto para enviar ao servidor
-            var loginDto = {
-                email: email,
-                password: password
-            };
-            
-            console.log(loginDto);
-            console.log(JSON.stringify(loginDto));
-            // Fazer uma requisição ao servidor (pode usar AJAX ou Fetch API)
-            fetch("/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(loginDto)
-            })
+                        <div class="card mb-3">
+
+                            <div class="card-body">
+
+                                <div class="pt-4 pb-2">
+                                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                                </div>
+
+                                <!-- Formulário de Login -->
+                                <form id="loginForm" class="p-4 border rounded bg-light">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email:</label>
+                                        <input type="text" id="email" name="email" class="form-control" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Password:</label>
+                                        <input type="password" id="password" name="password" class="form-control" required>
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary w-100" onclick="submitLoginForm()">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Script JavaScript para lidar com o envio do formulário -->
+<script>
+    function submitLoginForm() {
+        // Obter os valores do formulário
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        console.log(email);
+        console.log(password);
+        // Criar objeto para enviar ao servidor
+        var loginDto = {
+            email: email,
+            password: password
+        };
+
+        console.log(loginDto);
+        console.log(JSON.stringify(loginDto));
+        // Fazer uma requisição ao servidor (pode usar AJAX ou Fetch API)
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginDto)
+        })
             .then(response => {
                 if (response.status == 200) {
                     // Login efetuado com sucesso
@@ -55,8 +107,8 @@
                     alert("Login failed");
                 }
             });
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
 

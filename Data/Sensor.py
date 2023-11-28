@@ -5,11 +5,11 @@ import pika
 import time
 
 
-previous_railroad = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
-previous_pirates = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
-previous_dwarfs = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
-previous_haunted = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
-previous_tomorrowland = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0}
+previous_railroad = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0,'humidity' : 0.0 ,'people_queue': 50, 'duration' : 900}
+previous_pirates = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0,'humidity' : 0.0 ,'people_queue': 0, 'duration' : 900}
+previous_dwarfs = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0,'humidity' : 0.0 ,'people_queue': 0, 'duration' : 900}
+previous_haunted = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0,'humidity' : 0.0 ,'people_queue': 0, 'duration' : 900}
+previous_tomorrowland = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0,'humidity' : 0.0 ,'people_queue': 0, 'duration' : 900}
 
 class Generators:
     def __init__(self):
@@ -29,21 +29,24 @@ class Generators:
 
         while True:
             (velocity_walt_disney, height_walt_disney, temperature_walt_disney,
-             vibration_walt_disney) = await generate_data("Rollercoaster", previous_railroad)
+             vibration_walt_disney, humidity_walt_disney, people_queue_walt_disney, duration_walt_disney) = await generate_data("Rollercoaster", previous_railroad)
             (velocity_pirates, temperature_pirates, vibration_pirates) = await generate_data("Darkride", previous_pirates)
             (velocity_haunted_mansion, temperature_haunted_mansion,
              vibration_haunted_mansion) = await generate_data("Darkride", previous_haunted)
             (velocity_seven_dwarfs, height_seven_dwarfs, temperature_seven_dwarfs,
-             vibration_seven_dwarfs) = await generate_data("Rollercoaster", previous_dwarfs)
+             vibration_seven_dwarfs, humidity_seven_dwarfs, people_queue_seven_dwarfs, duration_seven_dwarfs) = await generate_data("Rollercoaster", previous_dwarfs)
             (velocity_tomorrowland, height_tomorrowland, temperature_tomorrowland,
-             vibration_tomorrowland) = await generate_data("Rollercoaster", previous_tomorrowland)
+             vibration_tomorrowland, humidity_tomorrowland, people_queue_tomorrowland, duration_tomorrowland) = await generate_data("Rollercoaster", previous_tomorrowland)
 
             data = {
                 "Walt Disney World RailRoad": {
                     "velocity_kmh": velocity_walt_disney,
                     "height_m": height_walt_disney,
                     "temperature": temperature_walt_disney,
-                    "vibration": vibration_walt_disney
+                    "vibration": vibration_walt_disney,
+                    "humidity" : humidity_walt_disney,
+                    "people_queue" : people_queue_walt_disney,
+                    "duration" : duration_walt_disney
                 },
                 "Pirates of the Caribbean": {
                     "velocity_kmh": velocity_pirates,
@@ -53,19 +56,25 @@ class Generators:
                 "Haunted Mansion": {
                     "velocity_kmh": velocity_haunted_mansion,
                     "temperature": temperature_haunted_mansion,
-                    "vibration": vibration_haunted_mansion
+                    "vibration": vibration_haunted_mansion,
                 },
                 "Seven Dwarfs Mine Train": {
                     "velocity_kmh": velocity_seven_dwarfs,
                     "height_m": height_seven_dwarfs,
                     "temperature": temperature_seven_dwarfs,
-                    "vibration": vibration_seven_dwarfs
+                    "vibration": vibration_seven_dwarfs,
+                    "humidity" : humidity_seven_dwarfs,
+                    "people_queue" : people_queue_seven_dwarfs,
+                    "duration" : duration_seven_dwarfs
                 },
                 "Tomorrowland Speedway": {
                     "velocity_kmh": velocity_tomorrowland,
                     "height_m": height_tomorrowland,
                     "temperature": temperature_tomorrowland,
-                    "vibration": vibration_tomorrowland
+                    "vibration": vibration_tomorrowland,
+                    "humidity" : humidity_tomorrowland,
+                    "people_queue" : people_queue_tomorrowland,
+                    "duration" : duration_tomorrowland
                 },
                 "Time": time.time()
             }
@@ -82,6 +91,22 @@ async def random_value(previous, max_difference, precision=2):
     value = random.uniform(lower_limit, upper_limit)
     return round(value, precision)
 
+async def random_value_people(previous, max_difference):
+    lower_limit = max(0, previous - max_difference)
+    upper_limit = min(1000, previous + max_difference)
+    value = random.uniform(lower_limit, upper_limit)
+    return round(value)
+
+async def random_value_duration(previous, max_difference, precision=2):
+    new_duration = previous - max_difference
+    if new_duration <= 0:
+        new_duration = 900
+
+    return new_duration
+
+
+    
+
 async def generate_data(type, previous_data, max_difference=20.0):
     if type == "Rollercoaster":
         velocity = await random_value(previous_data['velocity'], max_difference)
@@ -92,7 +117,13 @@ async def generate_data(type, previous_data, max_difference=20.0):
         previous_data['temperature'] = temperature
         vibration = await random_value(previous_data['vibration'], max_difference)
         previous_data['vibration'] = vibration
-        return velocity, height, temperature, vibration
+        humidity = await random_value(previous_data['humidity'], max_difference)
+        previous_data['humidity'] = humidity
+        people_queue = await random_value_people(previous_data['people_queue'], 5)
+        previous_data['people_queue'] = people_queue
+        duration = await random_value_duration(previous_data['duration'], 20)
+        previous_data['duration'] = duration
+        return velocity, height, temperature, vibration, humidity, people_queue, duration
     elif type == "Darkride":
         velocity = await random_value(previous_data['velocity'], max_difference)
         previous_data['velocity'] = velocity

@@ -46,6 +46,9 @@ function renderChart() {
             },
             xaxis: {
                 categories: ['Velocity km/h', 'Height m', 'Temperature ºC', 'Vibration'],
+            },
+            yaxis: {
+                max: 120
             }
         }).render();
 

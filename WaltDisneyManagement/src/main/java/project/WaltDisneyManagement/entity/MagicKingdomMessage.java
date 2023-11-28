@@ -27,4 +27,15 @@ public class MagicKingdomMessage {
 
     @SerializedName("Tomorrowland Speedway")
     private Map<String, Object> tomorrowlandSpeedway;
+
+    public String toString() {
+        return "MagicKingdomMessage{" +
+                "railRoad=" + railRoad +
+                ", piratesOfTheCaribbean=" + piratesOfTheCaribbean +
+                ", hauntedMansion=" + hauntedMansion +
+                ", sevenDwarfsMineTrain=" + sevenDwarfsMineTrain +
+                ", tomorrowlandSpeedway=" + tomorrowlandSpeedway +
+                '}';
+    }
+
 }

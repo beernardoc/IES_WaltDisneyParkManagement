@@ -7,9 +7,10 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.messaging.handler.annotation.Header;
 import com.google.gson.Gson;
-import project.WaltDisneyManagement.entity.MagicKingdomMessage;
+
 
 import java.util.Objects;
+import project.WaltDisneyManagement.entity.MagicKingdomMessage;
 
 
 @Component
@@ -29,6 +30,8 @@ public class RabbitMQConsumer {
 
             MagicKingdomMessage magicKingdomMessage = gson.fromJson(message, MagicKingdomMessage.class);
 
+
+
             messagingTemplate.convertAndSend("/topic/MagicKingdom", magicKingdomMessage);
 
         }
@@ -40,7 +43,7 @@ public class RabbitMQConsumer {
 
 
         //System.out.println(routingKey); 
-        System.out.println("Message recieved from queue : " + message);
+        //System.out.println("Message recieved from queue : " + message);
         messagingTemplate.convertAndSend("/topic/atualizacao", message);
     }
 

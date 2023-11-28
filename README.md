@@ -14,9 +14,6 @@ Além disso, de volta no index, deverá carregar no card "Parking Cars 2" para a
 
 
 
-
-
-
 ##  Protótipo Funcional:
 
 

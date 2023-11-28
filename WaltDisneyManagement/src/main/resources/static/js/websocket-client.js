@@ -12,9 +12,25 @@ function connect() {
             console.log('Dados recebidos:', jsonRecebido);
 
             renderChart();
+            renderDuration();
         });
     });
 }
+
+function renderDuration() {
+    console.log('Renderizando duração');
+    // Certifique-se de que jsonRecebido é definido
+    if (jsonRecebido) {
+        duration = parseInt(jsonRecebido["railRoad"]["duration"]);
+        console.log('Duração:', duration);
+        document.getElementById("duration").innerHTML = duration;
+    }
+}
+
+
+
+
+
 
 function renderChart() {
     console.log('Renderizando gráfico');
@@ -60,6 +76,8 @@ function renderChart() {
         console.log('ApexCharts version:', ApexCharts.version);
     }
 }
+
+
 
 $(document).ready(function () {
     connect();

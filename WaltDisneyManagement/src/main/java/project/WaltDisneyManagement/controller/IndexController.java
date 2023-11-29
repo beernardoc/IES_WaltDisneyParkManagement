@@ -34,6 +34,7 @@ public class IndexController {
         var role = request.getSession().getAttribute("employee_role");
 
         model.addAttribute("role", role);
+        model.addAttribute("username", request.getSession().getAttribute("employee_username"));
 
         return "index";
     }

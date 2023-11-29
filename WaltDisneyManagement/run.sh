@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Parar e remover containers do Docker Compose
-docker-compose down
+docker-compose down -v #
 
 # Remover as imagens
 docker rmi ies_waltdisneyparkmanagement_management

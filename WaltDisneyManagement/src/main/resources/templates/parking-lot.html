@@ -202,7 +202,7 @@
             </li>
 
             <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
+              <a href="">Show all messages</a>
             </li>
 
           </ul><!-- End Messages Dropdown Items -->
@@ -211,15 +211,15 @@
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="" data-bs-toggle="dropdown">
             <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Joana Marques</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${username}" ></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Joana Marques</h6>
-              <span>Executive Director</span>
+              <h6 th:text="${username}"></h6>
+              <span th:text="${role}"></span>
             </li>
             <li>
               <hr class="dropdown-divider">

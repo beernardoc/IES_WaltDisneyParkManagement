@@ -17,6 +17,10 @@ public class ParkCarsController {
         if (request.getSession().getAttribute("employee_role") == null) {
             return "redirect:/";
         }
+
+        model.addAttribute("role", request.getSession().getAttribute("employee_role"));
+        model.addAttribute("username", request.getSession().getAttribute("employee_username"));
+
         return "parking-lot";
     }
 

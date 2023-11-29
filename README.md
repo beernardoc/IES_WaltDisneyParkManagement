@@ -2,21 +2,45 @@
 
 ## Instruções de instalação e execução
 
+`bash run.sh` (na pasta raiz do projeto springboot)
 
-### Instalação:
-#### No projeto SpringBoot:
-bash run.sh
+## Credenciais de acesso:
 
-### Execução:
-De forma a conseguir visualizar o nosso protótipo, no index, deverá carregar no card "Magic Kingdom", e em seguida na atração "Walt Disney World Railroad".
-Além disso, de volta no index, deverá carregar no card "Parking Cars 2" para acessar a página do parque de estacionamento.
-
+| Email             | Senha  | 
+|-------------------|--------|
+| marianadias@ua.pt | 12345  |
 
 
 
-##  Protótipo Funcional:
+## Iteração 2: 29/11/2023
+- Basic data pipeline in-place: data streams generation, transmission, and storage.
+- Product increment covering (at least) a user story related to data access (browse current values from streams, in the web presentation layer.)
+- Increment deployed (in containers) at the server environment
+
+### User Storie:
+Como técnico responsável pela manutenção preventiva, quero ter uma visão completa dos parâmetros de funcionamento de uma atração, para poder tomar decisões informadas sobre a necessidade de intervenção.
 
 
+### Guia de utilização:
+1) Realizar login com as credenciais informadas
+2) Selecionar o parque "Magic Kingdom Park"
+3) Selecionar a atração "Walt Disney World Railroad"
+4) Visualizar os dados da atração. Entre eles:
+    - Tempo restante até o próximo ciclo
+    - Visitantes esperados
+    - Velocidade atual
+    - Número de pessoas na fila
+    - Altura
+    - Temperatura
+    - Vibração
+
+
+
+
+
+##  Iteração 1.2: 15/11/2023
+- Draft Project Specification (report); must include the Architecture Notebook part.
+- Prototypes for the core user stories.
 
 ### index.html
 #### (localhost:8080)

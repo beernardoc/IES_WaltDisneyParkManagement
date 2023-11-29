@@ -35,7 +35,7 @@
   <script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
   <script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
 
-  <script src="/js/websocket-client.js"></script>
+  <script src="/js/magicKingdomJs.js"></script>
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -284,232 +284,76 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link collapsed" th:href="@{/index}">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Home</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="components-alerts.html">
-              <i class="bi bi-circle"></i><span>Alerts</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-accordion.html">
-              <i class="bi bi-circle"></i><span>Accordion</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-badges.html">
-              <i class="bi bi-circle"></i><span>Badges</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-breadcrumbs.html">
-              <i class="bi bi-circle"></i><span>Breadcrumbs</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-buttons.html">
-              <i class="bi bi-circle"></i><span>Buttons</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-cards.html">
-              <i class="bi bi-circle"></i><span>Cards</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-carousel.html">
-              <i class="bi bi-circle"></i><span>Carousel</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-list-group.html">
-              <i class="bi bi-circle"></i><span>List group</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-modal.html">
-              <i class="bi bi-circle"></i><span>Modal</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-tabs.html">
-              <i class="bi bi-circle"></i><span>Tabs</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-pagination.html">
-              <i class="bi bi-circle"></i><span>Pagination</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-progress.html">
-              <i class="bi bi-circle"></i><span>Progress</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-spinners.html">
-              <i class="bi bi-circle"></i><span>Spinners</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-tooltips.html">
-              <i class="bi bi-circle"></i><span>Tooltips</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
+      <li class="nav-heading">Parks</li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Form Elements</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-layouts.html">
-              <i class="bi bi-circle"></i><span>Form Layouts</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Form Editors</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>Form Validation</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Charts Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Remix Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Boxicons</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Icons Nav -->
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
+        <a class="nav-link" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">
+          <i class="bi bi-signpost"></i>
+          <span>Magic Kingdom</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
-      <li class="nav-item">
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
         <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
+          <i class="bi bi-signpost"></i>
+          <span>EPCOT</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
 
-      <li class="nav-item">
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
         <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
+          <i class="bi bi-signpost"></i>
+          <span>Disney's Hollywood Studios</span>
         </a>
       </li><!-- End Contact Page Nav -->
 
-      <li class="nav-item">
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
         <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
+          <i class="bi bi-signpost"></i>
+          <span>Disney's Animal Kingdom</span>
         </a>
       </li><!-- End Register Page Nav -->
 
-      <li class="nav-item">
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
         <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
+          <i class="bi bi-signpost"></i>
+          <span>Disney Springs</span>
         </a>
       </li><!-- End Login Page Nav -->
 
-      <li class="nav-item">
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
+        <a class="nav-link collapsed" href="pages-blank.html">
+          <i class="bi bi-droplet"></i>
+          <span>Disney's Typhoon Lagoon</span>
+        </a>
+      </li><!-- End Blank Page Nav -->
+
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
         <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
+          <i class="bi bi-droplet"></i>
+          <span>Disney's Blizzard Beach</span>
         </a>
       </li><!-- End Error 404 Page Nav -->
 
-      <li class="nav-item">
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
         <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
+          <i class="bi bi-car-front"></i>
+          <span>Parking Cars 1</span>
         </a>
       </li><!-- End Blank Page Nav -->
+
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
+        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'Parking Cars 2'})}">
+          <i class="bi bi-car-front"></i>
+          <span>Parking Cars 2</span>
+        </a>
+      </li><!-- End Error 404 Page Nav -->
 
     </ul>
 
@@ -523,8 +367,8 @@
       <h1>Walt Disney World Railroad</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item"><a href="park.html">Magic Kingdom</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">Magic Kingdom</a></li>
           <li class="breadcrumb-item active">Walt Disney World Railroad</li>
         </ol>
       </nav>
@@ -627,20 +471,45 @@
             </div>
             <!-- End Line Chart -->
 
+            <!-- Area Chart -->
             <div class="col-lg-12">
               <div class="card">
+
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div>
                 <div class="card-body">
-                  <h5 class="card-title">Other parameters<span>| Now</span></h5>
+                  <h5 class="card-title">People in Queue <span>| Now</span> </h5>
 
-                  <!-- Bar Chart -->
-                  <div id="barChart"></div>
-
-
-                  <!-- End Bar Chart -->
+                  <div id="areaChart"></div>
 
                 </div>
               </div>
             </div>
+            <!-- End Area Chart -->
+
+
+            <!-- Bar Chart -->
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Other Parameters<span> | Now</span></h5>
+
+                  <div id="barChart"></div>
+
+                </div>
+              </div>
+            </div>
+            <!-- End Bar Chart -->
 
             <!-- Reports -->
             <div class="col-12">
@@ -1054,69 +923,6 @@
             </div>
             <!-- End Reports -->
 
-            <!-- Reports -->
-            <div class="col-12">
-
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Technical Information</h5>
-    
-                  <!-- Table with hoverable rows -->
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Position</th>
-                        <th scope="col">Age</th>
-                        <th scope="col">Start Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Brandon Jacob</td>
-                        <td>Designer</td>
-                        <td>28</td>
-                        <td>2016-05-25</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Bridie Kessler</td>
-                        <td>Developer</td>
-                        <td>35</td>
-                        <td>2014-12-05</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Ashleigh Langosh</td>
-                        <td>Finance</td>
-                        <td>45</td>
-                        <td>2011-08-12</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">4</th>
-                        <td>Angus Grady</td>
-                        <td>HR</td>
-                        <td>34</td>
-                        <td>2012-06-11</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">5</th>
-                        <td>Raheem Lehner</td>
-                        <td>Dynamic Division Officer</td>
-                        <td>47</td>
-                        <td>2011-04-19</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <!-- End Table with hoverable rows -->
-    
-                </div>
-              </div>
-            </div>
-            <!-- End Reports -->
-
           </div>
         </div>
         <!-- End Left side columns -->
@@ -1149,12 +955,11 @@
                     <i class="bi bi-people"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>0</h6>
-                    <span class="text-danger small pt-1 fw-bold">100%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
+                    <h6 id="expectedVisitors">0</h6>
+                    <span class="text-danger small pt-1 fw-bold" id="decreasePercentage"></span>
+                    <span class="text-muted small pt-2 ps-1" id="statusText"></span>
                   </div>
                 </div>
-
               </div>
             </div>
           <!-- End Customers Card -->
@@ -1171,7 +976,7 @@
                   <i class="bi bi-clock"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>45 minutes</h6>
+                  <h6 id="waitingTime"> </h6>
                 </div>
               </div>
 
@@ -1191,8 +996,8 @@
                     <i class="bi bi-tools"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>18 jul 2000</h6>
-                    <span class="text-danger small pt-1 fw-bold">Urgently needs maintenancee</span> 
+                    <h6>2 nov 2023</h6>
+                    <!--<span class="text-danger small pt-1 fw-bold">Urgently needs maintenancee</span> -->
 
                   </div>
                 </div>
@@ -1225,7 +1030,7 @@
                   <div class="activite-label">32 min</div>
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                   <div class="activity-content">
-                    Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                    Excessive queue congestion
                   </div>
                 </div><!-- End activity item-->
 
@@ -1233,7 +1038,7 @@
                   <div class="activite-label">56 min</div>
                   <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
                   <div class="activity-content">
-                    Voluptatem blanditiis blanditiis eveniet
+                    Temperature nearing problematic levels
                   </div>
                 </div><!-- End activity item-->
 
@@ -1241,23 +1046,7 @@
                   <div class="activite-label">2 hrs</div>
                   <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
                   <div class="activity-content">
-                    Voluptates corrupti molestias voluptatem
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">1 day</div>
-                  <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                  <div class="activity-content">
-                    Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 days</div>
-                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                  <div class="activity-content">
-                    Est sit eum reiciendis exercitationem
+                    Walt Disney World Railroad attraction opened
                   </div>
                 </div><!-- End activity item-->
 
@@ -1265,7 +1054,7 @@
                   <div class="activite-label">4 weeks</div>
                   <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
                   <div class="activity-content">
-                    Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
+                    Preventive maintenance conducted on Walt Disney World Railroad attraction
                   </div>
                 </div><!-- End activity item-->
 

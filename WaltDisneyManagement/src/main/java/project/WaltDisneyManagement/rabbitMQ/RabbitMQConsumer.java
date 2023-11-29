@@ -1,16 +1,16 @@
 package project.WaltDisneyManagement.rabbitMQ;
 
 
+import com.google.gson.Gson;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.messaging.handler.annotation.Header;
-import com.google.gson.Gson;
+import project.WaltDisneyManagement.entity.MagicKingdomMessage;
 
 
 import java.util.Objects;
-import project.WaltDisneyManagement.entity.MagicKingdomMessage;
 
 
 @Component

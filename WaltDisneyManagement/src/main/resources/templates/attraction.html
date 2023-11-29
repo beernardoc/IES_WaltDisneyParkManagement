@@ -617,42 +617,10 @@
                   </ul>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">People in Queue <span>| Today</span></h5>
+                  <h5 class="card-title">Velocity </h5>
 
                   <div id="lineChart"></div>
 
-                  <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#lineChart"), {
-                        series: [{
-                          name: "Desktops",
-                          data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 120, 80]
-                        }],
-                        chart: {
-                          height: 350,
-                          type: 'line',
-                          zoom: {
-                            enabled: false
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'straight'
-                        },
-                        grid: {
-                          row: {
-                            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                            opacity: 0.5
-                          },
-                        },
-                        xaxis: {
-                          categories: ['8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h'],
-                        }
-                      }).render();
-                    });
-                  </script>
 
                 </div>
               </div>
@@ -662,7 +630,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Bar Chart</h5>
+                  <h5 class="card-title">Other parameters<span>| Now</span></h5>
 
                   <!-- Bar Chart -->
                   <div id="barChart"></div>
@@ -691,10 +659,9 @@
                     <li><a class="dropdown-item" href="#">This Year</a></li>
                   </ul>
                 </div>
-                <div class="card-body">
+                <!-- <div class="card-body">
                   <h5 class="card-title">Humidity <span>| Today</span></h5>
 
-                  <!-- Area Chart -->
                   <div id="areaChart"></div>
 
                   <script>
@@ -1080,9 +1047,9 @@
                       }).render();
                     });
                   </script>
-                  <!-- End Area Chart -->
+                   End Area Chart
 
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- End Reports -->

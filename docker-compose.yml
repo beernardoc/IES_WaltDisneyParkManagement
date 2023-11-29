@@ -14,6 +14,14 @@ services:
       MYSQL_ROOT_PASSWORD: user
     volumes:
       - datafiles:/var/lib/mysql
+    restart: always
+    cap_add:
+        - SYS_NICE  # CAP_SYS_NICE
+    healthcheck:
+        test: "mysql disney -uuser -puser -e 'SELECT 1;'"
+        interval: 20s
+        timeout: 10s
+        retries: 2
       
   mq:
     image: rabbitmq:management
@@ -43,7 +51,7 @@ services:
       mq:
         condition: service_healthy
       db:
-        condition: service_started
+        condition: service_healthy
 
     environment:
       SPRING_APPLICATION_JSON: '{

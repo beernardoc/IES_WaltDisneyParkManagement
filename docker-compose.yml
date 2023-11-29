@@ -42,6 +42,8 @@ services:
     depends_on:
       mq:
         condition: service_healthy
+      db:
+        condition: service_started
 
     environment:
       SPRING_APPLICATION_JSON: '{

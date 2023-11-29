@@ -1,6 +1,6 @@
 var stompClient = null;
 var jsonRecebido = null;
-var chart = null;
+var charts = {};  // Objeto para armazenar instâncias de gráficos
 
 function connect() {
     var socket = new SockJS('/websocket-endpoint');
@@ -12,6 +12,7 @@ function connect() {
             console.log('Dados recebidos:', jsonRecebido);
 
             renderChart();
+            renderVel();
             renderDuration();
         });
     });
@@ -37,15 +38,13 @@ function renderChart() {
     // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
         // Limpe o gráfico se já existir uma instância
-        if (chart) {
-            chart.destroy();
+        if (charts.barChart) {
+            charts.barChart.destroy();
         }
-
         // Renderize o novo gráfico
-        chart = new ApexCharts(document.querySelector("#barChart"), {
+        charts.barChart = new ApexCharts(document.querySelector("#barChart"), {
             series: [{
                 data: [
-                    parseInt(jsonRecebido["railRoad"]["velocity_kmh"]),
                     parseInt(jsonRecebido["railRoad"]["height_m"]),
                     parseInt(jsonRecebido["railRoad"]["temperature"]),
                     parseInt(jsonRecebido["railRoad"]["vibration"])
@@ -65,14 +64,88 @@ function renderChart() {
                 enabled: false
             },
             xaxis: {
-                categories: ['Velocity km/h', 'Height m', 'Temperature ºC', 'Vibration'],
+                categories: ['Height m', 'Temperature ºC', 'Vibration'],
             },
             yaxis: {
                 max: 120
             }
         });
 
-        chart.render(); // Renderize o gráfico
+        charts.barChart.render(); // Renderize o gráfico
+        console.log('ApexCharts version:', ApexCharts.version);
+    }
+}
+
+function getCurrentTime() {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+// Array para armazenar os dados do gráficos
+var dadosGrafico = [0];
+var tempo = [""];
+
+
+
+
+
+
+function renderVel() {
+    console.log('Renderizando gráfico');
+    // Certifique-se de que jsonRecebido é definido
+    if (jsonRecebido) {
+
+        if (charts.lineChart) {
+            charts.lineChart.destroy();
+        }
+
+
+        // Adicione o novo valor ao array
+        dadosGrafico.push(jsonRecebido["railRoad"]["velocity_kmh"]);
+        var now = getCurrentTime();
+        tempo.push(now);
+
+        // Mantenha apenas os últimos 11 elementos
+        if (dadosGrafico.length > 11) {
+            dadosGrafico.shift(); // Remova o primeiro elemento
+            tempo.shift();
+        }
+
+
+        // Renderize o novo gráfico
+        charts.lineChart = new ApexCharts(document.querySelector("#lineChart"), {
+            series: [{
+                name: "Desktops",
+                data: dadosGrafico
+            }],
+            chart: {
+                height: 350,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'straight'
+            },
+            grid: {
+                row: {
+                    colors: ['#f3f3f3', 'transparent'],
+                    opacity: 0.5
+                },
+            },
+            xaxis: {
+                categories: tempo,
+            }
+        });
+
+        charts.lineChart.render(); // Renderize o gráfico
         console.log('ApexCharts version:', ApexCharts.version);
     }
 }
@@ -81,5 +154,8 @@ function renderChart() {
 
 $(document).ready(function () {
     connect();
-    renderChart(); // Adicione esta chamada para garantir a renderização inicial
+    renderChart();
+    renderVel();
+    renderDuration();
+
 });

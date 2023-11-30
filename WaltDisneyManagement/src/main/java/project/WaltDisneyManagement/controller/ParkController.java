@@ -14,8 +14,6 @@ import project.WaltDisneyManagement.entity.Employee;
 public class ParkController {
 
 
-
-
     @GetMapping("/parks/{parkName}")
     public String park(Model model, @PathVariable("parkName") String parkName, HttpServletRequest request) {
 

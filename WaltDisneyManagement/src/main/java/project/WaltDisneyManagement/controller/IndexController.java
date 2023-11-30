@@ -13,31 +13,23 @@ public class IndexController {
 
 
     @RequestMapping("/")
-    public String login(HttpServletRequest request) {
+    public String login(HttpServletRequest request, Model model) {
 
-        if (request.getSession().getAttribute("employee_role") != null) {
-            return "redirect:/index";
+        var role = request.getSession().getAttribute("employee_role");
+
+        if (role != null) {
+
+            var username = request.getSession().getAttribute("employee_username");
+
+
+
+            model.addAttribute("role", role);
+            model.addAttribute("username", username);
+            return "index";
         }
         return "login";
     }
 
-
-
-
-    @GetMapping("/index")
-    public String index(HttpServletRequest request, Model model) {
-
-        if (request.getSession().getAttribute("employee_role") == null) {
-            return "redirect:/";
-        }
-
-        var role = request.getSession().getAttribute("employee_role");
-
-        model.addAttribute("role", role);
-        model.addAttribute("username", request.getSession().getAttribute("employee_username"));
-
-        return "index";
-    }
 
 
 }

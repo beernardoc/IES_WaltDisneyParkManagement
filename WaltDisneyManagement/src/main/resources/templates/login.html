@@ -89,7 +89,7 @@
         console.log(loginDto);
         console.log(JSON.stringify(loginDto));
         // Fazer uma requisição ao servidor (pode usar AJAX ou Fetch API)
-        fetch("/login", {
+        fetch("/api/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -97,16 +97,13 @@
             body: JSON.stringify(loginDto)
         })
             .then(response => {
-                if (response.status == 200) {
-                    // Login efetuado com sucesso
-                    // Redirecionar para a página principal
-                    window.location.href = "/index";
+                if (response.ok) {
+                    window.location.href = "/";
                 } else {
-                    // Login falhou
-                    // Exibir mensagem de erro
                     alert("Login failed");
                 }
-            });
+            })
+
     }
 </script>
 </body>

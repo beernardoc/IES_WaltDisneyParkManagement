@@ -5,6 +5,67 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Encontrar todos os elementos com a classe customers-card
+  const cardElements = document.querySelectorAll('.customers-card');
+
+  cardElements.forEach(function (cardElement) {
+    cardElement.addEventListener('click', function () {
+      // Verificar se existe o atributo data-parkname no card
+        const parkName = cardElement.dataset.parkname;
+
+      // Verificar se existe o atributo data-attraction no card
+      const attractionName = cardElement.dataset.attraction;
+
+
+      // Executar a lógica correspondente com base na verificação
+      if (parkName) {
+        // Lógica para cards com data-parkname
+        console.log('Clicou no card para o parque:', parkName);
+        fetch(`/api/parks/${parkName}`)
+            .then(response => {
+              if (response.ok) {
+                // Sucesso - você pode redirecionar ou realizar outras ações conforme necessário
+                window.location.href = `/parks/${parkName}`;
+              } else {
+                alert("Erro ao obter dados do parque.");
+              }
+            })
+            .catch(error => {
+              console.error(error);
+              alert("Erro ao processar a solicitação.");
+            });
+      } else if (attractionName) {
+        // Lógica para cards com data-attraction
+        console.log('Clicou no card para atração:', attractionName);
+        fetch(`/api/attractions/${attractionName}`)
+            .then(response => {
+              if (response.ok) {
+                const currentPath = window.location.pathname;  // Obtém o caminho atual
+                const attractionPath = `/attractions/${attractionName}`;
+
+                window.location.href = currentPath + attractionPath;
+
+              } else {
+                alert("Erro ao obter dados da atração.");
+              }
+            })
+            .catch(error => {
+              console.error(error);
+              alert("Erro ao processar a solicitação.");
+            });
+      }
+    });
+  });
+});
+
+
+
+
+
 (function() {
   "use strict";
 

@@ -42,11 +42,8 @@ public class EmployeeIMPL implements EmployeeService {
 
             employeeRepo.save(employee);
 
-            request.getSession().setAttribute("employee_role", employee.getRole());
-            request.getSession().setAttribute("employee_username", employee.getName());
+
             request.getSession().setAttribute("employee_email", employee.getEmail());
-
-
 
             System.out.println("Employee saved successfully.");
 
@@ -67,8 +64,6 @@ public class EmployeeIMPL implements EmployeeService {
             return false;
         }
 
-        request.getSession().setAttribute("employee_role", employee.getRole());
-        request.getSession().setAttribute("employee_username", employee.getName());
         request.getSession().setAttribute("employee_email", employee.getEmail());
 
         System.out.println("Login successful");

@@ -2,20 +2,22 @@ package project.WaltDisneyManagement.controller;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.stereotype.Controller;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+@RestController
 public class IndexController {
 
 
-    @RequestMapping("/")
-    public String login(HttpServletRequest request, Model model) {
+    @GetMapping("/")
+    public ModelAndView login(HttpServletRequest request, Model model, HttpServletResponse response) {
 
         var role = request.getSession().getAttribute("employee_role");
+        ModelAndView modelAndView = new ModelAndView();
 
         if (role != null) {
 
@@ -25,9 +27,14 @@ public class IndexController {
 
             model.addAttribute("role", role);
             model.addAttribute("username", username);
-            return "index";
+            modelAndView.setViewName("index");
+            response.setStatus(HttpServletResponse.SC_OK);
+            return modelAndView;
         }
-        return "login";
+        modelAndView.setViewName("login");
+        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+        return modelAndView;
     }
 
 

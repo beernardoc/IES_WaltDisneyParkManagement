@@ -2,39 +2,38 @@ package project.WaltDisneyManagement.controller;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import project.WaltDisneyManagement.repository.EmployeeRepo;
 
-@RestController
+@Controller
 public class IndexController {
 
-
-    @GetMapping("/")
-    public ModelAndView login(HttpServletRequest request, Model model, HttpServletResponse response) {
-
-        var role = request.getSession().getAttribute("employee_role");
-        ModelAndView modelAndView = new ModelAndView();
-
-        if (role != null) {
-
-            var username = request.getSession().getAttribute("employee_username");
+    @Autowired
+    private EmployeeRepo employeeRepo;
 
 
+    @RequestMapping("/")
+    public String login(HttpServletRequest request, Model model) {
+
+        var email = request.getSession().getAttribute("employee_email");
+
+        if (email != null) {
+
+            var employee = employeeRepo.findByEmail(email.toString());
+            var username = employee.getName();
+            var role = employee.getRole();
 
             model.addAttribute("role", role);
             model.addAttribute("username", username);
-            modelAndView.setViewName("index");
-            response.setStatus(HttpServletResponse.SC_OK);
-            return modelAndView;
-        }
-        modelAndView.setViewName("login");
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 
-        return modelAndView;
+            return "index";
+        }
+        return "login";
     }
 
 

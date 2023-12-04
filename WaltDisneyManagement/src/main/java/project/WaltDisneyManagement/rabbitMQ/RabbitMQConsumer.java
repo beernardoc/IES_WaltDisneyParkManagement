@@ -8,12 +8,7 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import project.WaltDisneyManagement.entity.HollywoodStudios;
-import project.WaltDisneyManagement.entity.BlizzardBeachMessage;
-import project.WaltDisneyManagement.entity.DisneySpringsMessage;
-import project.WaltDisneyManagement.entity.EpcotMessage;
-import project.WaltDisneyManagement.entity.MagicKingdomMessage;
-import project.WaltDisneyManagement.entity.TyphoonLagoonMessage;
+import project.WaltDisneyManagement.entity.Messages.*;
 
 import java.util.Objects;
 
@@ -25,13 +20,17 @@ public class RabbitMQConsumer {
     private SimpMessagingTemplate messagingTemplate;
 
 
-    @RabbitListener(queues = Config.MagicKingdomQueue)
+    @RabbitListener(queues = {Config.MagicKingdomQueue, Config.EpcotQueue, Config.HollywoodStudiosQueue, Config.AnimalKingdomQueue, Config.DisneySprings, Config.BlizzardBeach, Config.TyphoonLagoon})
     public void consumeMessageFromQueue(String message, @Header("amqp_receivedRoutingKey") String routingKey) {
 
         Gson gson = new Gson();
 
 
+
+
         if(Objects.equals(routingKey, "MagicKingdom")){
+
+
 
             MagicKingdomMessage magicKingdomMessage = gson.fromJson(message, MagicKingdomMessage.class);
 
@@ -41,6 +40,7 @@ public class RabbitMQConsumer {
         }
         if (Objects.equals(routingKey, "Epcot")){
 
+
             EpcotMessage epcotMessage = gson.fromJson(message, EpcotMessage.class);
 
 
@@ -49,19 +49,22 @@ public class RabbitMQConsumer {
         }
         if (Objects.equals(routingKey, "HollywoodStudios")){
 
-            HollywoodStudios HollywoodStudiosMessage = gson.fromJson(message, HollywoodStudios.class);
+
+            HollywoodStudiosMessage HollywoodStudiosMessage = gson.fromJson(message, project.WaltDisneyManagement.entity.Messages.HollywoodStudiosMessage.class);
 
             messagingTemplate.convertAndSend("/topic/HollywoodStudios", HollywoodStudiosMessage);
 
         }
         if (Objects.equals(routingKey, "AnimalKingdom")){
 
-            MagicKingdomMessage magicKingdomMessage = gson.fromJson(message, MagicKingdomMessage.class);
 
-            messagingTemplate.convertAndSend("/topic/AnimalKingdom", magicKingdomMessage);
+            AnimalKingdomMessage animalKingdomMessage = gson.fromJson(message, AnimalKingdomMessage.class);
+
+            messagingTemplate.convertAndSend("/topic/AnimalKingdom", animalKingdomMessage);
 
         }
         if (Objects.equals(routingKey, "DisneySprings")){
+
 
             DisneySpringsMessage disneySpringsMessage = gson.fromJson(message, DisneySpringsMessage.class);
 
@@ -70,12 +73,14 @@ public class RabbitMQConsumer {
         }
         if (Objects.equals(routingKey, "BlizzardBeach")){
 
+
             BlizzardBeachMessage blizzardBeachMessage = gson.fromJson(message, BlizzardBeachMessage.class);
 
             messagingTemplate.convertAndSend("/topic/BlizzardBeach", blizzardBeachMessage);
 
         }
         if (Objects.equals(routingKey, "TyphoonLagoon")){
+
 
             TyphoonLagoonMessage typhoonLagoonMessage = gson.fromJson(message, TyphoonLagoonMessage.class);
 
@@ -84,12 +89,6 @@ public class RabbitMQConsumer {
         }
 
 
-
-
-
-
-        //System.out.println(routingKey); 
-        //System.out.println("Message recieved from queue : " + message);
         messagingTemplate.convertAndSend("/topic/atualizacao", message);
     }
 

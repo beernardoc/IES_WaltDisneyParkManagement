@@ -1,4 +1,4 @@
-package project.WaltDisneyManagement.entity;
+package project.WaltDisneyManagement.entity.Messages;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HollywoodStudios {
+public class HollywoodStudiosMessage {
 
     @SerializedName("Runaway Railway")
     private Map<String, Object> runaway;

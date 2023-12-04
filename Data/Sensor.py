@@ -106,12 +106,12 @@ class Generators:
             }
 
             self.channel.basic_publish(exchange='', routing_key='MagicKingdom', body=json.dumps(data))
-            #print(f'Queue: MagicKingdom, Mensagem enviada: {data}')
+
 
             await asyncio.sleep(20)
 
 
-    
+
     async def epcot(self):
 
         while True:
@@ -152,7 +152,7 @@ class Generators:
         while True:
             (velocity_runaway, height_runaway, temperature_runaway,vibration_runaway, people_queue_runaway, duration_runaway) = await generate_data("Rollercoaster", previous_runaway)
             (velocity_rocknroller, height_rocknroller, temperature_rocknroller,vibration_rocknroller, people_queue_rocknroller, duration_rocknroller) = await generate_data("Rollercoaster", previous_rocknroller)
-            
+
             data = {
                 "Mickey & Minnie's Runaway Railway" : {
                     "velocity_kmh": velocity_runaway,
@@ -180,11 +180,10 @@ class Generators:
     async def animal_kingdom(self):
 
         while True:
+
             (velocity_triceratop, rpm_triceratop, temperature_triceratop,vibration_triceratop, people_queue_triceratop, duration_triceratop) = await generate_data("Carousel", previous_triceratop)
             (velocity_kaliriver, height_kaliriver, temperaturewater_kaliriver,vibration_kaliriver, people_queue_kaliriver, duration_kaliriver) = await generate_data("WaterRide", previous_kaliriver)
-            (velocity_dinosaur, height_dinosaur, temperature_dinosaur,vibration_dinosaur, people_queue_dinosaur, duration_dinosaur) = await generate_data("Darkride", previous_dinosaur)
-
-            
+            (velocity_dinosaur, temperature_dinosaur,vibration_dinosaur, people_queue_dinosaur, duration_dinosaur) = await generate_data("Darkride", previous_dinosaur)
             data = {
                 "Triceratop Spin" : {
                     "velocity_kmh": velocity_triceratop,
@@ -204,18 +203,17 @@ class Generators:
                 },
                 "Dinosaur" : {
                     "velocity_kmh": velocity_dinosaur,
-                    "height_m": height_dinosaur,
                     "temperature": temperature_dinosaur,
                     "vibration": vibration_dinosaur,
                     "people_queue" : people_queue_dinosaur,
                     "duration" : duration_dinosaur
                 },
                 "Time": time.time()
-
             }
             self.channel.basic_publish(exchange='', routing_key='AnimalKingdom', body=json.dumps(data))
-
+            print(f'Message sent to AnimalKingdom queue: {data}')
             await asyncio.sleep(20)
+
 
     async def disney_springs(self):
 
@@ -223,7 +221,7 @@ class Generators:
             (velocity_marketplace, height_marketplace, temperature_marketplace,vibration_marketplace, people_queue_marketplace, duration_marketplace) = await generate_data("Rollercoaster", previous_marketplace)
             (velocity_classic, rpm_classic, temperature_classic,vibration_classic, people_queue_classic, duration_classic) = await generate_data("Carousel", previous_classic)
 
-            
+
             data = {
                 "Marketplace Carousel" : {
                     "velocity_kmh": velocity_marketplace,
@@ -254,7 +252,7 @@ class Generators:
             (velocity_summit, height_summit, temperaturewater_summit,vibration_summit, people_queue_summit, duration_summit) = await generate_data("WaterRide", previous_summit)
             (velocity_slush, height_slush, temperaturewater_slush,vibration_slush, people_queue_slush, duration_slush) = await generate_data("WaterRide", previous_slush)
 
-            
+
             data = {
                 "Summit Plummet" : {
                     "velocity_kmh": velocity_summit,
@@ -277,6 +275,7 @@ class Generators:
             }
             self.channel.basic_publish(exchange='', routing_key='BlizzardBeach', body=json.dumps(data))
 
+
             await asyncio.sleep(20)
 
     async def typhoon_lagoon(self):
@@ -285,7 +284,7 @@ class Generators:
             (velocity_gangplank, height_gangplank, temperaturewater_gangplank,vibration_gangplank, people_queue_gangplank, duration_gangplank) = await generate_data("WaterRide", previous_gangplank)
             (velocity_humunga, height_humunga, temperaturewater_humunga,vibration_humunga, people_queue_humunga, duration_humunga) = await generate_data("WaterRide", previous_humunga)
 
-            
+
             data = {
                 "Gangplank Falls" : {
                     "velocity_kmh": velocity_gangplank,
@@ -308,9 +307,10 @@ class Generators:
             }
             self.channel.basic_publish(exchange='', routing_key='TyphoonLagoon', body=json.dumps(data))
 
+
             await asyncio.sleep(20)
 
-            
+
 
 
 async def random_value(previous, max_difference, precision=2):
@@ -333,7 +333,7 @@ async def random_value_duration(previous, max_difference, precision=2):
     return new_duration
 
 
-    
+
 
 async def generate_data(type, previous_data, max_difference=20.0):
     if type == "Rollercoaster":
@@ -390,7 +390,7 @@ async def generate_data(type, previous_data, max_difference=20.0):
         duration = await random_value_duration(previous_data['duration'], 20)
         previous_data['duration'] = duration
         return velocity, height, temperaturewater, vibration, people_queue, duration
-    
+
 
 
 
@@ -403,6 +403,13 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
 
     magic_kingdom = loop.create_task(generators.MagicKingdom())
+    epcot = loop.create_task(generators.epcot())
+    disney_studios = loop.create_task(generators.disney_studios())
+    animal_kingdom = loop.create_task(generators.animal_kingdom())
+    disney_springs = loop.create_task(generators.disney_springs())
+    blizzard_beach = loop.create_task(generators.blizzard_beach())
+    typhoon_lagoon = loop.create_task(generators.typhoon_lagoon())
+
 
     try:
         loop.run_forever()

@@ -1,4 +1,4 @@
-package project.WaltDisneyManagement.entity;
+package project.WaltDisneyManagement.entity.Messages;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;

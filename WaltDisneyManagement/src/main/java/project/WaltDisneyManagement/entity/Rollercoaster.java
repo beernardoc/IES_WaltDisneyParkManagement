@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Rollercoaster extends Attraction {
 
-    private Double maxSpeed = 20.0;
+    private Double maxSpeed = 100.0;
     private Double maxHeight = 150.0;
     private Double maxTemperature = 100.0;
     private Double maxVibration = 100.0;

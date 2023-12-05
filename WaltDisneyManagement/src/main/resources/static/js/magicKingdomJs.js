@@ -1,5 +1,5 @@
 var stompClient = null;
-var jsonRecebido = {"railRoad":{"velocity_kmh":0,"height_m":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0},"piratesOfTheCaribbean":{"velocity_kmh":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0},"hauntedMansion":{"velocity_kmh":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0},"sevenDwarfsMineTrain":{"velocity_kmh":0,"height_m":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0},"tomorrowlandSpeedway":{"velocity_kmh":0,"height_m":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0}}
+var jsonRecebido;  // Variável para armazenar o JSON recebido
 var charts = {};  // Objeto para armazenar instâncias de gráficos
 
 function connect() {
@@ -8,32 +8,63 @@ function connect() {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/MagicKingdom', function (mensagem) {
-            jsonRecebido = JSON.parse(mensagem.body);
-            console.log('Dados recebidos:', jsonRecebido);
+            try { // é um json entao tenta converter
 
-            renderChart();
-            renderVel();
-            renderDuration();
-            renderQueue();
-            renderVisitorsExpected();
-            renderWaitingTime();
+                jsonRecebido = JSON.parse(mensagem.body);
+
+                renderChart();
+                renderVel();
+                renderDuration();
+                renderQueue();
+                renderVisitorsExpected();
+                renderWaitingTime();
+
+
+                console.log('Dados recebidos:', jsonRecebido);
+
+
+            } catch (error) { // se nao for json, é uma mensagem de texto simples (redirecionamento)
+
+                console.log('redirecionando para:', mensagem.body);
+                window.location.href = mensagem.body;
+            }
+
         });
-    });
+    })
+
+
+
+
+
 }
+
+
+function sendMessage(element) {
+    var attraction = element.getAttribute('data-attraction');
+
+    if (stompClient && stompClient.connected) {
+        stompClient.send('/topic/closeAttraction', {}, attraction);
+    } else {
+        console.log('Websocket não está conectado. Não foi possível enviar a mensagem.');
+    }
+
+
+
+
+}
+
+
+
 
 function renderDuration() {
     console.log('Renderizando duração');
     // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
-        duration = parseInt(jsonRecebido["railRoad"]["duration"]);
+        duration = parseInt(jsonRecebido.waltDisneyWorldRailRoad.duration);
         console.log('Duração:', duration);
         document.getElementById("duration").innerHTML = duration;
     }
 }
-
-
-
-
 
 
 function renderChart() {
@@ -48,9 +79,9 @@ function renderChart() {
         charts.barChart = new ApexCharts(document.querySelector("#barChart"), {
             series: [{
                 data: [
-                    parseInt(jsonRecebido["railRoad"]["height_m"]),
-                    parseInt(jsonRecebido["railRoad"]["temperature"]),
-                    parseInt(jsonRecebido["railRoad"]["vibration"])
+                    parseInt(jsonRecebido.waltDisneyWorldRailRoad.height),
+                    parseInt(jsonRecebido.waltDisneyWorldRailRoad.temperature),
+                    parseInt(jsonRecebido.waltDisneyWorldRailRoad.vibration)
                 ]
             }],
             chart: {
@@ -75,7 +106,7 @@ function renderChart() {
         });
 
         charts.barChart.render(); // Renderize o gráfico
-        console.log('ApexCharts version:', ApexCharts.version);
+
     }
 }
 
@@ -93,7 +124,7 @@ function renderWaitingTime() {
     // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
         // Obtenha o número de pessoas na fila
-        const peopleInQueue = parseInt(jsonRecebido["railRoad"]["people_queue"]);
+        const peopleInQueue = parseInt(jsonRecebido.waltDisneyWorldRailRoad.peopleQueue);
         console.log('People in queue:', peopleInQueue);
 
         // Calcule o tempo de espera com base na média de 7 pessoas por 15 minutos
@@ -134,7 +165,7 @@ function renderVel() {
 
 
         // Adicione o novo valor ao array
-        dadosGrafico.push(jsonRecebido["railRoad"]["velocity_kmh"]);
+        dadosGrafico.push(jsonRecebido.waltDisneyWorldRailRoad.velocityKmh);
         var now = getCurrentTime();
         tempo.push(now);
 
@@ -176,7 +207,7 @@ function renderVel() {
         });
 
         charts.lineChart.render(); // Renderize o gráfico
-        console.log('ApexCharts version:', ApexCharts.version);
+
     }
 }
 
@@ -191,7 +222,7 @@ function renderQueue() {
 
 
         // Adicione o novo valor ao array
-        dadosGraficoQueue.push(jsonRecebido["railRoad"]["people_queue"]);
+        dadosGraficoQueue.push(jsonRecebido.waltDisneyWorldRailRoad.peopleQueue);
         var now = getCurrentTime();
         tempoQueue.push(now);
 
@@ -233,7 +264,7 @@ function renderQueue() {
         });
 
         charts.areaChart.render(); // Renderize o gráfico
-        console.log('ApexCharts version:', ApexCharts.version);
+
     }
 }
 
@@ -267,6 +298,7 @@ function renderVisitorsExpected() {
         document.getElementById("statusText").innerHTML = statusText;
     }
 }
+
 
 $(document).ready(function () {
     renderChart();

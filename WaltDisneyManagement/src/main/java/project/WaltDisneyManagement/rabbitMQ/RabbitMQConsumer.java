@@ -9,6 +9,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import project.WaltDisneyManagement.entity.Messages.*;
+import project.WaltDisneyManagement.entity.Rollercoaster;
 
 import java.util.Objects;
 
@@ -26,16 +27,24 @@ public class RabbitMQConsumer {
         Gson gson = new Gson();
 
 
-
-
         if(Objects.equals(routingKey, "MagicKingdom")){
 
-
-
+            System.out.println(message);
             MagicKingdomMessage magicKingdomMessage = gson.fromJson(message, MagicKingdomMessage.class);
 
+            String exceededParametersMessage = magicKingdomMessage.checkLimits();
 
-            messagingTemplate.convertAndSend("/topic/MagicKingdom", magicKingdomMessage);
+            if (!Objects.equals(exceededParametersMessage, "Nenhum parâmetro ultrapassado")) {
+                System.out.println(exceededParametersMessage);
+                messagingTemplate.convertAndSend("/topic/MagicKingdom/Danger", exceededParametersMessage);
+            }
+            else {
+                System.out.println(magicKingdomMessage);
+                messagingTemplate.convertAndSend("/topic/MagicKingdom", magicKingdomMessage);
+            }
+
+
+
 
         }
         if (Objects.equals(routingKey, "Epcot")){

@@ -21,6 +21,9 @@ public class Attraction {
     @Column(name = "attraction_name", length = 45)
     private String name;
 
+    @Column(name = "attraction_status", length = 45)
+    private String status;
+
     @ManyToOne
     @JoinColumn(name = "park_id", nullable = false)
     @JsonBackReference
@@ -32,6 +35,7 @@ public class Attraction {
     public Attraction(String name, Park park) {
         this.name = name;
         this.park = park;
+        this.status = "Open";
     }
 }
 

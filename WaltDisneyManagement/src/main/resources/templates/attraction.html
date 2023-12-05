@@ -36,6 +36,7 @@
   <script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
 
   <script src="/js/magicKingdomJs.js"></script>
+  <script src="/js/MagicKingdomDanger.js"></script>
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -375,6 +376,29 @@
     </div>
     <!-- End Page Title -->
 
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="urgentModal" tabindex="-1" role="dialog" aria-labelledby="urgentModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="urgentModalLabel">Alerta Urgente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Conteúdo do modal será inserido dinamicamente aqui -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
     <section class="section dashboard">
       <div class="row">
 
@@ -384,24 +408,21 @@
 
             <!-- Customers Card -->
             <div class="col-xxl-4 col-xl-12">
-              <div class="card info-card">
-                <div class="card-body">
+              <div id="statusCard" class="card info-card" th:classappend="${status == 'Closed' ? 'bg-danger' : 'bg-success-dark'}" style="cursor: pointer;" th:data-attraction="${attraction}" onclick="sendMessage(this)">                <div class="card-body">
                   <h5 class="card-title">Status</h5>
-  
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-info-circle"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>Open</h6>
+                      <h6 th:text="${status}"></h6>
                       <!-- <span class="text-danger small pt-1 fw-bold">Needs maintenance</span> -->
-  
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <!-- End Customers Card -->
+
 
             <!-- Customers Card -->
             <div class="col-xxl-4 col-xl-12">

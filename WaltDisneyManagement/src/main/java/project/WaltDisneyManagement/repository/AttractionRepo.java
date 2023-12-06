@@ -10,7 +10,7 @@ import project.WaltDisneyManagement.entity.Attraction;
 @Repository
 public interface AttractionRepo extends JpaRepository<Attraction, Integer> {
 
-    Attraction findByName(String name);
+    Attraction findByName(String attraction_name);
 
 
 

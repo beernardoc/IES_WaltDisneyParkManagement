@@ -7,8 +7,9 @@ function connect() {
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/MagicKingdom', function (mensagem) {
-            try { // é um json entao tenta converter
+
+        stompClient.subscribe('/topic/MagicKingdom/Walt Disney World Railroad', function (mensagem) { // essa pagina funciona para qualquer Roller Coaster, por exemplo trocar o nome para /topic/MagicKingdom/Seven Dwarfs Mine Train
+            try {
 
                 jsonRecebido = JSON.parse(mensagem.body);
 
@@ -22,37 +23,51 @@ function connect() {
 
                 console.log('Dados recebidos:', jsonRecebido);
 
+                console.log('Dados recebidos:', jsonRecebido.duration);
 
-            } catch (error) { // se nao for json, é uma mensagem de texto simples (redirecionamento)
 
-                console.log('redirecionando para:', mensagem.body);
-                window.location.href = mensagem.body;
+
+            } catch (error) {
+                console.log(error);
+
+
             }
 
         });
+
+        stompClient.subscribe('/topic/MagicKingdom/Walt Disney World Railroad/Alert', function (mensagem) {
+            console.log('Mensagem de texto simples:', mensagem.body);
+            // Exibir o alerta HTML
+            showUrgentAlert(mensagem.body);
+
+
+        });
+
+
     })
 
 
-
-
-
 }
 
 
-function sendMessage(element) {
-    var attraction = element.getAttribute('data-attraction');
 
-    if (stompClient && stompClient.connected) {
-        stompClient.send('/topic/closeAttraction', {}, attraction);
-    } else {
-        console.log('Websocket não está conectado. Não foi possível enviar a mensagem.');
-    }
+function showUrgentAlert(message) {
+    // Obtenha a referência para o modal existente
+    var modal = document.getElementById('urgentModal');
+    message = "A atracção " + message + " está com problemas técnicos e o seu funcionamento foi interrompido. Por favor, dirija-se ao local";
+    // Atualize o conteúdo do modal com a mensagem recebida
+    var modalBody = modal.querySelector('.modal-body');
+    modalBody.innerHTML = '<div class="alert alert-danger">' + message + '</div>';
 
+    // Mostrar o modal
+    $(modal).modal('show');
 
-
-
+    // Adicione um temporizador para esconder o modal após alguns segundos (opcional)
+    setTimeout(function() {
+        // Esconder o modal
+        $(modal).modal('hide');
+    }, 10000); // Esconder após 5 segundos, ajuste conforme necessário
 }
-
 
 
 
@@ -60,7 +75,7 @@ function renderDuration() {
     console.log('Renderizando duração');
     // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
-        duration = parseInt(jsonRecebido.waltDisneyWorldRailRoad.duration);
+        duration = parseInt(jsonRecebido.duration);
         console.log('Duração:', duration);
         document.getElementById("duration").innerHTML = duration;
     }
@@ -79,9 +94,9 @@ function renderChart() {
         charts.barChart = new ApexCharts(document.querySelector("#barChart"), {
             series: [{
                 data: [
-                    parseInt(jsonRecebido.waltDisneyWorldRailRoad.height),
-                    parseInt(jsonRecebido.waltDisneyWorldRailRoad.temperature),
-                    parseInt(jsonRecebido.waltDisneyWorldRailRoad.vibration)
+                    parseInt(jsonRecebido.height_m),
+                    parseInt(jsonRecebido.temperature),
+                    parseInt(jsonRecebido.vibration)
                 ]
             }],
             chart: {
@@ -124,7 +139,7 @@ function renderWaitingTime() {
     // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
         // Obtenha o número de pessoas na fila
-        const peopleInQueue = parseInt(jsonRecebido.waltDisneyWorldRailRoad.peopleQueue);
+        const peopleInQueue = parseInt(jsonRecebido.people_queue);
         console.log('People in queue:', peopleInQueue);
 
         // Calcule o tempo de espera com base na média de 7 pessoas por 15 minutos
@@ -165,7 +180,7 @@ function renderVel() {
 
 
         // Adicione o novo valor ao array
-        dadosGrafico.push(jsonRecebido.waltDisneyWorldRailRoad.velocityKmh);
+        dadosGrafico.push(jsonRecebido.velocity_kmh);
         var now = getCurrentTime();
         tempo.push(now);
 
@@ -222,7 +237,7 @@ function renderQueue() {
 
 
         // Adicione o novo valor ao array
-        dadosGraficoQueue.push(jsonRecebido.waltDisneyWorldRailRoad.peopleQueue);
+        dadosGraficoQueue.push(jsonRecebido.people_queue);
         var now = getCurrentTime();
         tempoQueue.push(now);
 

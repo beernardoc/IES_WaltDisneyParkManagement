@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Config {
 
-    public static final String MagicKingdomQueue = "MagicKingdom";
+    public static final String MagicKingdomQueue = "Magic Kingdom";
     public static final String EpcotQueue = "Epcot";
-    public static final String HollywoodStudiosQueue = "HollywoodStudios";
-    public static final String AnimalKingdomQueue = "AnimalKingdom";
-    public static final String DisneySprings = "DisneySprings";
-    public static final String BlizzardBeach = "BlizzardBeach";
-    public static final String TyphoonLagoon = "TyphoonLagoon";
+    public static final String HollywoodStudiosQueue = "Hollywood Studios";
+    public static final String AnimalKingdomQueue = "Animal Kingdom";
+    public static final String DisneySprings = "Disney Springs";
+    public static final String BlizzardBeach = "Blizzard Beach";
+    public static final String TyphoonLagoon = "Typhoon Lagoon";
 
     public static final String EXCHANGE_NAME = "";
 

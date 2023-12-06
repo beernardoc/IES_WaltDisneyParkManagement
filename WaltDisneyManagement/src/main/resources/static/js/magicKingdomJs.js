@@ -8,7 +8,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
 
-        stompClient.subscribe('/topic/MagicKingdom/Walt Disney World Railroad', function (mensagem) { // essa pagina funciona para qualquer Roller Coaster, por exemplo trocar o nome para /topic/MagicKingdom/Seven Dwarfs Mine Train
+        stompClient.subscribe('/topic/Magic Kingdom/Walt Disney World Railroad', function (mensagem) { // essa pagina funciona para qualquer Roller Coaster, por exemplo trocar o nome para /topic/MagicKingdom/Seven Dwarfs Mine Train
             try {
 
                 jsonRecebido = JSON.parse(mensagem.body);
@@ -30,13 +30,13 @@ function connect() {
 
         });
 
-        stompClient.subscribe('/topic/MagicKingdom/Walt Disney World Railroad/Alert', function (mensagem) {
+        stompClient.subscribe('/topic/Magic Kingdom/Walt Disney World Railroad/Alert', function (mensagem) {
             showUrgentAlert(mensagem.body);
 
 
         });
 
-        stompClient.subscribe('/topic/MagicKingdom/Walt Disney World Railroad/Reload', function (mensagem) {
+        stompClient.subscribe('/topic/Magic Kingdom/Walt Disney World Railroad/Reload', function (mensagem) {
             window.location.href = mensagem.body;
 
 
@@ -64,7 +64,7 @@ function sendCloseOrOpenMessage(element) {
 
 
     if (stompClient && stompClient.connected) {
-        stompClient.send('/topic/closeAttraction', {}, message);
+        stompClient.send('/topic/CloseOrOPenAttraction', {}, message);
     }
     else
         console.log('Websocket não está conectado. Não foi possível enviar a mensagem.');

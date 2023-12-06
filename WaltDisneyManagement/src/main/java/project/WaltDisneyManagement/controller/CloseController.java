@@ -25,7 +25,7 @@ public class CloseController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @MessageMapping("/topic/closeAttraction")
+    @MessageMapping("/topic/CloseOrOPenAttraction")
     public void closeAttraction(String message) {
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = jsonParser.parse(message).getAsJsonObject();
@@ -34,7 +34,6 @@ public class CloseController {
         String status = String.valueOf(jsonObject.get("status")).replaceAll("\"", "");
 
         Attraction attraction = attractionRepo.findByName(attractionName);
-
 
         if(status.equals("Closed")){
             attraction.setStatus("Open");
@@ -50,7 +49,7 @@ public class CloseController {
 
 
         // Construa o destino dinâmico com base na atração
-        String destination = "/topic/MagicKingdom/" + attractionName + "/Reload";
+        String destination = "/topic/" + attraction.getPark().getName() + "/" + attractionName + "/Reload";
 
         // Envie uma mensagem para o destino dinâmico
         simpMessagingTemplate.convertAndSend(destination, "/parks/" + attraction.getPark().getName() + "/attractions/" + attraction.getName());

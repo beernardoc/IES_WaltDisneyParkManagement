@@ -45,13 +45,13 @@ class Generators:
         self.connection = pika.BlockingConnection(pika.ConnectionParameters('mq'))
         self.channel = self.connection.channel()
 
-        self.channel.queue_declare(queue='MagicKingdom')
+        self.channel.queue_declare(queue='Magic Kingdom')
         self.channel.queue_declare(queue='Epcot')
-        self.channel.queue_declare(queue='HollywoodStudios')
-        self.channel.queue_declare(queue='AnimalKingdom')
-        self.channel.queue_declare(queue='DisneySprings')
-        self.channel.queue_declare(queue='BlizzardBeach')
-        self.channel.queue_declare(queue='TyphoonLagoon')
+        self.channel.queue_declare(queue='Hollywood Studios')
+        self.channel.queue_declare(queue='Animal Kingdom')
+        self.channel.queue_declare(queue='Disney Springs')
+        self.channel.queue_declare(queue='Blizzard Beach')
+        self.channel.queue_declare(queue='Typhoon Lagoon')
         self.channel.queue_declare(queue='ParkingLot')
 
     async def MagicKingdom(self):
@@ -105,7 +105,7 @@ class Generators:
                 "Time": time.time()
             }
 
-            self.channel.basic_publish(exchange='', routing_key='MagicKingdom', body=json.dumps(data))
+            self.channel.basic_publish(exchange='', routing_key='Magic Kingdom', body=json.dumps(data))
 
 
             await asyncio.sleep(20)
@@ -173,7 +173,7 @@ class Generators:
                 "Time": time.time()
 
             }
-            self.channel.basic_publish(exchange='', routing_key='DisneyStudios', body=json.dumps(data))
+            self.channel.basic_publish(exchange='', routing_key='Disney Studios', body=json.dumps(data))
 
             await asyncio.sleep(20)
 
@@ -210,7 +210,7 @@ class Generators:
                 },
                 "Time": time.time()
             }
-            self.channel.basic_publish(exchange='', routing_key='AnimalKingdom', body=json.dumps(data))
+            self.channel.basic_publish(exchange='', routing_key='Animal Kingdom', body=json.dumps(data))
             print(f'Message sent to AnimalKingdom queue: {data}')
             await asyncio.sleep(20)
 
@@ -242,7 +242,7 @@ class Generators:
                 "Time": time.time()
 
             }
-            self.channel.basic_publish(exchange='', routing_key='DisneySprings', body=json.dumps(data))
+            self.channel.basic_publish(exchange='', routing_key='Disney Springs', body=json.dumps(data))
 
             await asyncio.sleep(20)
 
@@ -273,7 +273,7 @@ class Generators:
                 "Time": time.time()
 
             }
-            self.channel.basic_publish(exchange='', routing_key='BlizzardBeach', body=json.dumps(data))
+            self.channel.basic_publish(exchange='', routing_key='Blizzard Beach', body=json.dumps(data))
 
 
             await asyncio.sleep(20)
@@ -305,7 +305,7 @@ class Generators:
                 "Time": time.time()
 
             }
-            self.channel.basic_publish(exchange='', routing_key='TyphoonLagoon', body=json.dumps(data))
+            self.channel.basic_publish(exchange='', routing_key='Typhoon Lagoon', body=json.dumps(data))
 
 
             await asyncio.sleep(20)

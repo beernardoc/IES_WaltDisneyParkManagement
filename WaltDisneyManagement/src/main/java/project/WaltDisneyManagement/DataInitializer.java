@@ -32,7 +32,7 @@ public class DataInitializer implements CommandLineRunner {
         employee.setPassword(this.passwordEncoder.encode(employee.getPassword()));
         employeeRepo.save(employee);
 
-        Park magicKingdomPark = new Park("Magic Kingdom Park", null);
+        Park magicKingdomPark = new Park("Magic Kingdom", null);
         parkRepo.save(magicKingdomPark);
 
         Attraction WaltDisneyWorldRailroad = new Attraction("Walt Disney World Railroad", magicKingdomPark, "RollerCoaster");

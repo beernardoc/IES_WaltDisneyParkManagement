@@ -20,7 +20,7 @@ public class AttractionIMPL implements AttractionService {
     public Attraction addAttraction(AttractionDto attractionDto) {
         System.out.println("Received attractionDto: " + attractionDto);
 
-        Attraction attraction = new Attraction(attractionDto.name(),attractionDto.park());
+        Attraction attraction = new Attraction(attractionDto.name(),attractionDto.park(), attractionDto.type());
 
         attractionRepo.save(attraction);
 

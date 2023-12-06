@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import project.WaltDisneyManagement.entity.Attraction;
-import project.WaltDisneyManagement.entity.Employee;
-import project.WaltDisneyManagement.entity.Park;
-import project.WaltDisneyManagement.repository.AttractionRepo;
-import project.WaltDisneyManagement.repository.EmployeeRepo;
-import project.WaltDisneyManagement.repository.ParkRepo;
+import project.WaltDisneyManagement.entity.*;
+import project.WaltDisneyManagement.repository.*;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -28,19 +24,37 @@ public class DataInitializer implements CommandLineRunner {
 
 
 
+
+
     @Override
     public void run(String... args) throws Exception {
         Employee employee = new Employee("Mariana Dias", "marianadias@ua.pt", "12345", "TECHNICIAN");
         employee.setPassword(this.passwordEncoder.encode(employee.getPassword()));
         employeeRepo.save(employee);
 
-        Park MagicKingdomPark = new Park("Magic Kingdom Park", null);
-        parkRepo.save(MagicKingdomPark);
+        Park magicKingdomPark = new Park("Magic Kingdom Park", null);
+        parkRepo.save(magicKingdomPark);
 
-        Attraction WaltDisneyWorldRailroad = new Attraction("Walt Disney World Railroad", MagicKingdomPark);
+        Attraction WaltDisneyWorldRailroad = new Attraction("Walt Disney World Railroad", magicKingdomPark, "RollerCoaster");
         attractionRepo.save(WaltDisneyWorldRailroad);
 
+        Attraction PiratesOfTheCaribbean = new Attraction("Pirates of the Caribbean", magicKingdomPark, "DarkRide");
+        attractionRepo.save(PiratesOfTheCaribbean);
+
+        Attraction HauntedMansion = new Attraction("Haunted Mansion", magicKingdomPark, "DarkRide");
+        attractionRepo.save(HauntedMansion);
+
+        Attraction SevenDwarfsMineTrain = new Attraction("Seven Dwarfs Mine Train", magicKingdomPark, "RollerCoaster");
+        attractionRepo.save(SevenDwarfsMineTrain);
+
+        Attraction TomorrowLandSpeedway = new Attraction("Tomorrowland Speedway", magicKingdomPark, "RollerCoaster");
+        attractionRepo.save(TomorrowLandSpeedway);
+        
 
 
-}
+
+
+
+
+    }
 }

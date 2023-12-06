@@ -33,5 +33,14 @@ public class Park {
         this.name = name;
         this.attractions = attractions;
     }
+
+    @Override
+    public String toString() {
+        return "Park{" +
+                "parkId=" + parkId +
+                ", name='" + name + '\'' +
+                ", attractions=" + attractions +
+                '}';
+    }
 }
 

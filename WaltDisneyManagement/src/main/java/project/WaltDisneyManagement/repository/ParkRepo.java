@@ -9,7 +9,7 @@ import project.WaltDisneyManagement.entity.Park;
 @Repository
 public interface ParkRepo extends JpaRepository<Park, Integer> {
 
-    Park findByName(String employeeName);
+    Park findByName(String parkName);
 
 
 

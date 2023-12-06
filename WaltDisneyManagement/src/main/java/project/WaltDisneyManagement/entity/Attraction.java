@@ -24,6 +24,27 @@ public class Attraction {
     @Column(name = "attraction_status", length = 45)
     private String status;
 
+    @Column(name = "attraction_type", length = 45)
+    private String type;
+
+    @Transient
+    private Double velocityKmh;
+
+    @Transient
+    private Double height;
+
+    @Transient
+    private Double temperature;
+
+    @Transient
+    private Double vibration;
+
+    @Transient
+    private Integer peopleQueue;
+
+    @Transient
+    private Integer duration;
+
     @ManyToOne
     @JoinColumn(name = "park_id", nullable = false)
     @JsonBackReference
@@ -32,10 +53,56 @@ public class Attraction {
     public Attraction() {
     }
 
-    public Attraction(String name, Park park) {
+    public Attraction(String name, Park park, String type) {
         this.name = name;
         this.park = park;
+        this.type = type;
         this.status = "Open";
+    }
+
+
+    public boolean testValuesRollerCoaster(Double velocityKmh, Double height, Double temperature, Double vibration){
+        if (velocityKmh > 20){
+            return false;
+        }
+        if(height > 100){
+            return false;
+        }
+        if (temperature > 100){
+            return false;
+        }
+        if (vibration > 100){
+            return false;
+        }
+            return true;
+
+
+    }
+
+    public boolean testValuesDarkRide(Double velocityKmh, Double temperature, Double vibration){
+        if (velocityKmh > 100){
+            return false;
+        }
+        if (temperature > 100){
+            return false;
+        }
+        if (vibration > 100){
+            return false;
+        }
+        return true;
+
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Attraction{" +
+                "attractionId=" + attractionId +
+                ", name='" + name + '\'' +
+                ", status='" + status + '\'' +
+                ", park=" + park +
+                '}';
     }
 }
 

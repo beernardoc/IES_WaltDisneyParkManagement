@@ -21,11 +21,6 @@ function connect() {
                 renderWaitingTime();
 
 
-                console.log('Dados recebidos:', jsonRecebido);
-
-                console.log('Dados recebidos:', jsonRecebido.duration);
-
-
 
             } catch (error) {
                 console.log(error);
@@ -36,15 +31,46 @@ function connect() {
         });
 
         stompClient.subscribe('/topic/MagicKingdom/Walt Disney World Railroad/Alert', function (mensagem) {
-            console.log('Mensagem de texto simples:', mensagem.body);
-            // Exibir o alerta HTML
             showUrgentAlert(mensagem.body);
+
+
+        });
+
+        stompClient.subscribe('/topic/MagicKingdom/Walt Disney World Railroad/Reload', function (mensagem) {
+            window.location.href = mensagem.body;
+
 
 
         });
 
 
     })
+
+
+}
+
+
+
+
+function sendCloseOrOpenMessage(element) {
+    var attraction = element.getAttribute('data-attraction');
+
+    var status = element.getAttribute('status')
+
+    var message = JSON.stringify({
+        'attraction': attraction,
+        'status': status
+    });
+
+
+    if (stompClient && stompClient.connected) {
+        stompClient.send('/topic/closeAttraction', {}, message);
+    }
+    else
+        console.log('Websocket não está conectado. Não foi possível enviar a mensagem.');
+
+
+
 
 
 }
@@ -72,25 +98,18 @@ function showUrgentAlert(message) {
 
 
 function renderDuration() {
-    console.log('Renderizando duração');
-    // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
         duration = parseInt(jsonRecebido.duration);
-        console.log('Duração:', duration);
         document.getElementById("duration").innerHTML = duration;
     }
 }
 
 
 function renderChart() {
-    console.log('Renderizando gráfico');
-    // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
-        // Limpe o gráfico se já existir uma instância
         if (charts.barChart) {
             charts.barChart.destroy();
         }
-        // Renderize o novo gráfico
         charts.barChart = new ApexCharts(document.querySelector("#barChart"), {
             series: [{
                 data: [
@@ -134,15 +153,10 @@ function getCurrentTime() {
 }
 
 function renderWaitingTime() {
-    console.log('Renderizando tempo de espera');
-
-    // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
         // Obtenha o número de pessoas na fila
         const peopleInQueue = parseInt(jsonRecebido.people_queue);
-        console.log('People in queue:', peopleInQueue);
 
-        // Calcule o tempo de espera com base na média de 7 pessoas por 15 minutos
         let waitingTime = 0;
 
         if (peopleInQueue > 7) {
@@ -150,8 +164,6 @@ function renderWaitingTime() {
             const additionalWaitTime = Math.ceil(additionalPeople / 7) * 15;
             waitingTime = additionalWaitTime;
         }
-
-        console.log('Waiting time:', waitingTime);
 
         document.getElementById("waitingTime").innerHTML = waitingTime + " minutes";
     }
@@ -170,8 +182,6 @@ var tempoQueue = [""];
 
 
 function renderVel() {
-    console.log('Renderizando gráfico');
-    // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
 
         if (charts.lineChart) {
@@ -227,8 +237,6 @@ function renderVel() {
 }
 
 function renderQueue() {
-    console.log('Renderizando gráfico');
-    // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
 
         if (charts.areaChart) {
@@ -295,9 +303,6 @@ function calculateExpectedVisitors() {
 }
 
 function renderVisitorsExpected() {
-    console.log('Renderizando número esperado de visitantes');
-
-    // Certifique-se de que jsonRecebido é definido
     if (jsonRecebido) {
         const expectedVisitors = calculateExpectedVisitors();
 

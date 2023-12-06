@@ -408,15 +408,15 @@
 
             <!-- Customers Card -->
             <div class="col-xxl-4 col-xl-12">
-              <div id="statusCard" class="card info-card" style="cursor: pointer;"> <div class="card-body">
-                  <h5 class="card-title">Status</h5>
+              <div id="statusCard" class="card info-card" style="cursor: pointer;" th:data-attraction="${attraction}" th:status="${status}" onclick="sendCloseOrOpenMessage(this)"><div class="card-body">                  <h5 class="card-title">Status</h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-info-circle"></i>
                     </div>
                     <div class="ps-3">
                       <h6 th:text="${status}"></h6>
-                      <!-- <span class="text-danger small pt-1 fw-bold">Needs maintenance</span> -->
+                      <span th:if="${status == 'Open'}" class="text-danger small pt-1 fw-bold">Click to close</span>
+                      <span th:if="${status == 'Closed'}" class="text-danger small pt-1 fw-bold">Click to open</span>
                     </div>
                   </div>
                 </div>

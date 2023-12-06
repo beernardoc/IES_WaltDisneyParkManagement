@@ -27,23 +27,6 @@ public class Attraction {
     @Column(name = "attraction_type", length = 45)
     private String type;
 
-    @Transient
-    private Double velocityKmh;
-
-    @Transient
-    private Double height;
-
-    @Transient
-    private Double temperature;
-
-    @Transient
-    private Double vibration;
-
-    @Transient
-    private Integer peopleQueue;
-
-    @Transient
-    private Integer duration;
 
     @ManyToOne
     @JoinColumn(name = "park_id", nullable = false)

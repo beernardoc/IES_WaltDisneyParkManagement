@@ -2,12 +2,18 @@ package project.WaltDisneyManagement.controller;
 
 
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import project.WaltDisneyManagement.entity.Attraction;
+import project.WaltDisneyManagement.entity.Park;
 import project.WaltDisneyManagement.repository.AttractionRepo;
+
+import java.util.Objects;
 
 @Controller
 public class CloseController {
@@ -15,19 +21,41 @@ public class CloseController {
     @Autowired
     private AttractionRepo attractionRepo;
 
+
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
     @MessageMapping("/topic/closeAttraction")
-    @SendTo("/topic/MagicKingdom")
-    public String closeAttraction(String message) {
-        Attraction attraction = attractionRepo.findByName(message);
+    public void closeAttraction(String message) {
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = jsonParser.parse(message).getAsJsonObject();
 
-        attraction.setStatus("Closed");
+        String attractionName = String.valueOf(jsonObject.get("attraction")).replaceAll("\"", "");
+        String status = String.valueOf(jsonObject.get("status")).replaceAll("\"", "");
 
-        attractionRepo.save(attraction);
+        Attraction attraction = attractionRepo.findByName(attractionName);
 
-        System.out.println(attraction.getName() + " is now closed.");
-        System.out.println("PARK: " + attraction.getPark().getName());
 
-        // Retorna a URL da atração fechada como resposta
-        return "/parks/" + attraction.getPark().getName() + "/attractions/" + attraction.getName();
+        if(status.equals("Closed")){
+            attraction.setStatus("Open");
+            attractionRepo.save(attraction);
+        }
+        else if (status.equals("Open")){
+            attraction.setStatus("Closed");
+            attractionRepo.save(attraction);
+        }
+        else{
+            System.out.println("Invalid status");
+        }
+
+
+        // Construa o destino dinâmico com base na atração
+        String destination = "/topic/MagicKingdom/" + attractionName + "/Reload";
+
+        // Envie uma mensagem para o destino dinâmico
+        simpMessagingTemplate.convertAndSend(destination, "/parks/" + attraction.getPark().getName() + "/attractions/" + attraction.getName());
+
+
+
     }
 }

@@ -56,6 +56,7 @@ public class ParkController {
         Attraction attraction = attractionRepo.findByName(attractionName);
         Employee employee = this.employee.findByEmail(email.toString());
 
+        model.addAttribute("NextMaintenance", attraction.getNextMaintenance());
         model.addAttribute("lastMaintenance", attraction.getLastMaintenance());
         model.addAttribute("type", attraction.getType());
         model.addAttribute("attraction", attraction.getName());

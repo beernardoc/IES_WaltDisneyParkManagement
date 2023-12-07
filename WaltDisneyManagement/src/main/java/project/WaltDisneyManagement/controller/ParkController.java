@@ -11,17 +11,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import project.WaltDisneyManagement.entity.Attraction;
 import project.WaltDisneyManagement.entity.Employee;
+import project.WaltDisneyManagement.entity.MaintenanceHistory;
 import project.WaltDisneyManagement.repository.AttractionRepo;
 import project.WaltDisneyManagement.repository.EmployeeRepo;
+import project.WaltDisneyManagement.repository.MaintenanceHistoryRepo;
+
+import java.util.List;
 
 @Controller
 public class ParkController {
 
     @Autowired
-    private EmployeeRepo employee;
+    private EmployeeRepo employeeRepo;
 
     @Autowired
     private AttractionRepo attractionRepo;
+
+    @Autowired
+    private MaintenanceHistoryRepo maintenanceHistoryrepo;
 
 
 
@@ -35,8 +42,11 @@ public class ParkController {
             return "redirect:/";
         }
 
-        Employee employee = this.employee.findByEmail(email.toString());
+        Employee employee = employeeRepo.findByEmail(email.toString());
 
+        List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryrepo.findByPark(parkName);
+
+        model.addAttribute("maintenanceHistory", maintenanceHistory);
         model.addAttribute("role", employee.getRole());
         model.addAttribute("username", employee.getName());
 
@@ -54,7 +64,10 @@ public class ParkController {
         }
 
         Attraction attraction = attractionRepo.findByName(attractionName);
-        Employee employee = this.employee.findByEmail(email.toString());
+        Employee employee = employeeRepo.findByEmail(email.toString());
+        List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryrepo.findByAttraction(attractionName);
+
+        model.addAttribute("maintenanceHistory", maintenanceHistory);
 
         model.addAttribute("NextMaintenance", attraction.getNextMaintenance());
         model.addAttribute("lastMaintenance", attraction.getLastMaintenance());

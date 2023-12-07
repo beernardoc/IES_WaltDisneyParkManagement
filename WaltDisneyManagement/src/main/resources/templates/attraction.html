@@ -1113,40 +1113,19 @@
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+              <h5 class="card-title">Maintenance History</h5>
 
               <div class="activity">
 
+                <th:block th:each="history : ${maintenanceHistory}">
                 <div class="activity-item d-flex">
-                  <div class="activite-label">32 min</div>
+                  <div class="activite-label" th:text="${history.date}"></div>
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                    Excessive queue congestion
-                  </div>
+                  <div class="activity-content" th:text="${history.description}"></div>
                 </div><!-- End activity item-->
+                </th:block>
 
-                <div class="activity-item d-flex">
-                  <div class="activite-label">56 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    Temperature nearing problematic levels
-                  </div>
-                </div><!-- End activity item-->
 
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 hrs</div>
-                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                  <div class="activity-content">
-                    Walt Disney World Railroad attraction opened
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">4 weeks</div>
-                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
-                    Preventive maintenance conducted on Walt Disney World Railroad attraction
-                  </div>
                 </div><!-- End activity item-->
 
               </div>

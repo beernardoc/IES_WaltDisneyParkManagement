@@ -51,6 +51,39 @@ function connect() {
 
 }
 
+
+function sendMaintenance() {
+    // Obtenha os dados do formulário
+    const maintenanceDetails = document.getElementById('maintenanceDetails').value;
+
+    var attractionName = getAttractionNameFromURL();
+
+    // Construa a URL da API
+    const apiUrl = `/api/parks/${encodeURIComponent('Magic Kingdom')}/attractions/${encodeURIComponent(attractionName)}/SetMaintenance`;
+
+    // Construa a descrição formatada para URL
+    const formattedDescription = encodeURIComponent(maintenanceDetails);
+
+    // Enviar a solicitação usando fetch
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', // Defina o tipo de conteúdo para formulário
+        },
+        body: `description=${formattedDescription}`, // Use o formato de formulário para os dados
+    })
+        .then(response => response.json())
+        .then(result => {
+            $('#maintenanceModal').modal('hide');
+            // Faça qualquer outra coisa que você queira após o registro bem-sucedido
+        })
+        .catch(error => {
+            console.error('Erro no registro de manutenção:', error);
+            // Lide com o erro conforme necessário
+        });
+}
+
+
 // Função para obter o nome da atração a partir da URL
 function getAttractionNameFromURL() {
     var url = window.location.href;

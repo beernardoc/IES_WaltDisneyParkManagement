@@ -3,8 +3,11 @@ package project.WaltDisneyManagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 
 @Entity
@@ -27,6 +30,9 @@ public class Attraction {
     @Column(name = "attraction_type", length = 45)
     private String type;
 
+    @Column(name = "attraction_lastMaintenance", length = 45)
+    private LocalDate lastMaintenance;
+
 
     @ManyToOne
     @JoinColumn(name = "park_id", nullable = false)
@@ -41,6 +47,7 @@ public class Attraction {
         this.park = park;
         this.type = type;
         this.status = "Open";
+        this.lastMaintenance = LocalDate.of(2023, 11, 14);
     }
 
 

@@ -8,13 +8,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import project.WaltDisneyManagement.entity.MaintenanceHistory;
 import project.WaltDisneyManagement.repository.EmployeeRepo;
+import project.WaltDisneyManagement.repository.MaintenanceHistoryRepo;
+
+import java.util.List;
 
 @Controller
 public class IndexController {
 
     @Autowired
     private EmployeeRepo employeeRepo;
+
+    @Autowired
+    private MaintenanceHistoryRepo maintenanceHistoryRepo;
 
 
     @RequestMapping("/")
@@ -28,6 +35,9 @@ public class IndexController {
             var username = employee.getName();
             var role = employee.getRole();
 
+            List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryRepo.findAll();
+
+            model.addAttribute("maintenanceHistory", maintenanceHistory);
             model.addAttribute("role", role);
             model.addAttribute("username", username);
 

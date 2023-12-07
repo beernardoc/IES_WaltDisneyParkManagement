@@ -55,6 +55,7 @@ public class ParkController {
 
         Employee employee = this.employee.findByEmail(email.toString());
 
+        model.addAttribute("type", attraction.getType());
         model.addAttribute("attraction", attraction.getName());
         model.addAttribute("role", employee.getRole());
         model.addAttribute("username", employee.getName());

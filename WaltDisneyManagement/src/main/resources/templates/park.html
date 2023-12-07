@@ -45,7 +45,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="/" class="logo d-flex align-items-center">
         <img src="/img/disneylogo.png" alt="">
         <span class="d-none d-lg-block">Walt Disney Management</span>
       </a>
@@ -278,7 +278,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/index}">
+        <a class="nav-link collapsed" th:href="@{/}">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>
@@ -361,7 +361,7 @@
       <h1> Magic Kingdom</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
           <li class="breadcrumb-item active">Magic Kingdom</li>
         </ol>
       </nav>
@@ -378,63 +378,60 @@
             <!-- railroad -->
             <div class="col-xxl-4 col-xl-12">
               <a>
-                <div class="card info-card customers-card" data-attraction="Walt Disney World Railroad" style="cursor: pointer;background-image: url('/img/WaltDisneyRailroad.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+                <div class="card info-card customers-card" data-attraction="Walt Disney World Railroad" style="cursor: pointer; background-image: url('/img/WaltDisneyRailroad.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
                   <div class="card-body">
                     <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Walt Disney World Railroad</h5>
                   </div>
                 </div>
               </a>
-            </div><!-- End Customers Card -->
+            </div>
+            <!-- End Customers Card -->
 
             <!-- pirates -->
             <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card"  style="background-image: url('/img/PiratesoftheCaribbean.jpeg'); background-size: cover; background-position: center; width:315px;height:155px;">
-
-                <div class="card-body">
-                  <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Pirates of the Caribbean</h5>
+              <a>
+                <div class="card info-card customers-card" data-attraction="Pirates of the Caribbean" style="cursor: pointer; background-image: url('/img/PiratesoftheCaribbean.jpeg'); background-size: cover; background-position: center; width:315px;height:155px;">
+                  <div class="card-body">
+                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Pirates of the Caribbean</h5>
+                  </div>
                 </div>
-              </div>
-
+              </a>
             </div>
             <!-- End Customers Card -->
 
             <!-- Haunted Mansion -->
             <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card"  style="background-image: url('/img/hauntedmansion.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
-
-                <div class="card-body">
-                  <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Haunted Mansion</h5>
+              <a>
+                <div class="card info-card customers-card" data-attraction="Haunted Mansion" style="cursor: pointer; background-image: url('/img/hauntedmansion.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+                  <div class="card-body">
+                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Haunted Mansion</h5>
+                  </div>
                 </div>
-              </div>
-
+              </a>
             </div>
             <!-- End Customers Card -->
 
             <!-- Seven dwarfs -->
             <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card"  style="background-image: url('/img/seven-dwarfs-mine-train-magic-kingdom-1.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
-
-                <div class="card-body">
-                  <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Seven Dwarfs Mine Train</h5>
+              <a>
+                <div class="card info-card customers-card" data-attraction="Seven Dwarfs Mine Train" style="cursor: pointer; background-image: url('/img/seven-dwarfs-mine-train-magic-kingdom-1.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+                  <div class="card-body">
+                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Seven Dwarfs Mine Train</h5>
+                  </div>
                 </div>
-              </div>
-
+              </a>
             </div>
             <!-- End Customers Card -->
 
             <!-- Tomorrow land speedway -->
             <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card"  style="background-image: url('/img/tomorrowland.jpeg'); background-size: cover; background-position: center; width:315px;height:155px;">
-
-                <div class="card-body">
-                  <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Tommorrowland Speedway</h5>
+              <a>
+                <div class="card info-card customers-card" data-attraction="Tomorrowland Speedway" style="cursor: pointer; background-image: url('/img/tomorrowland.jpeg'); background-size: cover; background-position: center; width:315px;height:155px;">
+                  <div class="card-body">
+                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Tomorrowland Speedway</h5>
+                  </div>
                 </div>
-              </div>
-
+              </a>
             </div>
             <!-- End Customers Card -->
 
@@ -661,7 +658,7 @@
                         show: true
                       }
                     },
-                    labels: ['Walt Disney World Railroad', 'Pirates of the Caribbean', 'Haunted Mansion', 'Seven Dwarfs Mine Train', 'Tommorrowland Speedway']
+                    labels: ['Walt Disney World Railroad', 'Pirates of the Caribbean', 'Haunted Mansion', 'Seven Dwarfs Mine Train', 'Tomorrowland Speedway']
                   }).render();
                 });
               </script>

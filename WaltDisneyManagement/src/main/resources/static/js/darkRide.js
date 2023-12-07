@@ -1,5 +1,5 @@
 var stompClient = null;
-var jsonRecebido;  // Variável para armazenar o JSON recebido
+var jsonRecebido = {"velocity_kmh":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0};  // Variável para armazenar o JSON recebido
 var charts = {};  // Objeto para armazenar instâncias de gráficos
 
 function connect() {
@@ -8,7 +8,9 @@ function connect() {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
 
-        stompClient.subscribe('/topic/Magic Kingdom/Walt Disney World Railroad', function (mensagem) { // essa pagina funciona para qualquer Roller Coaster, por exemplo trocar o nome para /topic/MagicKingdom/Seven Dwarfs Mine Train
+        var attractionName = getAttractionNameFromURL();
+
+        stompClient.subscribe(`/topic/Magic Kingdom/${attractionName}`, function (mensagem) { // essa pagina funciona para qualquer Roller Coaster, por exemplo trocar o nome para /topic/MagicKingdom/Seven Dwarfs Mine Train
             try {
 
                 jsonRecebido = JSON.parse(mensagem.body);
@@ -30,13 +32,13 @@ function connect() {
 
         });
 
-        stompClient.subscribe('/topic/Magic Kingdom/Walt Disney World Railroad/Alert', function (mensagem) {
+        stompClient.subscribe(`/topic/Magic Kingdom/${attractionName}/Alert`, function (mensagem) {
             showUrgentAlert(mensagem.body);
 
 
         });
 
-        stompClient.subscribe('/topic/Magic Kingdom/Walt Disney World Railroad/Reload', function (mensagem) {
+        stompClient.subscribe(`/topic/Magic Kingdom/${attractionName}/Reload`, function (mensagem) {
             window.location.href = mensagem.body;
 
 
@@ -47,6 +49,19 @@ function connect() {
     })
 
 
+}
+
+// Função para obter o nome da atração a partir da URL
+function getAttractionNameFromURL() {
+    var url = window.location.href;
+    var parts = url.split('/');
+    var attractionIndex = parts.indexOf('attractions');
+
+    if (attractionIndex !== -1 && attractionIndex < parts.length - 1) {
+        return parts[attractionIndex + 1].replace(/%20/g, ' ');
+    }
+
+    return null; // ou outra lógica padrão caso o nome da atração não seja encontrado
 }
 
 
@@ -113,7 +128,6 @@ function renderChart() {
         charts.barChart = new ApexCharts(document.querySelector("#barChart"), {
             series: [{
                 data: [
-                    parseInt(jsonRecebido.height_m),
                     parseInt(jsonRecebido.temperature),
                     parseInt(jsonRecebido.vibration)
                 ]
@@ -132,7 +146,7 @@ function renderChart() {
                 enabled: false
             },
             xaxis: {
-                categories: ['Height m', 'Temperature ºC', 'Vibration'],
+                categories: ['Temperature ºC', 'Vibration'],
             },
             yaxis: {
                 max: 120

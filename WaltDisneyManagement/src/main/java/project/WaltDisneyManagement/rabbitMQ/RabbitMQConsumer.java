@@ -15,6 +15,9 @@ import project.WaltDisneyManagement.entity.Park;
 import project.WaltDisneyManagement.repository.AttractionRepo;
 import project.WaltDisneyManagement.repository.ParkRepo;
 
+import project.WaltDisneyManagement.entity.ParkCars;
+import project.WaltDisneyManagement.repository.ParkCarsRepo;
+
 import java.util.Objects;
 
 
@@ -25,14 +28,16 @@ public class RabbitMQConsumer {
     private SimpMessagingTemplate messagingTemplate;
 
     @Autowired
-    private ParkRepo parkRepo;
-
-    @Autowired
     private AttractionRepo attractionRepo;
 
+    @Autowired
+    private ParkCarsRepo parkingRepo;
+
+    int total = 0;
 
 
-    @RabbitListener(queues = {Config.MagicKingdomQueue, Config.EpcotQueue, Config.HollywoodStudiosQueue, Config.AnimalKingdomQueue, Config.DisneySprings, Config.BlizzardBeach, Config.TyphoonLagoon})
+
+    @RabbitListener(queues = {Config.MagicKingdomQueue, Config.EpcotQueue, Config.HollywoodStudiosQueue, Config.AnimalKingdomQueue, Config.DisneySprings, Config.BlizzardBeach, Config.TyphoonLagoon, Config.ParkingLot})
     public void consumeMessageFromQueue(String message, @Header("amqp_receivedRoutingKey") String routingKey) {
 
 
@@ -47,7 +52,7 @@ public class RabbitMQConsumer {
 
 
         for(String key : jsonObject.keySet()){
-            if (!Objects.equals(key, "Time")){
+            if (!Objects.equals(key, "Time") && !Objects.equals(key, "ParkingLot1") && !Objects.equals(key, "ParkingLot2")){
                 System.out.println("key" + key);
                 Attraction attraction = attractionRepo.findByName(key);
 
@@ -114,8 +119,43 @@ public class RabbitMQConsumer {
                     }
 
                 }
+                
 
             }
+            else if (Objects.equals(key, "ParkingLot1") || (Objects.equals(key, "ParkingLot2"))) {
+                if (jsonObject.get(key) instanceof JsonObject) {
+                        ParkCars parkingLot = parkingRepo.findByName(key);
+                        System.out.println("Parque de estacionamento criado");
+
+                        JsonObject parkingObject = jsonObject.getAsJsonObject(key);
+                        System.out.println("dr " + parkingObject);
+
+                        int cars_in = parkingObject.getAsJsonPrimitive("cars_in").getAsInt();
+                        System.out.println(cars_in);
+                        int cars_out = parkingObject.getAsJsonPrimitive("cars_out").getAsInt();
+                        System.out.println(cars_out);
+
+
+                        int update = cars_in - cars_out;
+
+                        int total = parkingLot.getAtual();
+
+                        if (update < 0){
+                            total = total - update;
+                        }else{total = total + update;}
+
+                        if (total < 0){total = 0;}
+                        if (total > parkingLot.getMaxcap()){total = parkingLot.getMaxcap();}
+
+                        System.out.println("hey");
+                        parkingLot.setAtual(total);
+                        parkingRepo.save(parkingLot);
+
+
+
+                    }
+            }
+            
 
 
 

@@ -35,16 +35,18 @@
   <script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
   <script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
 
-  <script src="/js/magicKingdomJs.js"></script>
+  <script src="/js/rollerCoaster.js" th:if="${type == 'RollerCoaster'}"></script>
+  <script src="/js/waterRide.js" th:if="${type == 'WaterRide'}"></script>
+  <script src="/js/darkRide.js" th:if="${type == 'DarkRide'}"></script>
+  <script src="/js/carousel.js" th:if="${type == 'Carousel'}"></script>
 
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <!-- =======================================================
+    * Template Name: NiceAdmin
+    * Updated: Sep 18 2023 with Bootstrap v5.3.2
+    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
 </head>
 
 <body>
@@ -53,7 +55,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="/" class="logo d-flex align-items-center">
         <img src="/img/disneylogo.png" alt="">
         <span class="d-none d-lg-block">Walt Disney Management</span>
       </a>
@@ -285,7 +287,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" th:href="@{/index}">
+        <a class="nav-link collapsed" th:href="@{/}">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>
@@ -365,12 +367,12 @@
 
     <!-- ======= Page Title =======  -->
     <div class="pagetitle">
-      <h1>Walt Disney World Railroad</h1>
+      <h1 th:text="${attraction}"></h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
           <li class="breadcrumb-item"><a th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">Magic Kingdom</a></li>
-          <li class="breadcrumb-item active">Walt Disney World Railroad</li>
+          <li class="breadcrumb-item active" th:text="${attraction}"></li>
         </ol>
       </nav>
     </div>
@@ -435,7 +437,7 @@
                       <i class="bi bi-alarm"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>8h - 18h</h6>  
+                      <h6>8h - 18h</h6>
                     </div>
                   </div>
   
@@ -1017,7 +1019,7 @@
                     <i class="bi bi-tools"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>2 nov 2023</h6>
+                    <h6 th:text="${lastMaintenance}"></h6>
                     <!--<span class="text-danger small pt-1 fw-bold">Urgently needs maintenancee</span> -->
 
                   </div>

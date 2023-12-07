@@ -45,7 +45,7 @@ public class ParkController {
 
     @GetMapping("/parks/{parkName}/attractions/{attractionName}")
     public String attraction(Model model, @PathVariable("parkName") String parkName, @PathVariable("attractionName") String attractionName, HttpServletRequest request) {
-        Attraction attraction = attractionRepo.findByName(attractionName);
+
 
         var email = request.getSession().getAttribute("employee_email");
 
@@ -53,8 +53,11 @@ public class ParkController {
             return "redirect:/";
         }
 
+        Attraction attraction = attractionRepo.findByName(attractionName);
         Employee employee = this.employee.findByEmail(email.toString());
 
+        model.addAttribute("lastMaintenance", attraction.getLastMaintenance());
+        model.addAttribute("type", attraction.getType());
         model.addAttribute("attraction", attraction.getName());
         model.addAttribute("role", employee.getRole());
         model.addAttribute("username", employee.getName());

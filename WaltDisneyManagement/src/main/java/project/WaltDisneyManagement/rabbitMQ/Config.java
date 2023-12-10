@@ -20,6 +20,7 @@ public class Config {
     public static final String DisneySprings = "Disney Springs";
     public static final String BlizzardBeach = "Blizzard Beach";
     public static final String TyphoonLagoon = "Typhoon Lagoon";
+    public static final String ParkingLot = "Parking Lot";
 
     public static final String EXCHANGE_NAME = "";
 
@@ -59,6 +60,11 @@ public class Config {
         return new Queue(TyphoonLagoon, false);
     }
 
+    @Bean
+    Queue queue8() {
+        return new Queue(ParkingLot, false);
+    }
+
 
     @Bean
     DirectExchange exchange() { return new DirectExchange(EXCHANGE_NAME); }
@@ -96,6 +102,11 @@ public class Config {
     @Bean
     Binding binding7(@Qualifier("queue7") Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(TyphoonLagoon);
+    }
+
+    @Bean
+    Binding binding8(@Qualifier("queue8") Queue queue, DirectExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(ParkingLot);
     }
 
     @Bean

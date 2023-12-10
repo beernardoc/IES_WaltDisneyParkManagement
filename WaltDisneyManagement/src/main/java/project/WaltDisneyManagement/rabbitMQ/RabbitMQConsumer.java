@@ -41,30 +41,31 @@ public class RabbitMQConsumer {
     public void consumeMessageFromQueue(String message, @Header("amqp_receivedRoutingKey") String routingKey) {
 
 
-        System.out.println("Received message: " + message + " from queue: " + routingKey);
+        // System.out.println("Received message: " + message + " from queue: " + routingKey);
 
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = jsonParser.parse(message).getAsJsonObject();
 
         System.out.println(jsonObject);
-        System.out.println(jsonObject.keySet());
+        // System.out.println(jsonObject.keySet());
 
 
 
         for(String key : jsonObject.keySet()){
+            System.out.println(key);
             if (!Objects.equals(key, "Time") && !Objects.equals(key, "ParkingLot1") && !Objects.equals(key, "ParkingLot2")){
-                System.out.println("key" + key);
+                // System.out.println("key" + key);
                 Attraction attraction = attractionRepo.findByName(key);
 
 
 
                 if(attraction == null || attraction.getType() == null){
-                    System.out.println("Attraction not found");
+                    // System.out.println("Attraction not found");
                     continue;
                 }
 
                 if(Objects.equals(attraction.getStatus(), "Closed")){
-                    System.out.println("Attraction is closed");
+                    // System.out.println("Attraction is closed");
                     continue;
                 }
 
@@ -74,7 +75,7 @@ public class RabbitMQConsumer {
                 if(Objects.equals(attraction.getType(), "RollerCoaster")){
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
-                        System.out.println("rc " + attractionObject);
+                        // System.out.println("rc " + attractionObject);
 
                         Double velocityKmh = attractionObject.getAsJsonPrimitive("velocity_kmh").getAsDouble();
                         Double height = attractionObject.getAsJsonPrimitive("height_m").getAsDouble();
@@ -99,7 +100,7 @@ public class RabbitMQConsumer {
                 else if (Objects.equals(attraction.getType(), "DarkRide")){
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
-                        System.out.println("dr " + attractionObject);
+                        // System.out.println("dr " + attractionObject);
 
                         Double velocityKmh = attractionObject.getAsJsonPrimitive("velocity_kmh").getAsDouble();
                         Double temperature = attractionObject.getAsJsonPrimitive("temperature").getAsDouble();
@@ -126,6 +127,11 @@ public class RabbitMQConsumer {
                 if (jsonObject.get(key) instanceof JsonObject) {
                         ParkCars parkingLot = parkingRepo.findByName(key);
                         System.out.println("Parque de estacionamento criado");
+
+                        if(parkingLot == null){
+                            System.out.println("Parque de estacionamento não encontrado");
+                            continue;
+                        }
 
                         JsonObject parkingObject = jsonObject.getAsJsonObject(key);
                         System.out.println("dr " + parkingObject);

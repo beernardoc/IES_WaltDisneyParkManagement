@@ -37,6 +37,9 @@ previous_slush = {'velocity': 0.0, 'height': 0.0, 'temperaturewater': 0.0, 'vibr
 previous_gangplank = {'velocity': 0.0, 'height': 0.0, 'temperaturewater': 0.0, 'vibration': 0.0,'people_queue': 50, 'duration' : 900}
 previous_humunga = {'velocity': 0.0, 'height': 0.0, 'temperaturewater': 0.0, 'vibration': 0.0,'people_queue': 0, 'duration' : 900}
 
+#ParkingLot
+previous_parkingLot1 = {"cars_in": 10, "cars_out" : 0}
+previous_parkingLot2 = {"cars_in": 7, "cars_out" : 0}
 
 
 class Generators:
@@ -310,6 +313,27 @@ class Generators:
 
             await asyncio.sleep(20)
 
+    async def parkingLot(self):
+
+        while True:
+            (cars_in, cars_out) = await generate_data("parkinglot", previous_parkingLot1)
+            (cars_in, cars_out) = await generate_data("parkinglot", previous_parkingLot2)
+
+            data = {
+                "ParkingLot1": {
+                    "cars_in" : cars_in,
+                    "cars_out" : cars_out,
+                },
+                "ParkingLot2": {
+                    "cars_in" : cars_in,
+                    "cars_out" : cars_out
+                },
+                "Time" : time.time()
+            }
+
+            self.channel.basic_publish(exchange='', routing_key='ParkingLot', body=json.dumps(data))
+
+            await asyncio.sleep(60)
 
 
 
@@ -331,6 +355,11 @@ async def random_value_duration(previous, max_difference, precision=2):
         new_duration = 900
 
     return new_duration
+
+async def randomCars():
+    value = random.randint(0, 5)
+
+    return value
 
 
 
@@ -390,6 +419,12 @@ async def generate_data(type, previous_data, max_difference=20.0):
         duration = await random_value_duration(previous_data['duration'], 20)
         previous_data['duration'] = duration
         return velocity, height, temperaturewater, vibration, people_queue, duration
+    elif type == "parkinglot" : 
+        cars_in = await randomCars()
+        previous_data['cars_in'] = cars_in
+        cars_out = await randomCars()
+        previous_data['cars_out'] = cars_out
+        return cars_in, cars_out
 
 
 
@@ -409,6 +444,7 @@ if __name__ == '__main__':
     disney_springs = loop.create_task(generators.disney_springs())
     blizzard_beach = loop.create_task(generators.blizzard_beach())
     typhoon_lagoon = loop.create_task(generators.typhoon_lagoon())
+    parkinglot = loop.create_task(generators.parkingLot())
 
 
     try:

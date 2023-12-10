@@ -27,6 +27,7 @@
   <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
 
+
   <!-- Template Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
 
@@ -1021,7 +1022,7 @@
                     <i class="bi bi-tools"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>2 nov 2023</h6>
+                    <h6 th:text="${lastMaintenance}"></h6>
                     <!--<span class="text-danger small pt-1 fw-bold">Urgently needs maintenancee</span> -->
 
                   </div>
@@ -1029,6 +1030,73 @@
 
               </div>
             </div>
+
+
+
+          <div class="card info-card">
+
+            <div class="card-body">
+              <h5 class="card-title">Next Maintenance</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-tools"></i>
+                </div>
+                <div class="ps-3">
+                  <h6 th:text="${NextMaintenance}"></h6>
+                  <!--<span class="text-danger small pt-1 fw-bold">Urgently needs maintenancee</span> -->
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="card info-card" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#maintenanceModal">
+
+            <div class="card-body">
+              <h5 class="card-title">New maintenance</h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-tools"></i>
+                </div>
+                <div class="ps-3">
+                  <a class="text-muted">click to register a maintenance</a>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+          <!-- Maintenance Modal -->
+          <div class="modal fade" id="maintenanceModal" tabindex="-1" aria-labelledby="maintenanceModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="maintenanceModalLabel">New maintenance</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <!-- Add form elements for entering maintenance information -->
+                  <!-- Example form: -->
+                  <form>
+                    <div class="mb-3">
+                      <label for="maintenanceDetails" class="form-label">Descripton:</label>
+                      <textarea class="form-control" id="maintenanceDetails" rows="3"></textarea>
+                    </div>
+                    <!-- Add more form elements as needed -->
+                    <button type="button" class="btn btn-primary" onclick="sendMaintenance()">Register</button>
+                  </form>
+                </div>
+                <!-- You can add more modal content as needed -->
+              </div>
+            </div>
+          </div>
+
+
           <!-- End Customers Card -->
 
           <!-- Recent Activity -->
@@ -1047,40 +1115,19 @@
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+              <h5 class="card-title">Maintenance History</h5>
 
               <div class="activity">
 
+                <th:block th:each="history : ${maintenanceHistory}">
                 <div class="activity-item d-flex">
-                  <div class="activite-label">32 min</div>
+                  <div class="activite-label" th:text="${history.date}"></div>
                   <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                    Excessive queue congestion
-                  </div>
+                  <div class="activity-content" th:text="${history.description}"></div>
                 </div><!-- End activity item-->
+                </th:block>
 
-                <div class="activity-item d-flex">
-                  <div class="activite-label">56 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    Temperature nearing problematic levels
-                  </div>
-                </div><!-- End activity item-->
 
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 hrs</div>
-                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                  <div class="activity-content">
-                    Walt Disney World Railroad attraction opened
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">4 weeks</div>
-                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
-                    Preventive maintenance conducted on Walt Disney World Railroad attraction
-                  </div>
                 </div><!-- End activity item-->
 
               </div>

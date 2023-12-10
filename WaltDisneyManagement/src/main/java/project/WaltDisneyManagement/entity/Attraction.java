@@ -3,8 +3,13 @@ package project.WaltDisneyManagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDate;
 
 
 @Entity
@@ -27,6 +32,12 @@ public class Attraction {
     @Column(name = "attraction_type", length = 45)
     private String type;
 
+    @Column(name = "attraction_lastMaintenance", length = 45)
+    private LocalDate lastMaintenance;
+
+    @Column(name = "attraction_NextMaintenance", length = 45)
+    private LocalDate NextMaintenance;
+
 
     @ManyToOne
     @JoinColumn(name = "park_id", nullable = false)
@@ -41,6 +52,9 @@ public class Attraction {
         this.park = park;
         this.type = type;
         this.status = "Open";
+        this.lastMaintenance = LocalDate.of(2023, 11, 14);
+        this.NextMaintenance = LocalDate.of(2023, 12, 14);
+
     }
 
 
@@ -77,6 +91,12 @@ public class Attraction {
     }
 
 
+    public void setLastMaintenance(LocalDate lastMaintenance) {
+        this.lastMaintenance = lastMaintenance;
+        this.NextMaintenance = lastMaintenance.plusDays(30);
+    }
+
+
 
     @Override
     public String toString() {
@@ -87,5 +107,7 @@ public class Attraction {
                 ", park=" + park +
                 '}';
     }
+
+
 }
 

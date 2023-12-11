@@ -538,6 +538,22 @@
                 </div>
 
                 <div class="card-body">
+                  <h5 class="card-title">Visitors<span> | Now</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6 id="visitors">-</h6>
+                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="card-body">
                   <h5 class="card-title">Visitors Expected <span>| Today</span></h5>
 
                   <div class="d-flex align-items-center">
@@ -580,6 +596,8 @@
 
           </div>
           <!-- End Recent Activity -->
+
+      <!--  <div th:text="${visitors}"> </div> -->
 
           <!-- Pie Chart -->
           <div class="card">
@@ -655,6 +673,10 @@
   <script src="/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="/vendor/tinymce/tinymce.min.js"></script>
   <script src="/vendor/php-email-form/validate.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+  <script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
 
   <!-- Template Main JS File -->
   <script src="/js/main.js"></script>

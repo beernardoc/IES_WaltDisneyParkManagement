@@ -369,7 +369,7 @@ function renderVisitorsExpected() {
     if (jsonRecebido) {
         const expectedVisitors = calculateExpectedVisitors();
 
-        // Exibe o número esperado de visitantes
+        /*// Exibe o número esperado de visitantes
         document.getElementById("expectedVisitors").innerHTML = expectedVisitors;
 
         // Atualiza a porcentagem de mudança (exemplo: 100% de decréscimo)
@@ -379,6 +379,8 @@ function renderVisitorsExpected() {
         // Atualiza o texto de status (exemplo: "decrease")
         const statusText = decreasePercentage > 0 ? "decrease" : "increase";  // Substitua pela lógica real
         document.getElementById("statusText").innerHTML = statusText;
+
+         */
     }
 }
 

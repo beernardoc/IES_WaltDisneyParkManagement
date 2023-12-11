@@ -65,7 +65,7 @@ class Generators:
             (velocity_haunted_mansion, temperature_haunted_mansion, vibration_haunted_mansion, people_queue_haunted_mansion, duration_haunted_mansion) = await generate_data("Darkride", previous_haunted)
             (velocity_seven_dwarfs, height_seven_dwarfs, temperature_seven_dwarfs,vibration_seven_dwarfs, people_queue_seven_dwarfs, duration_seven_dwarfs) = await generate_data("Rollercoaster", previous_dwarfs)
             (velocity_tomorrowland, height_tomorrowland, temperature_tomorrowland, vibration_tomorrowland, people_queue_tomorrowland, duration_tomorrowland) = await generate_data("Rollercoaster", previous_tomorrowland)
-
+            People_in_out = await simulate_sensor()
             data = {
                 "Walt Disney World RailRoad": {
                     "velocity_kmh": velocity_walt_disney,
@@ -105,8 +105,14 @@ class Generators:
                     "people_queue" : people_queue_tomorrowland,
                     "duration" : duration_tomorrowland
                 },
+                "Visitors": {
+                    "entry_exit": People_in_out
+                },
+
                 "Time": time.time()
             }
+
+
 
             self.channel.basic_publish(exchange='', routing_key='Magic Kingdom', body=json.dumps(data))
 
@@ -361,6 +367,19 @@ async def randomCars():
 
     return value
 
+async def simulate_sensor():
+    # Simula o fluxo contínuo de pessoas
+    # Neste exemplo, há uma probabilidade maior de entrada do que saída para refletir o aumento típico durante o dia
+    probability_of_entry = 0.7
+    probability_of_exit = 0.3
+
+    # Simula entradas e saídas com base nas probabilidades
+    entry_value = 5
+    exit_value = -3
+
+    value = entry_value if random.uniform(0, 1) < probability_of_entry else exit_value if random.uniform(0, 1) < probability_of_exit else 0
+
+    return value
 
 
 

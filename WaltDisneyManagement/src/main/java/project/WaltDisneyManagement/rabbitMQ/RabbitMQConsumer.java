@@ -17,6 +17,9 @@ import project.WaltDisneyManagement.repository.ParkRepo;
 
 import project.WaltDisneyManagement.entity.ParkCars;
 import project.WaltDisneyManagement.repository.ParkCarsRepo;
+import project.WaltDisneyManagement.service.AttractionService;
+import project.WaltDisneyManagement.service.ParkCarsService;
+import project.WaltDisneyManagement.service.ParkService;
 
 import java.util.Objects;
 
@@ -31,9 +34,21 @@ public class RabbitMQConsumer {
     private AttractionRepo attractionRepo;
 
     @Autowired
+    private AttractionService attractionService;
+
+    @Autowired
     private ParkCarsRepo parkingRepo;
 
-    int total = 0;
+    @Autowired
+    private ParkCarsService parkCarsService;
+
+    @Autowired
+    private ParkRepo parkRepo;
+
+    @Autowired
+    private ParkService parkService;
+
+
 
 
 
@@ -41,7 +56,7 @@ public class RabbitMQConsumer {
     public void consumeMessageFromQueue(String message, @Header("amqp_receivedRoutingKey") String routingKey) {
 
 
-        // System.out.println("Received message: " + message + " from queue: " + routingKey);
+        System.out.println("Received message: " + message + " from queue: " + routingKey);
 
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = jsonParser.parse(message).getAsJsonObject();
@@ -52,10 +67,12 @@ public class RabbitMQConsumer {
 
 
         for(String key : jsonObject.keySet()){
-            System.out.println(key);
-            if (!Objects.equals(key, "Time") && !Objects.equals(key, "ParkingLot1") && !Objects.equals(key, "ParkingLot2")){
+            System.out.println("key" + key);
+            System.out.println("value" + jsonObject.get(key));
+
+            if (!Objects.equals(key, "Time") && !Objects.equals(key, "ParkingLot1") && !Objects.equals(key, "ParkingLot2") && !Objects.equals(key, "Visitors")) {
                 // System.out.println("key" + key);
-                Attraction attraction = attractionRepo.findByName(key);
+                Attraction attraction = attractionService.findByName(key);
 
 
 
@@ -120,12 +137,34 @@ public class RabbitMQConsumer {
                     }
 
                 }
+
                 
 
             }
+            else if (Objects.equals(key, "Visitors")) {
+
+                var value = jsonObject.get(key).getAsJsonObject().get("entry_exit").getAsInt();
+
+                Park park = parkService.findByName(routingKey);
+
+                if(park == null){
+                    // System.out.println("Attraction not found");
+                    continue;
+                }
+
+                park.addVisitor(value);
+                parkRepo.save(park);
+                messagingTemplate.convertAndSend("/topic/Visitors", parkService.getTotalVisitors());
+                messagingTemplate.convertAndSend("/topic/" + park.getName() + "/Visitors", park.getVisitors());
+
+
+            }
+
+
+
             else if (Objects.equals(key, "ParkingLot1") || (Objects.equals(key, "ParkingLot2"))) {
                 if (jsonObject.get(key) instanceof JsonObject) {
-                        ParkCars parkingLot = parkingRepo.findByName(key);
+                        ParkCars parkingLot = parkCarsService.findByName(key);
                         System.out.println("Parque de estacionamento criado");
 
                         if(parkingLot == null){
@@ -161,7 +200,7 @@ public class RabbitMQConsumer {
 
                     }
             }
-            
+
 
 
 

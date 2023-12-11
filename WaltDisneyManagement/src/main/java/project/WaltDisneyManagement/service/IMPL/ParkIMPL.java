@@ -34,4 +34,14 @@ public class ParkIMPL implements ParkService {
 
 
     }
+
+    @Override
+    public int getTotalVisitors() {
+        return parkRepo.getTotalVisitors();
+    }
+
+    @Override
+    public Park findByName(String name) {
+        return parkRepo.findByName(name);
+    }
 }

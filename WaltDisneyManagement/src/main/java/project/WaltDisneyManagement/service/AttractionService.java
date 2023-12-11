@@ -10,4 +10,6 @@ import project.WaltDisneyManagement.entity.Attraction;
 @Service
 public interface AttractionService {
     Attraction addAttraction(AttractionDto attractionDto);
+
+    Attraction findByName(String name);
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import project.WaltDisneyManagement.entity.Attraction;
 import project.WaltDisneyManagement.entity.Park;
 import project.WaltDisneyManagement.repository.AttractionRepo;
+import project.WaltDisneyManagement.service.AttractionService;
 
 import java.util.Objects;
 
@@ -20,6 +21,9 @@ public class CloseController {
 
     @Autowired
     private AttractionRepo attractionRepo;
+
+    @Autowired
+    private AttractionService attractionService;
 
 
     @Autowired
@@ -33,7 +37,7 @@ public class CloseController {
         String attractionName = String.valueOf(jsonObject.get("attraction")).replaceAll("\"", "");
         String status = String.valueOf(jsonObject.get("status")).replaceAll("\"", "");
 
-        Attraction attraction = attractionRepo.findByName(attractionName);
+        Attraction attraction = attractionService.findByName(attractionName);
 
         if(status.equals("Closed")){
             attraction.setStatus("Open");

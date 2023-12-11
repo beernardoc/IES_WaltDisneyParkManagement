@@ -8,4 +8,6 @@ import project.WaltDisneyManagement.entity.ParkCars;
 public interface ParkCarsService {
     
     ParkCars addParkCars(ParkCarsDto parkCarsDto);
+
+    ParkCars findByName(String parkName);
 }

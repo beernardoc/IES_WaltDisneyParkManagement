@@ -71,4 +71,14 @@ public class EmployeeIMPL implements EmployeeService {
         return true;
         
     }
+
+    @Override
+    public Employee findByName(String name) {
+        return employeeRepo.findByName(name);
+    }
+
+    @Override
+    public Employee findByEmail(String email) {
+        return employeeRepo.findByEmail(email);
+    }
 }

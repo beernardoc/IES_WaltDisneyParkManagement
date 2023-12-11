@@ -198,7 +198,8 @@ function renderChart() {
             },
             yaxis: {
                 max: 120
-            }
+            },
+            colors: ['#00008b', '#00008b', '#00008b']
         });
 
         charts.barChart.render(); // Renderize o gráfico
@@ -290,7 +291,8 @@ function renderVel() {
             },
             xaxis: {
                 categories: tempo,
-            }
+            },
+            colors: ['#00008b']
         });
 
         charts.lineChart.render(); // Renderize o gráfico
@@ -345,7 +347,8 @@ function renderQueue() {
             },
             xaxis: {
                 categories: tempoQueue,
-            }
+            },
+            colors: ['#00008b']
         });
 
         charts.areaChart.render(); // Renderize o gráfico

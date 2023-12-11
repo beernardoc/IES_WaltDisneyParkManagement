@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import project.WaltDisneyManagement.entity.MaintenanceHistory;
 import project.WaltDisneyManagement.repository.EmployeeRepo;
 import project.WaltDisneyManagement.repository.MaintenanceHistoryRepo;
+import project.WaltDisneyManagement.service.EmployeeService;
+import project.WaltDisneyManagement.service.MaintenanceHistoryService;
 
 import java.util.List;
 
@@ -18,10 +20,10 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
-    private EmployeeRepo employeeRepo;
+    private EmployeeService employeeService;
 
     @Autowired
-    private MaintenanceHistoryRepo maintenanceHistoryRepo;
+    private MaintenanceHistoryService maintenanceHistoryService;
 
 
     @RequestMapping("/")
@@ -31,11 +33,11 @@ public class IndexController {
 
         if (email != null) {
 
-            var employee = employeeRepo.findByEmail(email.toString());
+            var employee = employeeService.findByEmail(email.toString());
             var username = employee.getName();
             var role = employee.getRole();
 
-            List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryRepo.findAll();
+            List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findAll();
 
             model.addAttribute("maintenanceHistory", maintenanceHistory);
             model.addAttribute("role", role);

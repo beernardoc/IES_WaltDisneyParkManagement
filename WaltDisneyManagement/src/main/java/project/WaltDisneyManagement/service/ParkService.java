@@ -10,6 +10,14 @@ public interface ParkService {
 
     Park addPark(ParkDto parkDto);
 
+    public int getTotalVisitors();
+
+    Park findByName(String name);
+
+
+
+
+
 
 
 }

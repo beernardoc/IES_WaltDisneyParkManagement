@@ -127,14 +127,12 @@ function sendCloseOrOpenMessage(element) {
 
     if (stompClient && stompClient.connected) {
         stompClient.send('/topic/CloseOrOPenAttraction', {}, message);
-        window.location.reload();
+        setTimeout(function () {
+            window.location.reload();
+        }, 100);
     }
     else
         console.log('Websocket não está conectado. Não foi possível enviar a mensagem.');
-
-
-
-
 
 }
 

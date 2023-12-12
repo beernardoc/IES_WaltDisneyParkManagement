@@ -22,6 +22,9 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     private AttractionRepo attractionRepo;
 
+    @Autowired
+    private ParkCarsRepo parkCarsRepo;
+
 
 
 
@@ -50,6 +53,7 @@ public class DataInitializer implements CommandLineRunner {
         Attraction TomorrowLandSpeedway = new Attraction("Tomorrowland Speedway", magicKingdomPark, "RollerCoaster");
         attractionRepo.save(TomorrowLandSpeedway);
 
+
         Park Epcot = new Park("Epcot", null);
         parkRepo.save(Epcot);
 
@@ -61,7 +65,10 @@ public class DataInitializer implements CommandLineRunner {
 
         Attraction TestTrack = new Attraction("Test Track", Epcot, "Darkride");
         attractionRepo.save(TestTrack);
+
         
+        ParkCars ParkingLot1 = new ParkCars("ParkingLot1", 700, 30);
+        parkCarsRepo.save(ParkingLot1);
 
 
 

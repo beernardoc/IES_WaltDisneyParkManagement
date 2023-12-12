@@ -28,4 +28,9 @@ public class AttractionIMPL implements AttractionService {
 
         return attraction;
     }
+
+    @Override
+    public Attraction findByName(String name) {
+        return attractionRepo.findByName(name);
+    }
 }

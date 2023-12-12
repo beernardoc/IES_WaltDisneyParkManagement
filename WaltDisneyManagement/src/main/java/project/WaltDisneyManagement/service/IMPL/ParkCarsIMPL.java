@@ -29,4 +29,9 @@ public class ParkCarsIMPL implements ParkCarsService {
     }
     
 
+    @Override
+    public ParkCars findByName(String parkName) {
+        return parkCarsRepo.findByName(parkName);
+    }
+
 }

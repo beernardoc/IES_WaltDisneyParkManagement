@@ -8,6 +8,59 @@
 
 
 
+var stompClient = null;
+var socket = new SockJS('/websocket-endpoint');
+stompClient = Stomp.over(socket);
+var parkName = getParkNameFromURL();
+console.log("parkname", parkName);
+stompClient.connect({}, function (frame) {
+
+  if(parkName){
+    stompClient.subscribe(`/topic/${parkName}/Visitors`, function (mensagem) {
+      console.log(mensagem.body); // mensagem.body é o valor do número de visitantes agora
+
+      document.getElementById("visitors").innerHTML = mensagem.body;
+
+
+    });
+
+  }
+  else{ // para pagina index onde parkname é null
+    stompClient.subscribe(`/topic/Visitors`, function (mensagem) {
+      console.log(mensagem.body); // mensagem.body é o valor do número de visitantes agora
+
+      document.getElementById("visitors").innerHTML = mensagem.body;
+
+
+    });
+
+  }
+
+
+
+
+
+
+});
+
+function getParkNameFromURL() {
+  var url = window.location.href;
+  var parts = url.split('/');
+  var parkIndex = parts.indexOf('parks');
+
+  if (parkIndex !== -1 && parkIndex < parts.length - 1) {
+    return parts[parkIndex + 1].replace(/%20/g, ' ');
+  }
+
+  return null; // ou outra lógica padrão caso o nome do parque não seja encontrado
+}
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
   // Encontrar todos os elementos com a classe customers-card
   const cardElements = document.querySelectorAll('.customers-card');

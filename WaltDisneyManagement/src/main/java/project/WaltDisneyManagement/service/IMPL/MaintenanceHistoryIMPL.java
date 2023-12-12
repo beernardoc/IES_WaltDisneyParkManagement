@@ -8,6 +8,8 @@ import project.WaltDisneyManagement.entity.MaintenanceHistory;
 import project.WaltDisneyManagement.repository.MaintenanceHistoryRepo;
 import project.WaltDisneyManagement.service.MaintenanceHistoryService;
 
+import java.util.List;
+
 @Service
 public class MaintenanceHistoryIMPL implements MaintenanceHistoryService {
 
@@ -30,4 +32,21 @@ public class MaintenanceHistoryIMPL implements MaintenanceHistoryService {
 
         return maintenanceHistory;
     }
+
+    @Override
+    public List<MaintenanceHistory> findAll() {
+        return maintenanceHistoryRepo.findAll();
+    }
+
+    @Override
+    public List<MaintenanceHistory> findByPark(String park) {
+        return maintenanceHistoryRepo.findByPark(park);
+    }
+
+    @Override
+    public List<MaintenanceHistory> findByAttraction(String attraction) {
+        return maintenanceHistoryRepo.findByAttraction(attraction);
+    }
+
+
 }

@@ -22,6 +22,9 @@ public class Park {
     @Column(name = "park_name", length = 45)
     private String name;
 
+    @Column(name = "park_visitors", length = 45)
+    private int visitors;
+
     @OneToMany(mappedBy = "park", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Attraction> attractions;
@@ -32,6 +35,15 @@ public class Park {
     public Park(String name, List<Attraction> attractions) {
         this.name = name;
         this.attractions = attractions;
+        this.visitors = 0;
+    }
+
+    public void addVisitor(int visitors) {
+        this.visitors += visitors;
+    }
+
+    public void removeVisitor(int visitors) {
+        this.visitors -= visitors;
     }
 
     @Override

@@ -12,23 +12,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import project.WaltDisneyManagement.entity.Attraction;
 import project.WaltDisneyManagement.entity.Employee;
 import project.WaltDisneyManagement.entity.MaintenanceHistory;
-import project.WaltDisneyManagement.repository.AttractionRepo;
-import project.WaltDisneyManagement.repository.EmployeeRepo;
-import project.WaltDisneyManagement.repository.MaintenanceHistoryRepo;
+import project.WaltDisneyManagement.service.AttractionService;
+import project.WaltDisneyManagement.service.EmployeeService;
+import project.WaltDisneyManagement.service.MaintenanceHistoryService;
 
 import java.util.List;
 
 @Controller
 public class ParkController {
 
-    @Autowired
-    private EmployeeRepo employeeRepo;
 
     @Autowired
-    private AttractionRepo attractionRepo;
+    private EmployeeService employeeService;
 
     @Autowired
-    private MaintenanceHistoryRepo maintenanceHistoryrepo;
+    private AttractionService attractionService;
+
+    @Autowired
+    private MaintenanceHistoryService maintenanceHistoryService;
+
 
 
 
@@ -42,9 +44,9 @@ public class ParkController {
             return "redirect:/";
         }
 
-        Employee employee = employeeRepo.findByEmail(email.toString());
+        Employee employee = employeeService.findByEmail(email.toString());
 
-        List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryrepo.findByPark(parkName);
+        List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findByPark(parkName);
 
         model.addAttribute("maintenanceHistory", maintenanceHistory);
         model.addAttribute("role", employee.getRole());
@@ -63,9 +65,9 @@ public class ParkController {
             return "redirect:/";
         }
 
-        Attraction attraction = attractionRepo.findByName(attractionName);
-        Employee employee = employeeRepo.findByEmail(email.toString());
-        List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryrepo.findByAttraction(attractionName);
+        Attraction attraction = attractionService.findByName(attractionName);
+        Employee employee = employeeService.findByEmail(email.toString());
+        List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findByAttraction(attractionName);
 
         model.addAttribute("maintenanceHistory", maintenanceHistory);
 

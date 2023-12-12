@@ -8,9 +8,10 @@ function connect() {
     stompClient.connect({}, function (frame) {
         console.log('Connected: ' + frame);
 
-        var attractionName = getAttractionNameFromURL();
+        var attractionName, parkName;
+        [attractionName, parkName] = getAttractionNameFromURL();
 
-        stompClient.subscribe(`/topic/Magic Kingdom/${attractionName}`, function (mensagem) { // essa pagina funciona para qualquer Roller Coaster, por exemplo trocar o nome para /topic/MagicKingdom/Seven Dwarfs Mine Train
+        stompClient.subscribe(`/topic/${parkName}/${attractionName}`, function (mensagem) { // essa pagina funciona para qualquer Roller Coaster, por exemplo trocar o nome para /topic/MagicKingdom/Seven Dwarfs Mine Train
             try {
 
                 jsonRecebido = JSON.parse(mensagem.body);
@@ -32,13 +33,13 @@ function connect() {
 
         });
 
-        stompClient.subscribe(`/topic/Magic Kingdom/${attractionName}/Alert`, function (mensagem) {
+        stompClient.subscribe(`/topic/${parkName}/${attractionName}/Alert`, function (mensagem) {
             showUrgentAlert(mensagem.body);
 
 
         });
 
-        stompClient.subscribe(`/topic/Magic Kingdom/${attractionName}/Reload`, function (mensagem) {
+        stompClient.subscribe(`/topic/${parkName}/${attractionName}/Reload`, function (mensagem) {
             window.location.href = mensagem.body;
 
 
@@ -51,17 +52,61 @@ function connect() {
 
 }
 
+function sendMaintenance() {
+    // Obtenha os dados do formulário
+    const maintenanceDetails = document.getElementById('maintenanceDetails').value;
+
+    var attractionName, parkName;
+    [attractionName, parkName] = getAttractionNameFromURL();
+
+    // Construa a URL da API
+    const apiUrl = `/api/parks/${encodeURIComponent(parkName)}/attractions/${encodeURIComponent(attractionName)}/SetMaintenance`;
+
+    // Construa a descrição formatada para URL
+    const formattedDescription = encodeURIComponent(maintenanceDetails);
+
+    // Enviar a solicitação usando fetch
+    fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', // Defina o tipo de conteúdo para formulário
+        },
+        body: `description=${formattedDescription}`, // Use o formato de formulário para os dados
+    })
+        .then(response => response.json())
+        .then(result => {
+            $('#maintenanceModal').modal('hide');
+            // Faça qualquer outra coisa que você queira após o registro bem-sucedido
+            document.getElementById('maintenanceDetails').value = '';
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Erro no registro de manutenção:', error);
+            // Lide com o erro conforme necessário
+        });
+}
+
 // Função para obter o nome da atração a partir da URL
 function getAttractionNameFromURL() {
+
     var url = window.location.href;
     var parts = url.split('/');
+
     var attractionIndex = parts.indexOf('attractions');
+    var parkIndex = parts.indexOf('parks');
+
+    var attractionName
+    var parkName
 
     if (attractionIndex !== -1 && attractionIndex < parts.length - 1) {
-        return parts[attractionIndex + 1].replace(/%20/g, ' ');
+        attractionName = parts[attractionIndex + 1].replace(/%20/g, ' ');
     }
 
-    return null; // ou outra lógica padrão caso o nome da atração não seja encontrado
+    if (parkIndex !== -1 && parkIndex < parts.length - 1) {
+        parkName = parts[parkIndex + 1].replace(/%20/g, ' ');
+    }
+
+    return [attractionName, parkName];
 }
 
 
@@ -80,6 +125,9 @@ function sendCloseOrOpenMessage(element) {
 
     if (stompClient && stompClient.connected) {
         stompClient.send('/topic/CloseOrOPenAttraction', {}, message);
+        setTimeout(function () {
+            window.location.reload();
+        }, 100);
     }
     else
         console.log('Websocket não está conectado. Não foi possível enviar a mensagem.');
@@ -107,6 +155,7 @@ function showUrgentAlert(message) {
     setTimeout(function() {
         // Esconder o modal
         $(modal).modal('hide');
+        window.location.reload();
     }, 10000); // Esconder após 5 segundos, ajuste conforme necessário
 }
 
@@ -151,7 +200,8 @@ function renderChart() {
             },
             yaxis: {
                 max: 120
-            }
+            },
+            colors: ['#00008b', '#00008b', '#00008b']
         });
 
         charts.barChart.render(); // Renderize o gráfico
@@ -243,7 +293,8 @@ function renderVel() {
             },
             xaxis: {
                 categories: tempo,
-            }
+            },
+            colors: ['#00008b']
         });
 
         charts.lineChart.render(); // Renderize o gráfico
@@ -298,7 +349,8 @@ function renderQueue() {
             },
             xaxis: {
                 categories: tempoQueue,
-            }
+            },
+            colors: ['#00008b']
         });
 
         charts.areaChart.render(); // Renderize o gráfico
@@ -321,7 +373,7 @@ function renderVisitorsExpected() {
     if (jsonRecebido) {
         const expectedVisitors = calculateExpectedVisitors();
 
-        // Exibe o número esperado de visitantes
+       /* // Exibe o número esperado de visitantes
         document.getElementById("expectedVisitors").innerHTML = expectedVisitors;
 
         // Atualiza a porcentagem de mudança (exemplo: 100% de decréscimo)
@@ -331,6 +383,8 @@ function renderVisitorsExpected() {
         // Atualiza o texto de status (exemplo: "decrease")
         const statusText = decreasePercentage > 0 ? "decrease" : "increase";  // Substitua pela lógica real
         document.getElementById("statusText").innerHTML = statusText;
+
+        */
     }
 }
 

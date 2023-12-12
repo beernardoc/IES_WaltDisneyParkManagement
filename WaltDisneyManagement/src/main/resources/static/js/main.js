@@ -94,22 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
       } else if (attractionName) {
         // Lógica para cards com data-attraction
         console.log('Clicou no card para atração:', attractionName);
-        fetch(`/api/attractions/${attractionName}`)
-            .then(response => {
-              if (response.ok) {
-                const currentPath = window.location.pathname;  // Obtém o caminho atual
-                const attractionPath = `/attractions/${attractionName}`;
 
-                window.location.href = currentPath + attractionPath;
-
-              } else {
-                alert("Erro ao obter dados da atração.");
-              }
-            })
-            .catch(error => {
-              console.error(error);
-              alert("Erro ao processar a solicitação.");
-            });
       }
     });
   });

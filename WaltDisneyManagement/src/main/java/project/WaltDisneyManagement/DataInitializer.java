@@ -53,6 +53,19 @@ public class DataInitializer implements CommandLineRunner {
         Attraction TomorrowLandSpeedway = new Attraction("Tomorrowland Speedway", magicKingdomPark, "RollerCoaster");
         attractionRepo.save(TomorrowLandSpeedway);
 
+
+        Park Epcot = new Park("Epcot", null);
+        parkRepo.save(Epcot);
+
+        Attraction SpaceshipEarth = new Attraction("Spaceship Earth", Epcot, "DarkRide");
+        attractionRepo.save(SpaceshipEarth);
+
+        Attraction GuardiansoftheGalaxy = new Attraction("Guardians of the Galaxy: Cosmic Rewind", Epcot, "Darkride");
+        attractionRepo.save(GuardiansoftheGalaxy);
+
+        Attraction TestTrack = new Attraction("Test Track", Epcot, "Darkride");
+        attractionRepo.save(TestTrack);
+
         
         ParkCars ParkingLot1 = new ParkCars("ParkingLot1", 700, 30);
         parkCarsRepo.save(ParkingLot1);

@@ -288,14 +288,14 @@
       <li class="nav-heading">Parks</li>
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom'})}">
           <i class="bi bi-signpost"></i>
           <span>Magic Kingdom</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Epcot Park'})}">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Epcot'})}">
           <i class="bi bi-signpost"></i>
           <span>EPCOT</span>
         </a>
@@ -391,7 +391,7 @@
             <!-- Epcot Card -->
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
 
-              <div class="card info-card customers-card"  data-parkname="Epcot" style="background-image: url('/img/epcot.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+              <div class="card info-card customers-card"  data-parkname="Epcot" style="cursor: pointer;background-image: url('/img/epcot.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
 
                 <div class="card-body">
                   <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">EPCOT</h5>
@@ -404,7 +404,7 @@
             <!-- Disney's Hollywood Studios Park Card -->
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
 
-              <div class="card info-card customers-card" data-parkname="Hollywood Studios" style="background-image: url('/img/hollywood.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+              <div class="card info-card customers-card" data-parkname="Hollywood Studios" style="cursor: pointer;background-image: url('/img/hollywood.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
 
                 <div class="card-body">
                   <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Hollywood Studios</h5>
@@ -417,7 +417,7 @@
             <!-- Disney's Animal Kingdom Theme Park -->
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
 
-              <div class="card info-card customers-card" data-parkname="Animal Kingdom" style="background-image: url('/img/animalKingdom.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+              <div class="card info-card customers-card" data-parkname="Animal Kingdom" style="cursor: pointer;background-image: url('/img/animalKingdom.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
 
                 <div class="card-body">
                   <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Animal Kingdom</h5>
@@ -430,7 +430,7 @@
             <!-- Disney Springs Card -->
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
 
-              <div class="card info-card customers-card" data-parkname="Disney Springs" style="background-image: url('/img/springs.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+              <div class="card info-card customers-card" data-parkname="Disney Springs" style="cursor: pointer;background-image: url('/img/springs.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
 
                 <div class="card-body">
                   <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Disney Springs</h5>
@@ -443,7 +443,7 @@
             <!-- Disney's Typhoon Lagoon Water Park  Card -->
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
 
-              <div class="card info-card customers-card" data-parkname="Typhoon Lagoon" style="background-image: url('/img/lagoon.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+              <div class="card info-card customers-card" data-parkname="Typhoon Lagoon" style="cursor: pointer;background-image: url('/img/lagoon.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
 
                 <div class="card-body">
                   <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Typhoon Lagoon</h5>
@@ -456,7 +456,7 @@
             <!-- Disney's Blizzard Beach Water Park Card -->
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
 
-              <div class="card info-card customers-card" data-parkname="Blizzard Beach" style="background-image: url('/img/blizzard.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+              <div class="card info-card customers-card" data-parkname="Blizzard Beach" style="cursor: pointer;background-image: url('/img/blizzard.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
 
                 <div class="card-body">
                   <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Blizzard Beach</h5>
@@ -468,6 +468,7 @@
 
             <!-- Parque Estacionamento 1 Card -->
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
+
               <a>
                 <div class="card info-card customers-card" data-parkinglotname="ParkingLot1"  style="cursor: pointer; background-image: url('/img/parque1.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
                   <div class="card-body">

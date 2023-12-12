@@ -164,13 +164,10 @@ public class RabbitMQConsumer {
 
             else if (Objects.equals(key, "ParkingLot1") || (Objects.equals(key, "ParkingLot2"))) {
                 if (jsonObject.get(key) instanceof JsonObject) {
-<<<<<<< HEAD
-                        ParkCars parkingLot = parkingRepo.findByName(key);
-                        // System.out.println("Parque de estacionamento criado");
-=======
+
                         ParkCars parkingLot = parkCarsService.findByName(key);
                         System.out.println("Parque de estacionamento criado");
->>>>>>> 4e4d6dafd3847f928a8a705d3e304ac1a4502a02
+
 
                         if(parkingLot == null){
                             System.out.println("Parque de estacionamento não encontrado");

@@ -346,14 +346,14 @@
       </li><!-- End Error 404 Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" href="pages-blank.html">
+        <a class="nav-link collapsed" th:href="@{/parkCars/{parkName}(parkName=${'ParkingLot1'})}">
           <i class="bi bi-car-front"></i>
           <span>Parking Cars 1</span>
         </a>
       </li><!-- End Blank Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'Parking Cars 2'})}">
+        <a class="nav-link collapsed" th:href="@{/parkCars/{parkName}(parkName=${'ParkingLot2'})}">
           <i class="bi bi-car-front"></i>
           <span>Parking Cars 2</span>
         </a>

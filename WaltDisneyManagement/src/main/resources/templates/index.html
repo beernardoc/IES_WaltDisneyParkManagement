@@ -342,7 +342,7 @@
       </li><!-- End Blank Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'Parking Cars 2'})}">
+        <a class="nav-link collapsed" th:href="@{/ParkCars/{parkName}(parkName=${'ParkingCars2'})}">
           <i class="bi bi-car-front"></i>
           <span>Parking Cars 2</span>
         </a>
@@ -466,24 +466,22 @@
 
             <!-- Parque Estacionamento 1 Card -->
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-
-              <div class="card info-card customers-card"  style="background-image: url('/img/parque1.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
-
-                <div class="card-body">
-                  <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Parking Cars 1</h5>
+              <a>
+                <div class="card info-card customers-card" data-parkinglotname="ParkingLot1"  style="cursor: pointer; background-image: url('/img/parque1.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+                  <div class="card-body">
+                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">ParkingLot1</h5>
+                  </div>
                 </div>
-              </div>
-
+              </a>
             </div>
             <!-- End Customers Card -->
 
-            <!-- Parque Estacionamento 2 Card -->
+            <!-- Parque Estacionamento 2 Card --> 
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-              <a th:href="@{/Cars/{parkName}(parkName=${'Parking Cars 2'})}">
-                <div class="card info-card customers-card"  style="background-image: url('/img/parque2.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
-
+              <a>
+                <div class="card info-card customers-card" data-parkinglotName="ParkingLot2" style="cursor: pointer; background-image: url('/img/parque2.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
                   <div class="card-body">
-                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Parking Cars 2</h5>
+                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">ParkingLot2</h5>
                   </div>
                 </div>
               </a>

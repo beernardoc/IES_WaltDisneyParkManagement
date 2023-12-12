@@ -38,8 +38,8 @@ previous_gangplank = {'velocity': 0.0, 'height': 0.0, 'temperaturewater': 0.0, '
 previous_humunga = {'velocity': 0.0, 'height': 0.0, 'temperaturewater': 0.0, 'vibration': 0.0,'people_queue': 0, 'duration' : 900}
 
 #ParkingLot
-previous_parkingLot1 = {"cars_in": 10, "cars_out" : 0}
-previous_parkingLot2 = {"cars_in": 7, "cars_out" : 0}
+previous_parkingLot1 = {"cars_in": 0, "cars_out" : 0}
+previous_parkingLot2 = {"cars_in": 0, "cars_out" : 0}
 
 
 class Generators:
@@ -328,7 +328,7 @@ class Generators:
             data = {
                 "ParkingLot1": {
                     "cars_in" : cars_in,
-                    "cars_out" : cars_out,
+                    "cars_out" : cars_out
                 },
                 "ParkingLot2": {
                     "cars_in" : cars_in,
@@ -337,9 +337,9 @@ class Generators:
                 "Time" : time.time()
             }
 
-            self.channel.basic_publish(exchange='', routing_key='ParkingLot', body=json.dumps(data))
+            self.channel.basic_publish(exchange='', routing_key='Parking Lot', body=json.dumps(data))
 
-            await asyncio.sleep(60)
+            await asyncio.sleep(50)
 
 
 

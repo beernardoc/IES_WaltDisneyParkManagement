@@ -164,8 +164,10 @@ public class RabbitMQConsumer {
 
             else if (Objects.equals(key, "ParkingLot1") || (Objects.equals(key, "ParkingLot2"))) {
                 if (jsonObject.get(key) instanceof JsonObject) {
+
                         ParkCars parkingLot = parkCarsService.findByName(key);
                         System.out.println("Parque de estacionamento criado");
+
 
                         if(parkingLot == null){
                             System.out.println("Parque de estacionamento não encontrado");
@@ -173,12 +175,12 @@ public class RabbitMQConsumer {
                         }
 
                         JsonObject parkingObject = jsonObject.getAsJsonObject(key);
-                        System.out.println("dr " + parkingObject);
+                        // System.out.println("dr " + parkingObject);
 
                         int cars_in = parkingObject.getAsJsonPrimitive("cars_in").getAsInt();
-                        System.out.println(cars_in);
+                        // System.out.println(cars_in);
                         int cars_out = parkingObject.getAsJsonPrimitive("cars_out").getAsInt();
-                        System.out.println(cars_out);
+                        // System.out.println(cars_out);
 
 
                         int update = cars_in - cars_out;
@@ -192,9 +194,11 @@ public class RabbitMQConsumer {
                         if (total < 0){total = 0;}
                         if (total > parkingLot.getMaxcap()){total = parkingLot.getMaxcap();}
 
-                        System.out.println("hey");
+                        
                         parkingLot.setAtual(total);
                         parkingRepo.save(parkingLot);
+
+                        messagingTemplate.convertAndSend("/topic/" + parkingLot.getName(), parkingObject.toString());
 
 
 

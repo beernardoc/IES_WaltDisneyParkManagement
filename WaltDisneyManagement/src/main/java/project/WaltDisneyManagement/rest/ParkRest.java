@@ -24,9 +24,6 @@ public class ParkRest {
     @Autowired
     private ParkService parkService;
 
-    @Autowired
-    private ParkRepo parkRepo;
-
 
 
     @PostMapping("/api/park")
@@ -41,7 +38,7 @@ public class ParkRest {
     @GetMapping("/api/parks/{parkName}")
     public ResponseEntity<Park> getParkData(@PathVariable("parkName") String parkName) {
 
-        Park park = parkRepo.findByName(parkName);
+        Park park = parkService.findByName(parkName);
 
         if (park != null) {
             return ResponseEntity.ok(park);

@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import project.WaltDisneyManagement.entity.Attraction;
 import project.WaltDisneyManagement.entity.Employee;
 import project.WaltDisneyManagement.entity.MaintenanceHistory;
+import project.WaltDisneyManagement.entity.Park;
 import project.WaltDisneyManagement.service.AttractionService;
 import project.WaltDisneyManagement.service.EmployeeService;
 import project.WaltDisneyManagement.service.MaintenanceHistoryService;
+import project.WaltDisneyManagement.service.ParkService;
 
 import java.util.List;
 
@@ -30,6 +32,9 @@ public class ParkController {
 
     @Autowired
     private MaintenanceHistoryService maintenanceHistoryService;
+
+    @Autowired
+    private ParkService parkService;
 
 
 
@@ -48,11 +53,12 @@ public class ParkController {
 
         List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findByPark(parkName);
 
+
         model.addAttribute("maintenanceHistory", maintenanceHistory);
         model.addAttribute("role", employee.getRole());
         model.addAttribute("username", employee.getName());
 
-        return "park";
+        return parkName.replace(" ", "");
     }
 
     @GetMapping("/parks/{parkName}/attractions/{attractionName}")

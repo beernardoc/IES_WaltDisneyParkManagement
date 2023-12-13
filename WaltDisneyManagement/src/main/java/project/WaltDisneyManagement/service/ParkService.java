@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import project.WaltDisneyManagement.Dto.ParkDto;
 import project.WaltDisneyManagement.entity.Park;
 
+import java.util.List;
+
 
 @Service
 public interface ParkService {

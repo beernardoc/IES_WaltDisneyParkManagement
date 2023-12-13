@@ -296,7 +296,7 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-faq.html">
+        <a class="nav-link"  th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">
           <i class="bi bi-signpost"></i>
           <span>EPCOT</span>
         </a>
@@ -376,7 +376,7 @@
         <!-- Left side columns -->
         <div class="col-lg-8">
           <div class="row">
-
+            <div th:text="${park}"></div>
             <!-- railroad -->
             <div class="col-xxl-4 col-xl-12">
               <a>

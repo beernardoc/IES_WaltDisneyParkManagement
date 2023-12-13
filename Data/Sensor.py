@@ -16,7 +16,7 @@ previous_spaceship = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibra
 previous_cosmic = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0,'people_queue': 0, 'duration' : 900}
 previous_test = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0,'people_queue': 0, 'duration' : 900}
 
-#DisneyStudios
+#hollywood_studios
 previous_runaway = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0,'people_queue': 50, 'duration' : 900}
 previous_rocknroller = {'velocity': 0.0, 'height': 0.0, 'temperature': 0.0, 'vibration': 0.0,'people_queue': 0, 'duration' : 900}
 
@@ -38,8 +38,8 @@ previous_gangplank = {'velocity': 0.0, 'height': 0.0, 'temperaturewater': 0.0, '
 previous_humunga = {'velocity': 0.0, 'height': 0.0, 'temperaturewater': 0.0, 'vibration': 0.0,'people_queue': 0, 'duration' : 900}
 
 #ParkingLot
-previous_parkingLot1 = {"cars_in": 10, "cars_out" : 0}
-previous_parkingLot2 = {"cars_in": 7, "cars_out" : 0}
+previous_parkingLot1 = {"cars_in": 0, "cars_out" : 0}
+previous_parkingLot2 = {"cars_in": 0, "cars_out" : 0}
 
 
 class Generators:
@@ -117,7 +117,7 @@ class Generators:
             self.channel.basic_publish(exchange='', routing_key='Magic Kingdom', body=json.dumps(data))
 
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
 
 
@@ -155,9 +155,9 @@ class Generators:
 
             self.channel.basic_publish(exchange='', routing_key='Epcot', body=json.dumps(data))
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
-    async def disney_studios(self):
+    async def hollywood_studios(self):
         while True:
             (velocity_runaway, height_runaway, temperature_runaway,vibration_runaway, people_queue_runaway, duration_runaway) = await generate_data("Rollercoaster", previous_runaway)
             (velocity_rocknroller, height_rocknroller, temperature_rocknroller,vibration_rocknroller, people_queue_rocknroller, duration_rocknroller) = await generate_data("Rollercoaster", previous_rocknroller)
@@ -182,9 +182,9 @@ class Generators:
                 "Time": time.time()
 
             }
-            self.channel.basic_publish(exchange='', routing_key='Disney Studios', body=json.dumps(data))
+            self.channel.basic_publish(exchange='', routing_key='Hollywood Studios', body=json.dumps(data))
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def animal_kingdom(self):
 
@@ -221,7 +221,7 @@ class Generators:
             }
             self.channel.basic_publish(exchange='', routing_key='Animal Kingdom', body=json.dumps(data))
             print(f'Message sent to AnimalKingdom queue: {data}')
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
 
     async def disney_springs(self):
@@ -253,7 +253,7 @@ class Generators:
             }
             self.channel.basic_publish(exchange='', routing_key='Disney Springs', body=json.dumps(data))
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def blizzard_beach(self):
 
@@ -285,7 +285,7 @@ class Generators:
             self.channel.basic_publish(exchange='', routing_key='Blizzard Beach', body=json.dumps(data))
 
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def typhoon_lagoon(self):
 
@@ -317,7 +317,7 @@ class Generators:
             self.channel.basic_publish(exchange='', routing_key='Typhoon Lagoon', body=json.dumps(data))
 
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def parkingLot(self):
 
@@ -328,7 +328,7 @@ class Generators:
             data = {
                 "ParkingLot1": {
                     "cars_in" : cars_in,
-                    "cars_out" : cars_out,
+                    "cars_out" : cars_out
                 },
                 "ParkingLot2": {
                     "cars_in" : cars_in,
@@ -337,9 +337,9 @@ class Generators:
                 "Time" : time.time()
             }
 
-            self.channel.basic_publish(exchange='', routing_key='ParkingLot', body=json.dumps(data))
+            self.channel.basic_publish(exchange='', routing_key='Parking Lot', body=json.dumps(data))
 
-            await asyncio.sleep(60)
+            await asyncio.sleep(50)
 
 
 
@@ -458,7 +458,7 @@ if __name__ == '__main__':
 
     magic_kingdom = loop.create_task(generators.MagicKingdom())
     epcot = loop.create_task(generators.epcot())
-    disney_studios = loop.create_task(generators.disney_studios())
+    disney_studios = loop.create_task(generators.hollywood_studios())
     animal_kingdom = loop.create_task(generators.animal_kingdom())
     disney_springs = loop.create_task(generators.disney_springs())
     blizzard_beach = loop.create_task(generators.blizzard_beach())

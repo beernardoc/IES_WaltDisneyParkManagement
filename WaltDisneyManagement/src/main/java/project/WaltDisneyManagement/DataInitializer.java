@@ -22,6 +22,9 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired
     private AttractionRepo attractionRepo;
 
+    @Autowired
+    private ParkCarsRepo parkCarsRepo;
+
 
 
 
@@ -49,7 +52,72 @@ public class DataInitializer implements CommandLineRunner {
 
         Attraction TomorrowLandSpeedway = new Attraction("Tomorrowland Speedway", magicKingdomPark, "RollerCoaster");
         attractionRepo.save(TomorrowLandSpeedway);
-        
+
+
+        Park Epcot = new Park("Epcot", null);
+        parkRepo.save(Epcot);
+
+        Attraction SpaceshipEarth = new Attraction("Spaceship Earth", Epcot, "DarkRide");
+        attractionRepo.save(SpaceshipEarth);
+
+        Attraction GuardiansoftheGalaxy = new Attraction("Guardians of the Galaxy: Cosmic Rewind", Epcot, "Darkride");
+        attractionRepo.save(GuardiansoftheGalaxy);
+
+        Attraction TestTrack = new Attraction("Test Track", Epcot, "Darkride");
+        attractionRepo.save(TestTrack);
+
+        Park HollywoodStudios = new Park("Hollywood Studios", null);
+        parkRepo.save(HollywoodStudios);
+
+        Attraction MickeyMinnieRunawayRailway = new Attraction("Mickey & Minnie's Runaway Railway", HollywoodStudios, "Rollercoaster");
+        attractionRepo.save(MickeyMinnieRunawayRailway);
+
+        Attraction RocknRollerCoaster = new Attraction("Rock 'n' Roller Coaster", HollywoodStudios, "Rollercoaster");
+        attractionRepo.save(RocknRollerCoaster);
+
+        Park AnimalKingdom = new Park("Animal Kingdom", null);
+        parkRepo.save(AnimalKingdom);
+
+        Attraction TriceratopSpin = new Attraction("Triceratop Spin", AnimalKingdom, "Carousel");
+        attractionRepo.save(TriceratopSpin);
+
+        Attraction KaliRiverRapids = new Attraction("Kali River Rapids", AnimalKingdom, "WaterRide");
+        attractionRepo.save(KaliRiverRapids);
+
+        Attraction Dinosaur = new Attraction("Dinosaur", AnimalKingdom, "Darkride");
+        attractionRepo.save(Dinosaur);
+
+        Park DisneySprings = new Park("Disney Springs", null);
+        parkRepo.save(DisneySprings);
+
+        Attraction MarketplaceCarousel = new Attraction("Marketplace Carousel", DisneySprings, "Rollercoaster");
+        attractionRepo.save(MarketplaceCarousel);
+
+        Attraction ClassicCarousel = new Attraction("Classic Carousel", DisneySprings, "Carousel");
+        attractionRepo.save(ClassicCarousel);
+
+        Park blizzardbeach = new Park("Blizzard Beach", null);
+        parkRepo.save(blizzardbeach);
+
+        Attraction SummitPlummet = new Attraction("Summit Plummet", blizzardbeach, "WaterRide");
+        attractionRepo.save(SummitPlummet);
+
+        Attraction SlushGusher = new Attraction("Slush Gusher", blizzardbeach, "WaterRide");
+        attractionRepo.save(SlushGusher);
+
+        Park typhoonlagoon = new Park("Typhoon Lagoon", null);
+        parkRepo.save(typhoonlagoon);
+
+        Attraction GangplankFalls = new Attraction("Gangplank Falls", typhoonlagoon, "WaterRide");
+        attractionRepo.save(GangplankFalls);
+
+        Attraction HumungaKowabunga = new Attraction("Humunga Kowabunga", typhoonlagoon, "WaterRide");
+        attractionRepo.save(HumungaKowabunga);
+
+        ParkCars ParkingLot1 = new ParkCars("ParkingLot1", 700, 30);
+        parkCarsRepo.save(ParkingLot1);
+
+
 
 
 

@@ -64,6 +64,7 @@ function getParkNameFromURL() {
 document.addEventListener('DOMContentLoaded', function () {
   // Encontrar todos os elementos com a classe customers-card
   const cardElements = document.querySelectorAll('.customers-card');
+  console.log(cardElements);
 
   cardElements.forEach(function (cardElement) {
     cardElement.addEventListener('click', function () {
@@ -72,6 +73,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Verificar se existe o atributo data-attraction no card
       const attractionName = cardElement.dataset.attraction;
+
+      const parkinglotName = cardElement.dataset.parkinglotname;
+      console.log(parkinglotName);
 
 
       // Executar a lógica correspondente com base na verificação
@@ -104,6 +108,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
               } else {
                 alert("Erro ao obter dados da atração.");
+              }
+            })
+            .catch(error => {
+              console.error(error);
+              alert("Erro ao processar a solicitação.");
+            });
+      } else if (parkinglotName) {
+        console.log('Clicou no card para estacionamento:', parkinglotName);
+        fetch(`/api/parkCars/${parkinglotName}`)
+            .then(response => {
+              console.log(response);
+              if (response.ok) {
+                const parkinglotPath = `/ParkCars/${parkinglotName}`;
+
+                window.location.href = parkinglotPath;
+
+              } else {
+                alert("Erro ao obter dados do estacionamento.");
               }
             })
             .catch(error => {

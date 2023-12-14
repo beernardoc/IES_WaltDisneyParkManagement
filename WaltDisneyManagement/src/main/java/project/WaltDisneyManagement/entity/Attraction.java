@@ -90,6 +90,43 @@ public class Attraction {
 
     }
 
+    public boolean testValuesCarousel(Double velocityKmh, Double rpm, Double temperature, Double vibration){
+        if (velocityKmh > 100){
+            return false;
+        }
+        if(rpm > 100){
+            return false;
+        }
+        if (temperature > 50){
+            return false;
+        }
+        if (vibration > 100){
+            return false;
+        }
+        return true;
+
+
+    }
+
+    public boolean testValuesWaterRide(Double velocityKmh, Double height, Double temperature, Double vibration){
+        if (velocityKmh > 100){
+            return false;
+        }
+        if(height > 100){
+            return false;
+        }
+        if (temperature > 100){
+            return false;
+        }
+        if (vibration > 100){
+            return false;
+        }
+        return true;
+
+
+    }
+
+
 
     public void setLastMaintenance(LocalDate lastMaintenance) {
         this.lastMaintenance = lastMaintenance;

@@ -585,33 +585,6 @@
           </div>
           <!-- End Recent Activity -->
 
-          <!-- Pie Chart -->
-          <div class="card">
-            <div class="card-body">
-
-              <h5 class="card-title">Visitor Flow in Each Attraction <span>| Today</span></h5>
-
-              <div id="pieChart"></div>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new ApexCharts(document.querySelector("#pieChart"), {
-                    series: [20, 50, 30],
-                    chart: {
-                      height: 350,
-                      type: 'pie',
-                      toolbar: {
-                        show: true
-                      }
-                    },
-                    labels: ['Spaceship Earth', 'Guardians of the Galaxy', 'Test Track']
-                  }).render();
-                });
-              </script>
-            </div>
-          </div>
-          <!-- End Pie Chart -->
-
         </div>
         <!-- End Right side columns -->
 

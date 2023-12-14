@@ -37,6 +37,14 @@ public class ParkCarsController {
         model.addAttribute("role", request.getSession().getAttribute("employee_role"));
         model.addAttribute("username", request.getSession().getAttribute("employee_username"));
 
+        ParkCars parkCars = ParkCarsRepo.findByName(parkCarsName);
+        model.addAttribute("status", parkCars.getStatus());
+        model.addAttribute("capacity", parkCars.getMaxcap());
+        model.addAttribute("atual", parkCars.getAtual());
+        model.addAttribute("parkCarName", parkCars.getName());
+
+        
+
         return "parking-lot";
     }
 

@@ -213,21 +213,19 @@ public class RabbitMQConsumer {
                         // System.out.println(cars_out);
 
 
-                        int update = cars_in - cars_out;
+                        int atual = parkingLot.getCarsUpdate(cars_in, cars_out, parkingLot.getAtual());
+                        parkingLot.setAtual(atual);
 
-                        int total = parkingLot.getAtual();
+                        if (parkingLot.isFull(parkingLot.getAtual(), parkingLot.getMaxcap())) {
+                            parkingLot.setStatus("Closed");
+                        } else {
+                            parkingLot.setStatus("Open");
+                        }
+                        
+                        
 
-                        if (update < 0){
-                            total = total - update;
-                        }else{total = total + update;}
-
-                        if (total < 0){total = 0;}
-                        if (total > parkingLot.getMaxcap()){total = parkingLot.getMaxcap();}
-
-
-                        parkingLot.setAtual(total);
+                        
                         parkingRepo.save(parkingLot);
-
                         messagingTemplate.convertAndSend("/topic/" + parkingLot.getName(), parkingObject.toString());
 
 

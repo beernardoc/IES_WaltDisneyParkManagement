@@ -28,7 +28,7 @@ public class DataInitializer implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args, boolean True) throws Exception {
         Employee technician = new Employee("Mariana Dias", "marianadias@ua.pt", "12345", "TECHNICIAN");
         technician.setPassword(this.passwordEncoder.encode(technician.getPassword()));
         employeeRepo.save(technician);
@@ -116,8 +116,11 @@ public class DataInitializer implements CommandLineRunner {
         Attraction HumungaKowabunga = new Attraction("Humunga Kowabunga", typhoonlagoon, "WaterRide");
         attractionRepo.save(HumungaKowabunga);
 
-        ParkCars ParkingLot1 = new ParkCars("ParkingLot1", 700, 30);
+        ParkCars ParkingLot1 = new ParkCars("ParkingLot1", 700, 30, "Open");
         parkCarsRepo.save(ParkingLot1);
+
+        ParkCars ParkingLot2 = new ParkCars("ParkingLot2", 700, 20, "Open");
+        parkCarsRepo.save(ParkingLot2);
 
 
 

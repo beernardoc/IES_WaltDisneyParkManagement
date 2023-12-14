@@ -26,14 +26,33 @@ public class ParkCars {
     @Column(name = "atual", length = 45)
     private int atual;
 
+    @Column(name = "status", length = 45)
+    private String status;
+
 
     public ParkCars() {
     }
     
-    public ParkCars(String name, int maxcap, int atual){
+    public ParkCars(String name, int maxcap, int atual, String status){
         this.name = name;
         this.maxcap = maxcap;
         this.atual = atual;
+        this.status = status;
+
+    }
+
+    public int getCarsUpdate(int cars_in, int cars_out,int atual){
+        atual = atual + cars_in - cars_out;
+        return atual;
+    }
+
+    public boolean isFull(int atual, int maxcap){
+        if(atual >= maxcap){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 
@@ -44,6 +63,7 @@ public class ParkCars {
                 ", name='" + name + '\'' + 
                 ", maxcap=" + maxcap +
                 ", atual=" + atual +
+                ", status=" + status +
                 "}";
     }
 

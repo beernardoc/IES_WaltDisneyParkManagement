@@ -21,7 +21,7 @@ public class ParkCarsIMPL implements ParkCarsService {
     public ParkCars addParkCars(ParkCarsDto parkCarsDto) {
         System.out.println("Received ParkCarsDto: " + parkCarsDto);
 
-        ParkCars parkCars = new ParkCars(parkCarsDto.name(), parkCarsDto.maxcap(), parkCarsDto.atual());
+        ParkCars parkCars = new ParkCars(parkCarsDto.name(), parkCarsDto.maxcap(), parkCarsDto.atual(), parkCarsDto.status());
 
         parkCarsRepo.save(parkCars);
 
@@ -40,5 +40,4 @@ public class ParkCarsIMPL implements ParkCarsService {
     public List<ParkCars> findAll() {
         return parkCarsRepo.findAll();
     }
-
 }

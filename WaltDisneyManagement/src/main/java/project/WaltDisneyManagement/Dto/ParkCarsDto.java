@@ -5,6 +5,6 @@ import lombok.Setter;
 
 
 
-public record ParkCarsDto(String name, int maxcap, int atual) {
+public record ParkCarsDto(String name, int maxcap, int atual, String status) {
 
 }

@@ -206,7 +206,7 @@ class Generators:
             data = {
                 "Triceratop Spin" : {
                     "velocity_kmh": velocity_triceratop,
-                    "height_m": rpm_triceratop,
+                    "rpm": rpm_triceratop,
                     "temperature": temperature_triceratop,
                     "vibration": vibration_triceratop,
                     "people_queue" : people_queue_triceratop,
@@ -256,7 +256,7 @@ class Generators:
                 },
                 "Classic Carousel" : {
                     "velocity_kmh": velocity_classic,
-                    "height_m": rpm_classic,
+                    "rpm": rpm_classic,
                     "temperature": temperature_classic,
                     "vibration": vibration_classic,
                     "people_queue" : people_queue_classic,

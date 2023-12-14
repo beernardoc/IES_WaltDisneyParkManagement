@@ -56,8 +56,6 @@ public class RabbitMQConsumer {
     public void consumeMessageFromQueue(String message, @Header("amqp_receivedRoutingKey") String routingKey) {
 
 
-        System.out.println("Received message: " + message + " from queue: " + routingKey);
-
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = jsonParser.parse(message).getAsJsonObject();
 
@@ -69,7 +67,7 @@ public class RabbitMQConsumer {
             if (!Objects.equals(key, "Time") && !Objects.equals(key, "ParkingLot1") && !Objects.equals(key, "ParkingLot2") && !Objects.equals(key, "Visitors")) {
                 Attraction attraction = attractionService.findByName(key);
 
-                if(attraction == null){
+                if(attraction == null || attraction.getPark() == null ){
                     continue;
                 }
 
@@ -81,7 +79,6 @@ public class RabbitMQConsumer {
                 if(Objects.equals(attraction.getType(), "RollerCoaster")){
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
-                        // System.out.println("rc " + attractionObject);
 
                         Double velocityKmh = attractionObject.getAsJsonPrimitive("velocity_kmh").getAsDouble();
                         Double height = attractionObject.getAsJsonPrimitive("height_m").getAsDouble();
@@ -126,10 +123,54 @@ public class RabbitMQConsumer {
                     }
 
                 }
+                else if(Objects.equals(attraction.getType(), "Carousel")) {
+                    if (jsonObject.get(key) instanceof JsonObject) {
+                        JsonObject attractionObject = jsonObject.getAsJsonObject(key);
 
-                
+                        System.out.println("ca " + attractionObject);
 
-            }
+
+                        Double velocityKmh = attractionObject.getAsJsonPrimitive("velocity_kmh").getAsDouble();
+                        Double rpm = attractionObject.getAsJsonPrimitive("rpm").getAsDouble();
+                        Double temperature = attractionObject.getAsJsonPrimitive("temperature").getAsDouble();
+                        Double vibration = attractionObject.getAsJsonPrimitive("vibration").getAsDouble();
+
+                        if (attraction.testValuesCarousel(velocityKmh, rpm, temperature, vibration)) {
+                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() + "/" + attraction.getName(), attractionObject.toString());
+
+                        } else {
+                            attraction.setStatus("Closed");
+                            attractionRepo.save(attraction);
+                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() + "/" + attraction.getName() + "/Alert", attraction.getName());
+                        }
+
+
+                    }
+                }
+                else if(Objects.equals(attraction.getType(), "WaterRide")) {
+                    if (jsonObject.get(key) instanceof JsonObject) {
+                        JsonObject attractionObject = jsonObject.getAsJsonObject(key);
+
+
+                        Double velocityKmh = attractionObject.getAsJsonPrimitive("velocity_kmh").getAsDouble();
+                        Double height = attractionObject.getAsJsonPrimitive("height_m").getAsDouble();
+                        Double temperature = attractionObject.getAsJsonPrimitive("temperature").getAsDouble();
+                        Double vibration = attractionObject.getAsJsonPrimitive("vibration").getAsDouble();
+
+                        if (attraction.testValuesWaterRide(velocityKmh, height, temperature, vibration)) {
+                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() + "/" + attraction.getName(), attractionObject.toString());
+
+                        } else {
+                            attraction.setStatus("Closed");
+                            attractionRepo.save(attraction);
+                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() + "/" + attraction.getName() + "/Alert", attraction.getName());
+                        }
+
+
+                    }
+                }
+
+
             else if (Objects.equals(key, "Visitors")) {
 
                 var value = jsonObject.get(key).getAsJsonObject().get("entry_exit").getAsInt();
@@ -197,4 +238,5 @@ public class RabbitMQConsumer {
 
     }
 
+}
 }

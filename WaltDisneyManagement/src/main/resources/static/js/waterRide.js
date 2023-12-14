@@ -196,7 +196,7 @@ function renderChart() {
                 enabled: false
             },
             xaxis: {
-                categories: ['Height m', 'Temperature ºC', 'Vibration'],
+                categories: ['Height m', 'Water Temperature ºC', 'Vibration'],
             },
             yaxis: {
                 max: 120

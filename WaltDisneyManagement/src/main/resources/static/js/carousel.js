@@ -1,5 +1,5 @@
 var stompClient = null;
-var jsonRecebido = {"velocity_kmh":0,"height_m":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0};  // Variável para armazenar o JSON recebido
+var jsonRecebido = {"velocity_kmh":0,"rpm":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0};  // Variável para armazenar o JSON recebido
 var charts = {};  // Objeto para armazenar instâncias de gráficos
 
 function connect() {
@@ -177,7 +177,7 @@ function renderChart() {
         charts.barChart = new ApexCharts(document.querySelector("#barChart"), {
             series: [{
                 data: [
-                    parseInt(jsonRecebido.height_m),
+                    parseInt(jsonRecebido.rpm),
                     parseInt(jsonRecebido.temperature),
                     parseInt(jsonRecebido.vibration)
                 ]
@@ -196,7 +196,7 @@ function renderChart() {
                 enabled: false
             },
             xaxis: {
-                categories: ['Height m', 'Temperature ºC', 'Vibration'],
+                categories: ['RPM', 'Temperature ºC', 'Vibration'],
             },
             yaxis: {
                 max: 120

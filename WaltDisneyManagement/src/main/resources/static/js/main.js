@@ -46,7 +46,7 @@ stompClient.connect({}, function (frame) {
 function getParkNameFromURL() {
   var url = window.location.href;
   var parts = url.split('/');
-  var parkIndex = parts.indexOf('parks');
+  var parkIndex = parts.indexOf('park');
   var parkName = null;
 
   if (parkIndex !== -1 && parkIndex < parts.length - 1) {
@@ -57,7 +57,7 @@ function getParkNameFromURL() {
 
   if (parkLink) {
     parkLink.textContent = parkName;
-    parkLink.href = '/parks/' + parkName;
+    parkLink.href = '/park/' + parkName;
   }
 
   return parkName; // ou outra lógica padrão caso o nome do parque não seja encontrado

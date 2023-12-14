@@ -20,8 +20,6 @@ public class LoginRest {
     @Autowired
     private EmployeeService employeeService;
 
-    @Autowired
-    private EmployeeRepo employeeRepo;
 
 
     @PostMapping("/api/login")
@@ -29,7 +27,7 @@ public class LoginRest {
         boolean loginMessage = employeeService.loginEmployee(loginDto);
         if(loginMessage){
 
-            var employee = employeeRepo.findByEmail(loginDto.getEmail());
+            var employee = employeeService.findByEmail(loginDto.getEmail());
             return ResponseEntity.ok(employee);
         }
         return ResponseEntity.badRequest().body(null);
@@ -42,14 +40,10 @@ public class LoginRest {
 
         if (email!= null) {
 
-            var employee = employeeRepo.findByEmail(email.toString());
-
-
+            var employee = employeeService.findByEmail(email.toString());
             return ResponseEntity.ok(employee);
         } else {
             return ResponseEntity.badRequest().body(null);
-
-
 
         }
 

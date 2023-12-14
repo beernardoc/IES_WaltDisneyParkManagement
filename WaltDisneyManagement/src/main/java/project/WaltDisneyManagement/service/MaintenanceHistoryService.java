@@ -1,5 +1,6 @@
 package project.WaltDisneyManagement.service;
 
+import com.sun.tools.javac.Main;
 import org.springframework.stereotype.Service;
 import project.WaltDisneyManagement.Dto.MaintenanceHistoryDto;
 import project.WaltDisneyManagement.entity.MaintenanceHistory;
@@ -15,5 +16,8 @@ public interface MaintenanceHistoryService {
     List<MaintenanceHistory> findByPark(String park);
 
     List<MaintenanceHistory> findByAttraction(String attraction);
+
+    MaintenanceHistory findById(int id);
+
 
 }

@@ -27,16 +27,22 @@ public class MaintenanceHistory {
     @Column(name = "MaintenanceHistory_description", length = 45)
     private String description;
 
+    @Column(name = "MaintenanceHistory_technician", length = 45)
+    private String technician;
+
     @Column(name = "MaintenanceHistory_date", length = 45)
     private LocalDate date;
+
+
 
     public MaintenanceHistory() {
     }
 
-    public MaintenanceHistory(String park, String attraction, String description, LocalDate date) {
+    public MaintenanceHistory(String park, String attraction, String description,String technician ,LocalDate date) {
         this.park = park;
         this.attraction = attraction;
         this.description = description;
+        this.technician = technician;
         this.date = date;
     }
 

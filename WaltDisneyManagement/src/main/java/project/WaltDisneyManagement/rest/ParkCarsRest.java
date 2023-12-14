@@ -11,26 +11,36 @@ import project.WaltDisneyManagement.service.ParkCarsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import project.WaltDisneyManagement.service.ParkCarsService;
 
+import java.util.List;
+
 @RestController
 public class ParkCarsRest {
     
     @Autowired
-    private ParkCarsService ParkCarsService;
-
-    @Autowired
-    private ParkCarsRepo parkCarsRepo;
+    private ParkCarsService parkCarsService;
 
 
     @PostMapping("/api/parkCars")
     public ResponseEntity<ParkCars> addParkCars(@RequestBody ParkCarsDto parkCarsDto){
-        ParkCars parkCars = ParkCarsService.addParkCars(parkCarsDto);
+        ParkCars parkCars = parkCarsService.addParkCars(parkCarsDto);
         return ResponseEntity.ok(parkCars);
+    }
+
+    @GetMapping("/api/parkCars")
+    public ResponseEntity<List<ParkCars>> getParkCarsData() {
+        List<ParkCars> parkCars = parkCarsService.findAll();
+
+        if (!parkCars.isEmpty()) {
+            return ResponseEntity.ok(parkCars);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/api/parkCars/{parkCarsName}")
     public ResponseEntity<ParkCars> getParkCarsData(@PathVariable("parkCarsName") String parkCarsName) {
 
-        ParkCars parkCars = parkCarsRepo.findByName(parkCarsName);
+        ParkCars parkCars = parkCarsService.findByName(parkCarsName);
 
         if (parkCars != null) {
             return ResponseEntity.ok(parkCars);

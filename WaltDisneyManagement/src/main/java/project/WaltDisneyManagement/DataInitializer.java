@@ -27,13 +27,15 @@ public class DataInitializer implements CommandLineRunner {
 
 
 
-
-
     @Override
     public void run(String... args) throws Exception {
-        Employee employee = new Employee("Mariana Dias", "marianadias@ua.pt", "12345", "TECHNICIAN");
-        employee.setPassword(this.passwordEncoder.encode(employee.getPassword()));
-        employeeRepo.save(employee);
+        Employee technician = new Employee("Mariana Dias", "marianadias@ua.pt", "12345", "TECHNICIAN");
+        technician.setPassword(this.passwordEncoder.encode(technician.getPassword()));
+        employeeRepo.save(technician);
+
+        Employee admin = new Employee("João Pinto", "joao@ua.pt", "12345", "ADMIN");
+        admin.setPassword(this.passwordEncoder.encode(admin.getPassword()));
+        employeeRepo.save(admin);
 
         Park magicKingdomPark = new Park("Magic Kingdom", null);
         parkRepo.save(magicKingdomPark);

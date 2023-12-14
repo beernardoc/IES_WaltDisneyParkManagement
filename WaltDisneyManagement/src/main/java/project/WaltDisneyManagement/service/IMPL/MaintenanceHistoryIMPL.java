@@ -18,13 +18,12 @@ public class MaintenanceHistoryIMPL implements MaintenanceHistoryService {
 
 
 
-
     @Override
     public MaintenanceHistory addMaintenanceHistory(MaintenanceHistoryDto maintenanceHistoryDto) {
         System.out.println("Received maintenanceHistoryDto: " + maintenanceHistoryDto);
 
         MaintenanceHistory maintenanceHistory = new MaintenanceHistory(maintenanceHistoryDto.park(),
-                maintenanceHistoryDto.attraction(), maintenanceHistoryDto.Descripton(), maintenanceHistoryDto.date());
+                maintenanceHistoryDto.attraction(), maintenanceHistoryDto.Descripton(), maintenanceHistoryDto.technician() ,maintenanceHistoryDto.date());
 
         maintenanceHistoryRepo.save(maintenanceHistory);
 
@@ -46,6 +45,11 @@ public class MaintenanceHistoryIMPL implements MaintenanceHistoryService {
     @Override
     public List<MaintenanceHistory> findByAttraction(String attraction) {
         return maintenanceHistoryRepo.findByAttraction(attraction);
+    }
+
+    @Override
+    public MaintenanceHistory findById(int id) {
+        return maintenanceHistoryRepo.findById(id).orElse(null);
     }
 
 

@@ -59,7 +59,7 @@ public class Attraction {
 
 
     public boolean testValuesRollerCoaster(Double velocityKmh, Double height, Double temperature, Double vibration){
-        if (velocityKmh > 20){
+        if (velocityKmh > 100){
             return false;
         }
         if(height > 100){

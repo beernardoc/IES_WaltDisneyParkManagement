@@ -40,7 +40,7 @@ public class ParkController {
 
 
 
-    @GetMapping("/parks/{parkName}")
+    @GetMapping("/park/{parkName}")
     public String park(Model model, @PathVariable("parkName") String parkName, HttpServletRequest request) {
 
         var email = request.getSession().getAttribute("employee_email");
@@ -61,7 +61,7 @@ public class ParkController {
         return parkName.replace(" ", "");
     }
 
-    @GetMapping("/parks/{parkName}/attractions/{attractionName}")
+    @GetMapping("/park/{parkName}/attraction/{attractionName}")
     public String attraction(Model model, @PathVariable("parkName") String parkName, @PathVariable("attractionName") String attractionName, HttpServletRequest request) {
 
 

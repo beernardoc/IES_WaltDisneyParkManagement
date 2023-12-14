@@ -8,6 +8,8 @@ import project.WaltDisneyManagement.repository.AttractionRepo;
 import project.WaltDisneyManagement.repository.ParkRepo;
 import project.WaltDisneyManagement.service.AttractionService;
 
+import java.util.List;
+
 
 @Service
 public class AttractionIMPL implements AttractionService {
@@ -33,4 +35,11 @@ public class AttractionIMPL implements AttractionService {
     public Attraction findByName(String name) {
         return attractionRepo.findByName(name);
     }
+
+    @Override
+    public List<Attraction> findAll() {
+        return attractionRepo.findAll();
+    }
+
+
 }

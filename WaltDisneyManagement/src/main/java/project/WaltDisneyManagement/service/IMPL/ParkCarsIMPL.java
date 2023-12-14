@@ -9,6 +9,8 @@ import project.WaltDisneyManagement.entity.ParkCars;
 import project.WaltDisneyManagement.repository.ParkCarsRepo;
 import project.WaltDisneyManagement.service.ParkCarsService;
 
+import java.util.List;
+
 @Service
 public class ParkCarsIMPL implements ParkCarsService {
 
@@ -32,6 +34,11 @@ public class ParkCarsIMPL implements ParkCarsService {
     @Override
     public ParkCars findByName(String parkName) {
         return parkCarsRepo.findByName(parkName);
+    }
+
+    @Override
+    public List<ParkCars> findAll() {
+        return parkCarsRepo.findAll();
     }
 
 }

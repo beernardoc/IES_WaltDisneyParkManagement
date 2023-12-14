@@ -71,23 +71,17 @@ public class RabbitMQConsumer {
             System.out.println("value" + jsonObject.get(key));
 
             if (!Objects.equals(key, "Time") && !Objects.equals(key, "ParkingLot1") && !Objects.equals(key, "ParkingLot2") && !Objects.equals(key, "Visitors")) {
-                // System.out.println("key" + key);
                 Attraction attraction = attractionService.findByName(key);
 
-
-
-                if(attraction == null || attraction.getType() == null){
-                    // System.out.println("Attraction not found");
+                if(attraction == null){
                     continue;
                 }
 
                 if(Objects.equals(attraction.getStatus(), "Closed")){
-                    // System.out.println("Attraction is closed");
                     continue;
                 }
 
                 System.out.println(attraction.getName());
-
 
                 if(Objects.equals(attraction.getType(), "RollerCoaster")){
                     if (jsonObject.get(key) instanceof JsonObject) {
@@ -202,14 +196,12 @@ public class RabbitMQConsumer {
 
 
 
-                    }
+                }
+
             }
 
-
-
-
         }
-        messagingTemplate.convertAndSend("/topic/atualizacao", message);
+
     }
 
 }

@@ -61,7 +61,7 @@ function sendMaintenance() {
     [attractionName, parkName] = getAttractionNameFromURL();
 
     // Construa a URL da API
-    const apiUrl = `/api/parks/${encodeURIComponent(parkName)}/attractions/${encodeURIComponent(attractionName)}/SetMaintenance`;
+    const apiUrl = `/api/park/${encodeURIComponent(parkName)}/attraction/${encodeURIComponent(attractionName)}/SetMaintenance`;
 
     // Construa a descrição formatada para URL
     const formattedDescription = encodeURIComponent(maintenanceDetails);
@@ -94,8 +94,8 @@ function getAttractionNameFromURL() {
     var url = window.location.href;
     var parts = url.split('/');
 
-    var attractionIndex = parts.indexOf('attractions');
-    var parkIndex = parts.indexOf('parks');
+    var attractionIndex = parts.indexOf('attraction');
+    var parkIndex = parts.indexOf('park');
 
     var attractionName
     var parkName

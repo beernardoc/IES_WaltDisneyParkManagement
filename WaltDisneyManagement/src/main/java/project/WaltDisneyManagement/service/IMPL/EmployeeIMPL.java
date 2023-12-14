@@ -90,6 +90,37 @@ public class EmployeeIMPL implements EmployeeService {
     }
 
     @Override
+    public String updateEmployee(EmployeeDto employeeDto) {
+        Employee employee = employeeRepo.findByEmail(employeeDto.getEmail());
+
+        if(employee == null){
+            return null;
+        }
+
+        employee.setName(employeeDto.getName());
+        employee.setEmail(employeeDto.getEmail());
+        employee.setPassword(this.passwordEncoder.encode(employeeDto.getPassword()));
+        employee.setRole(employeeDto.getRole());
+
+        employeeRepo.save(employee);
+
+        return employee.getName();
+    }
+
+    @Override
+    public String deleteEmployee(String email) {
+        Employee employee = employeeRepo.findByEmail(email);
+
+        if(employee == null){
+            return null;
+        }
+
+        employeeRepo.delete(employee);
+
+        return employee.getName();
+    }
+
+    @Override
     public Employee findById(int id) {
         return employeeRepo.findById(id);
     }

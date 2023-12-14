@@ -4,9 +4,8 @@ package project.WaltDisneyManagement.rest;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import project.WaltDisneyManagement.Dto.EmployeeDto;
 import project.WaltDisneyManagement.entity.Employee;
 import project.WaltDisneyManagement.service.EmployeeService;
 
@@ -17,6 +16,14 @@ public class EmployeeRest {
 
     @Autowired
     private EmployeeService employeeService;
+
+
+    @PostMapping("/api/employee")
+    public ResponseEntity<String> saveEmployee(@RequestBody EmployeeDto employeeDto) {
+        String name = employeeService.addEmployee(employeeDto);
+        return ResponseEntity.ok("Employee " + name + " saved");
+
+    }
 
     @GetMapping("/api/employee")
     public ResponseEntity<List<Employee>> getEmployees() {
@@ -30,10 +37,21 @@ public class EmployeeRest {
 
     }
 
-    @GetMapping("/api/employee/{id}")
-    public ResponseEntity<Employee> getEmployeeData(@PathVariable("id") int id) {
+    @PutMapping("/api/employee")
+    public ResponseEntity<String> updateEmployee(@RequestBody EmployeeDto employeeDto) {
+        String name = employeeService.updateEmployee(employeeDto);
+        return ResponseEntity.ok("Employee " + name + " updated");
+    }
 
-        Employee employee = employeeService.findById(id);
+    @DeleteMapping("/api/employee")
+    public ResponseEntity<String> deleteEmployee(@RequestBody String email) {
+        String name = employeeService.deleteEmployee(email);
+        return ResponseEntity.ok("Employee " + name + " deleted");
+    }
+    @GetMapping("/api/employee/{email}")
+    public ResponseEntity<Employee> getEmployeeData(@PathVariable("email") String email) {
+
+        Employee employee = employeeService.findByEmail(email);
 
         if (employee != null) {
             return ResponseEntity.ok(employee);

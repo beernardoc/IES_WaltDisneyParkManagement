@@ -60,19 +60,19 @@ public class DataInitializer implements CommandLineRunner {
         Attraction SpaceshipEarth = new Attraction("Spaceship Earth", Epcot, "DarkRide");
         attractionRepo.save(SpaceshipEarth);
 
-        Attraction GuardiansoftheGalaxy = new Attraction("Guardians of the Galaxy: Cosmic Rewind", Epcot, "Darkride");
+        Attraction GuardiansoftheGalaxy = new Attraction("Guardians of the Galaxy: Cosmic Rewind", Epcot, "DarkRide");
         attractionRepo.save(GuardiansoftheGalaxy);
 
-        Attraction TestTrack = new Attraction("Test Track", Epcot, "Darkride");
+        Attraction TestTrack = new Attraction("Test Track", Epcot, "DarkRide");
         attractionRepo.save(TestTrack);
 
         Park HollywoodStudios = new Park("Hollywood Studios", null);
         parkRepo.save(HollywoodStudios);
 
-        Attraction MickeyMinnieRunawayRailway = new Attraction("Mickey & Minnie's Runaway Railway", HollywoodStudios, "Rollercoaster");
+        Attraction MickeyMinnieRunawayRailway = new Attraction("Mickey & Minnie's Runaway Railway", HollywoodStudios, "RollerCoaster");
         attractionRepo.save(MickeyMinnieRunawayRailway);
 
-        Attraction RocknRollerCoaster = new Attraction("Rock 'n' Roller Coaster", HollywoodStudios, "Rollercoaster");
+        Attraction RocknRollerCoaster = new Attraction("Rock n Roller Coaster", HollywoodStudios, "RollerCoaster");
         attractionRepo.save(RocknRollerCoaster);
 
         Park AnimalKingdom = new Park("Animal Kingdom", null);
@@ -84,13 +84,13 @@ public class DataInitializer implements CommandLineRunner {
         Attraction KaliRiverRapids = new Attraction("Kali River Rapids", AnimalKingdom, "WaterRide");
         attractionRepo.save(KaliRiverRapids);
 
-        Attraction Dinosaur = new Attraction("Dinosaur", AnimalKingdom, "Darkride");
+        Attraction Dinosaur = new Attraction("Dinosaur", AnimalKingdom, "DarkRide");
         attractionRepo.save(Dinosaur);
 
         Park DisneySprings = new Park("Disney Springs", null);
         parkRepo.save(DisneySprings);
 
-        Attraction MarketplaceCarousel = new Attraction("Marketplace Carousel", DisneySprings, "Rollercoaster");
+        Attraction MarketplaceCarousel = new Attraction("Marketplace Carousel", DisneySprings, "RollerCoaster");
         attractionRepo.save(MarketplaceCarousel);
 
         Attraction ClassicCarousel = new Attraction("Classic Carousel", DisneySprings, "Carousel");

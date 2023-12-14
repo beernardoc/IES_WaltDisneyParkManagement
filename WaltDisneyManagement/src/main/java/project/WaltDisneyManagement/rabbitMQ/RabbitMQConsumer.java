@@ -61,14 +61,10 @@ public class RabbitMQConsumer {
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = jsonParser.parse(message).getAsJsonObject();
 
-        System.out.println(jsonObject);
-        // System.out.println(jsonObject.keySet());
-
 
 
         for(String key : jsonObject.keySet()){
-            System.out.println("key" + key);
-            System.out.println("value" + jsonObject.get(key));
+
 
             if (!Objects.equals(key, "Time") && !Objects.equals(key, "ParkingLot1") && !Objects.equals(key, "ParkingLot2") && !Objects.equals(key, "Visitors")) {
                 // System.out.println("key" + key);
@@ -85,8 +81,6 @@ public class RabbitMQConsumer {
                     // System.out.println("Attraction is closed");
                     continue;
                 }
-
-                System.out.println(attraction.getName());
 
 
                 if(Objects.equals(attraction.getType(), "RollerCoaster")){
@@ -117,7 +111,7 @@ public class RabbitMQConsumer {
                 else if (Objects.equals(attraction.getType(), "DarkRide")){
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
-                        // System.out.println("dr " + attractionObject);
+                        System.out.println("dr " + attractionObject);
 
                         Double velocityKmh = attractionObject.getAsJsonPrimitive("velocity_kmh").getAsDouble();
                         Double temperature = attractionObject.getAsJsonPrimitive("temperature").getAsDouble();

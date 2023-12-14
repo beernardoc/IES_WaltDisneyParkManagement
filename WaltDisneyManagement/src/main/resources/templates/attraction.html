@@ -289,77 +289,97 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
+      <!-- Home Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" th:href="@{/}">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li>
+      <!-- End Home Nav -->
 
       <li class="nav-heading">Parks</li>
 
+      <!-- Magic Kingdom Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">
+        <a class="nav-link" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom'})}">
           <i class="bi bi-signpost"></i>
           <span>Magic Kingdom</span>
         </a>
-      </li><!-- End Profile Page Nav -->
+      </li>
+      <!-- End Magic Kingdom Nav -->
 
+      <!-- Epcot Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-faq.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Epcot'})}">
           <i class="bi bi-signpost"></i>
           <span>EPCOT</span>
         </a>
-      </li><!-- End F.A.Q Page Nav -->
+      </li>
+      <!-- End Epcot Nav -->
 
+      <!-- Hollywood Studios Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-contact.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Hollywood Studios'})}">
           <i class="bi bi-signpost"></i>
-          <span>Disney's Hollywood Studios</span>
+          <span>Hollywood Studios</span>
         </a>
-      </li><!-- End Contact Page Nav -->
+      </li>
+      <!-- End Hollywood Studios Nav -->
 
+      <!-- Animal Kingdom Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-register.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Animal Kingdom'})}">
           <i class="bi bi-signpost"></i>
-          <span>Disney's Animal Kingdom</span>
+          <span>Animal Kingdom</span>
         </a>
-      </li><!-- End Register Page Nav -->
+      </li>
+      <!-- End Animal Kingdom Nav -->
 
+      <!-- Disney Springs Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Disney Springs'})}">
           <i class="bi bi-signpost"></i>
           <span>Disney Springs</span>
         </a>
-      </li><!-- End Login Page Nav -->
+      </li>
+      <!-- End Disney Springs Nav -->
 
+      <!-- Typhoon Lagoon Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-blank.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Typhoon Lagoon'})}">
           <i class="bi bi-droplet"></i>
-          <span>Disney's Typhoon Lagoon</span>
+          <span>Typhoon Lagoon</span>
         </a>
-      </li><!-- End Blank Page Nav -->
+      </li>
+      <!-- End Typhoon Lagoon Nav -->
 
+      <!-- Blizzard Beach Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-error-404.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Blizzard Beach'})}">
           <i class="bi bi-droplet"></i>
-          <span>Disney's Blizzard Beach</span>
+          <span>Blizzard Beach</span>
         </a>
-      </li><!-- End Error 404 Page Nav -->
+      </li>
+      <!-- End Blizzard Beach Nav -->
 
+      <!-- Parking Cars 1 Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" th:href="@{/parkCars/{parkName}(parkName=${'ParkingLot1'})}">
+        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'ParkingCars1'})}">
           <i class="bi bi-car-front"></i>
           <span>Parking Cars 1</span>
         </a>
-      </li><!-- End Blank Page Nav -->
+      </li>
+      <!-- End Parking Cars 1 Nav -->
 
+      <!-- Parking Cars 2 Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" th:href="@{/parkCars/{parkName}(parkName=${'ParkingLot2'})}">
+        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'ParkingCars2'})}">
           <i class="bi bi-car-front"></i>
           <span>Parking Cars 2</span>
         </a>
-      </li><!-- End Error 404 Page Nav -->
+      </li>
+      <!-- End Parking Cars 2 Nav -->
 
     </ul>
 
@@ -374,14 +394,12 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-          <li class="breadcrumb-item"><a th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">Magic Kingdom</a></li>
+          <li class="breadcrumb-item"><a id="parkLink">Parque</a></li>
           <li class="breadcrumb-item active" th:text="${attraction}"></li>
         </ol>
       </nav>
     </div>
     <!-- End Page Title -->
-
-
 
 
     <!-- Modal -->
@@ -390,9 +408,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="urgentModalLabel">Alerta Urgente</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeUrgentModal()"></button>
           </div>
           <div class="modal-body">
             <!-- Conteúdo do modal será inserido dinamicamente aqui -->
@@ -400,8 +416,6 @@
         </div>
       </div>
     </div>
-
-
 
 
     <section class="section dashboard">
@@ -421,7 +435,7 @@
                     <div class="ps-3">
                       <h6 th:text="${status}"></h6>
                       <span th:if="${status == 'Open'}" class="text-danger small pt-1 fw-bold">Click to close</span>
-                      <span th:if="${status == 'Closed'}" class="text-danger small pt-1 fw-bold">Click to open</span>
+                      <span th:if="${status == 'Closed'}" class="text-success small pt-1 fw-bold">Click to open</span>
                     </div>
                   </div>
                 </div>
@@ -467,7 +481,7 @@
                   </div>
 
                   <div th:if="${status == 'Closed'}" class="d-flex align-items-center">
-                    <div style="background-color: #00008b; color: #fff; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 18px;">
+                    <div style="background-color: #00008b; color: #fff; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 18px; width: 100%; padding-top: 5px">
                       <p>Attraction Closed</p>
                     </div>
                   </div>
@@ -548,27 +562,6 @@
             </div>
             <!-- End Bar Chart -->
 
-            <!-- Reports -->
-            <div class="col-12">
-
-              <div class="card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <!-- End Reports -->
-
           </div>
         </div>
         <!-- End Left side columns -->
@@ -598,7 +591,7 @@
               </div>
 
               <div th:if="${status == 'Closed'}" class="d-flex align-items-center">
-                <div style="background-color: #00008b; color: #fff; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 18px;">
+                <div style="background-color: #00008b; color: #fff; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 18px; width: 100%">
                   <p>Attraction Closed</p>
                 </div>
               </div>

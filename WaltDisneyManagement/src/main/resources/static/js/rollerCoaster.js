@@ -111,9 +111,6 @@ function getAttractionNameFromURL() {
     return [attractionName, parkName];
 }
 
-
-
-
 function sendCloseOrOpenMessage(element) {
     var attraction = element.getAttribute('data-attraction');
 

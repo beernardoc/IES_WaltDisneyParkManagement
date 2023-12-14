@@ -302,42 +302,42 @@
       </li><!-- End F.A.Q Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-contact.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Hollywood Studios'})}">
           <i class="bi bi-signpost"></i>
-          <span>Disney's Hollywood Studios</span>
+          <span>Hollywood Studios</span>
         </a>
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-register.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Animal Kingdom'})}">
           <i class="bi bi-signpost"></i>
-          <span>Disney's Animal Kingdom</span>
+          <span>Animal Kingdom</span>
         </a>
       </li><!-- End Register Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Disney Springs'})}">
           <i class="bi bi-signpost"></i>
           <span>Disney Springs</span>
         </a>
       </li><!-- End Login Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-blank.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Typhoon Lagoon'})}">
           <i class="bi bi-droplet"></i>
-          <span>Disney's Typhoon Lagoon</span>
+          <span>Typhoon Lagoon</span>
         </a>
       </li><!-- End Blank Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-error-404.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Blizzard Beach'})}">
           <i class="bi bi-droplet"></i>
-          <span>Disney's Blizzard Beach</span>
+          <span>Blizzard Beach</span>
         </a>
       </li><!-- End Error 404 Page Nav -->
 
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" href="pages-blank.html">
+        <a class="nav-link collapsed" th:href="@{/ParkCars/{parkName}(parkName=${'ParkingCars1'})}">
           <i class="bi bi-car-front"></i>
           <span>Parking Cars 1</span>
         </a>
@@ -391,7 +391,7 @@
             <!-- Epcot Card -->
             <div class="col-xxl-4 col-xl-12" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
 
-              <div class="card info-card customers-card"  data-parkname="Epcot" style="cursor: pointer;background-image: url('/img/epcot.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+              <div class="card info-card customers-card" data-parkname="Epcot" style="cursor: pointer;background-image: url('/img/epcot.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
 
                 <div class="card-body">
                   <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">EPCOT</h5>
@@ -666,7 +666,7 @@
                         show: true
                       }
                     },
-                    labels: ['Magic Kingdom', 'EPCOT', 'Hollywood Studios', 'Animal Kingdom', 'Springs', 'Typhoon Lagoon', 'Blizzard Beach']
+                    labels: ['Magic Kingdom', 'EPCOT', 'Hollywood Studios', 'Animal Kingdom', 'Disney Springs', 'Typhoon Lagoon', 'Blizzard Beach']
                   }).render();
                 });
               </script>

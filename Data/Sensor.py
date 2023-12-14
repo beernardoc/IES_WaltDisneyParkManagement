@@ -246,7 +246,7 @@ class Generators:
 
 
             data = {
-                "Marketplace Carousel" : {
+                "Marketplace Train Express" : {
                     "velocity_kmh": velocity_marketplace,
                     "height_m": height_marketplace,
                     "temperature": temperature_marketplace,

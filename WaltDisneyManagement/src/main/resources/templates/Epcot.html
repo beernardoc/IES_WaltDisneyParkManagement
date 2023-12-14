@@ -49,7 +49,7 @@
       <div class="logo d-flex align-items-center">
         <a href="/" class="d-flex align-items-center">
           <img src="/img/disneylogo.png" alt="">
-          <span class="d-none d-lg-block" style="font-size: 15px; margin-left: 5px; margin-right: 15px;">Walt Disney Management</span>
+          <span class="d-none d-lg-block" style="font-size: 20px; margin-left: 5px; margin-right: 15px;">Walt Disney Management</span>
         </a>
       </div>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -317,7 +317,7 @@
 
       <!-- Magic Kingdom Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom'})}">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom'})}">
           <i class="bi bi-signpost"></i>
           <span>Magic Kingdom</span>
         </a>
@@ -326,7 +326,7 @@
 
       <!-- Epcot Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Epcot'})}">
+        <a class="nav-link" th:href="@{/parks/{parkName}(parkName=${'Epcot'})}">
           <i class="bi bi-signpost"></i>
           <span>EPCOT</span>
         </a>
@@ -406,11 +406,11 @@
 
     <!-- ======= Page Title ======= -->
     <div class="pagetitle">
-      <h1>Magic Kingdom</h1>
+      <h1>EPCOT</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-          <li class="breadcrumb-item active">Magic Kingdom</li>
+          <li class="breadcrumb-item active">Epcot</li>
         </ol>
       </nav>
     </div>
@@ -423,65 +423,41 @@
         <div class="col-lg-8">
           <div class="row">
 
-            <!-- Walt Disney World Railroad -->
+            <!-- Spaceship Earth -->
             <div class="col-xxl-4 col-xl-12">
               <a>
-                <div class="card info-card customers-card" data-attraction="Walt Disney World Railroad" style="cursor: pointer; background-image: url('/img/WaltDisneyRailroad.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+                <div class="card info-card customers-card" data-attraction="Spaceship Earth" style="cursor: pointer; background-image: url('/img/WaltDisneyRailroad.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
                   <div class="card-body">
-                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Walt Disney World Railroad</h5>
+                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Spaceship Earth</h5>
                   </div>
                 </div>
               </a>
             </div>
-            <!-- End Walt Disney World Railroad -->
+            <!-- End Spaceship Earth -->
 
-            <!-- Pirates of the Caribbean -->
+            <!-- Guardians of the Galaxy: Cosmic Rewind -->
             <div class="col-xxl-4 col-xl-12">
               <a>
-                <div class="card info-card customers-card" data-attraction="Pirates of the Caribbean" style="cursor: pointer; background-image: url('/img/PiratesoftheCaribbean.jpeg'); background-size: cover; background-position: center; width:315px;height:155px;">
+                <div class="card info-card customers-card" data-attraction="Guardians of the Galaxy: Cosmic Rewind" style="cursor: pointer; background-image: url('/img/PiratesoftheCaribbean.jpeg'); background-size: cover; background-position: center; width:315px;height:155px;">
                   <div class="card-body">
-                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Pirates of the Caribbean</h5>
+                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Guardians of the Galaxy: Cosmic Rewind</h5>
                   </div>
                 </div>
               </a>
             </div>
-            <!-- End Pirates of the Caribbean -->
+            <!-- End Guardians of the Galaxy: Cosmic Rewind -->
 
-            <!-- Haunted Mansion -->
+            <!-- Test Track -->
             <div class="col-xxl-4 col-xl-12">
               <a>
-                <div class="card info-card customers-card" data-attraction="Haunted Mansion" style="cursor: pointer; background-image: url('/img/hauntedmansion.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
+                <div class="card info-card customers-card" data-attraction="Test Track" style="cursor: pointer; background-image: url('/img/hauntedmansion.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
                   <div class="card-body">
-                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Haunted Mansion</h5>
+                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Test Track</h5>
                   </div>
                 </div>
               </a>
             </div>
-            <!-- End Haunted Mansion -->
-
-            <!-- Seven Dwarfs Mine Train -->
-            <div class="col-xxl-4 col-xl-12">
-              <a>
-                <div class="card info-card customers-card" data-attraction="Seven Dwarfs Mine Train" style="cursor: pointer; background-image: url('/img/seven-dwarfs-mine-train-magic-kingdom-1.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
-                  <div class="card-body">
-                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Seven Dwarfs Mine Train</h5>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <!-- End Seven Dwarfs Mine Train -->
-
-            <!-- Tomorrowland Speedway -->
-            <div class="col-xxl-4 col-xl-12">
-              <a>
-                <div class="card info-card customers-card" data-attraction="Tomorrowland Speedway" style="cursor: pointer; background-image: url('/img/tomorrowland.jpeg'); background-size: cover; background-position: center; width:315px;height:155px;">
-                  <div class="card-body">
-                    <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;">Tomorrowland Speedway</h5>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <!-- End Tomorrowland Speedway -->
+            <!-- End Test Track -->
 
             <!-- Visitor Flow Chart -->
             <div class="col-12">
@@ -534,10 +510,10 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Magic Kingdom Map</h5>
+                  <h5 class="card-title">EPCOT Map</h5>
 
                   <div class="d-flex align-items-center">
-                    <img src="/img/map-magic-kingdom.png" alt="Magic Kingdom" width="100%">
+                    <img src="/img/map-epcot.png" alt="EPCOT" width="100%">
                   </div>
 
                 </div>
@@ -612,6 +588,7 @@
           <!-- Pie Chart -->
           <div class="card">
             <div class="card-body">
+
               <h5 class="card-title">Visitor Flow in Each Attraction <span>| Today</span></h5>
 
               <div id="pieChart"></div>
@@ -619,7 +596,7 @@
               <script>
                 document.addEventListener("DOMContentLoaded", () => {
                   new ApexCharts(document.querySelector("#pieChart"), {
-                    series: [20, 25, 30, 10, 15],
+                    series: [20, 50, 30],
                     chart: {
                       height: 350,
                       type: 'pie',
@@ -627,7 +604,7 @@
                         show: true
                       }
                     },
-                    labels: ['Walt Disney World Railroad', 'Pirates of the Caribbean', 'Haunted Mansion', 'Seven Dwarfs Mine Train', 'Tomorrowland Speedway']
+                    labels: ['Spaceship Earth', 'Guardians of the Galaxy', 'Test Track']
                   }).render();
                 });
               </script>

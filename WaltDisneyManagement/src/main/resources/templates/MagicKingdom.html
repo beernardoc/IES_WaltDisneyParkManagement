@@ -44,6 +44,7 @@
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
+    <!-- Logo -->
     <div class="d-flex align-items-center justify-content-between">
       <div class="logo d-flex align-items-center">
         <a href="/" class="d-flex align-items-center">
@@ -52,31 +53,41 @@
         </a>
       </div>
       <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+    </div>
+    <!-- End Logo -->
 
+    <!-- Search Bar -->
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-    </div><!-- End Search Bar -->
+    </div>
+    <!-- End Search Bar -->
 
+    <!-- Icons Navigation -->
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
+        <!-- Search Icon-->
         <li class="nav-item d-block d-lg-none">
           <a class="nav-link nav-icon search-bar-toggle " href="#">
             <i class="bi bi-search"></i>
           </a>
-        </li><!-- End Search Icon-->
+        </li>
+        <!-- End Search Icon-->
 
+        <!-- Notification Nav -->
         <li class="nav-item dropdown">
 
+          <!-- Notification Icon -->
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
             <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
+          </a>
+          <!-- End Notification Icon -->
 
+          <!-- Notification Dropdown Items -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
               You have 4 new notifications
@@ -141,17 +152,23 @@
               <a href="#">Show all notifications</a>
             </li>
 
-          </ul><!-- End Notification Dropdown Items -->
+          </ul>
+          <!-- End Notification Dropdown Items -->
 
-        </li><!-- End Notification Nav -->
+        </li>
+        <!-- End Notification Nav -->
 
+        <!-- Messages Nav -->
         <li class="nav-item dropdown">
 
+          <!-- Messages Icon -->
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
             <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
+          </a>
+          <!-- End Messages Icon -->
 
+          <!-- Messages Dropdown Items -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
             <li class="dropdown-header">
               You have 3 new messages
@@ -207,17 +224,23 @@
               <a href="">Show all messages</a>
             </li>
 
-          </ul><!-- End Messages Dropdown Items -->
+          </ul>
+          <!-- End Messages Dropdown Items -->
 
-        </li><!-- End Messages Nav -->
+        </li>
+        <!-- End Messages Nav -->
 
+        <!-- Profile Nav -->
         <li class="nav-item dropdown pe-3">
 
+          <!-- Profile Image Icon -->
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="" data-bs-toggle="dropdown">
             <img src="/img/profile-img.jpg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2" th:text="${username}"></span>
-          </a><!-- End Profile Iamge Icon -->
+          </a>
+          <!-- End Profile Image Icon -->
 
+          <!-- Profile Dropdown Items -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6 th:text="${username}"></h6>
@@ -264,103 +287,126 @@
               </a>
             </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+          </ul>
+          <!-- End Profile Dropdown Items -->
+        </li>
+        <!-- End Profile Nav -->
 
       </ul>
-    </nav><!-- End Icons Navigation -->
+    </nav>
+    <!-- End Icons Navigation -->
 
   </header>
   <!-- End Header -->
-
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
+      <!-- Home Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" th:href="@{/}">
           <i class="bi bi-grid"></i>
           <span>Home</span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li>
+      <!-- End Home Nav -->
 
       <li class="nav-heading">Parks</li>
 
+      <!-- Magic Kingdom Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">
+        <a class="nav-link" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom'})}">
           <i class="bi bi-signpost"></i>
           <span>Magic Kingdom</span>
         </a>
-      </li><!-- End Profile Page Nav -->
+      </li>
+      <!-- End Magic Kingdom Nav -->
 
+      <!-- Epcot Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link"  th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom Park'})}">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Epcot'})}">
           <i class="bi bi-signpost"></i>
           <span>EPCOT</span>
         </a>
-      </li><!-- End F.A.Q Page Nav -->
+      </li>
+      <!-- End Epcot Nav -->
 
+      <!-- Hollywood Studios Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-contact.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Hollywood Studios'})}">
           <i class="bi bi-signpost"></i>
-          <span>Disney's Hollywood Studios</span>
+          <span>Hollywood Studios</span>
         </a>
-      </li><!-- End Contact Page Nav -->
+      </li>
+      <!-- End Hollywood Studios Nav -->
 
+      <!-- Animal Kingdom Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-register.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Animal Kingdom'})}">
           <i class="bi bi-signpost"></i>
-          <span>Disney's Animal Kingdom</span>
+          <span>Animal Kingdom</span>
         </a>
-      </li><!-- End Register Page Nav -->
+      </li>
+      <!-- End Animal Kingdom Nav -->
 
+      <!-- Disney Springs Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Disney Springs'})}">
           <i class="bi bi-signpost"></i>
           <span>Disney Springs</span>
         </a>
-      </li><!-- End Login Page Nav -->
+      </li>
+      <!-- End Disney Springs Nav -->
 
+      <!-- Typhoon Lagoon Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-blank.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Typhoon Lagoon'})}">
           <i class="bi bi-droplet"></i>
-          <span>Disney's Typhoon Lagoon</span>
+          <span>Typhoon Lagoon</span>
         </a>
-      </li><!-- End Blank Page Nav -->
+      </li>
+      <!-- End Typhoon Lagoon Nav -->
 
+      <!-- Blizzard Beach Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" href="pages-error-404.html">
+        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Blizzard Beach'})}">
           <i class="bi bi-droplet"></i>
-          <span>Disney's Blizzard Beach</span>
+          <span>Blizzard Beach</span>
         </a>
-      </li><!-- End Error 404 Page Nav -->
+      </li>
+      <!-- End Blizzard Beach Nav -->
 
+      <!-- Parking Cars 1 Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" href="pages-blank.html">
+        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'ParkingCars1'})}">
           <i class="bi bi-car-front"></i>
           <span>Parking Cars 1</span>
         </a>
-      </li><!-- End Blank Page Nav -->
+      </li>
+      <!-- End Parking Cars 1 Nav -->
 
+      <!-- Parking Cars 2 Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'Parking Cars 2'})}">
+        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'ParkingCars2'})}">
           <i class="bi bi-car-front"></i>
           <span>Parking Cars 2</span>
         </a>
-      </li><!-- End Error 404 Page Nav -->
+      </li>
+      <!-- End Parking Cars 2 Nav -->
 
     </ul>
 
   </aside>
   <!-- End Sidebar-->
 
+  <!-- ======= Main ======= -->
   <main id="main" class="main">
 
-    <!-- ======= Page Title =======  -->
+    <!-- ======= Page Title ======= -->
     <div class="pagetitle">
-      <h1> Magic Kingdom</h1>
+      <h1>Magic Kingdom</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
@@ -373,11 +419,11 @@
     <section class="section dashboard">
       <div class="row">
 
-        <!-- Left side columns -->
+        <!-- ======= Left Side Columns ======= -->
         <div class="col-lg-8">
           <div class="row">
-            <div th:text="${park}"></div>
-            <!-- railroad -->
+
+            <!-- Walt Disney World Railroad -->
             <div class="col-xxl-4 col-xl-12">
               <a>
                 <div class="card info-card customers-card" data-attraction="Walt Disney World Railroad" style="cursor: pointer; background-image: url('/img/WaltDisneyRailroad.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
@@ -387,9 +433,9 @@
                 </div>
               </a>
             </div>
-            <!-- End Customers Card -->
+            <!-- End Walt Disney World Railroad -->
 
-            <!-- pirates -->
+            <!-- Pirates of the Caribbean -->
             <div class="col-xxl-4 col-xl-12">
               <a>
                 <div class="card info-card customers-card" data-attraction="Pirates of the Caribbean" style="cursor: pointer; background-image: url('/img/PiratesoftheCaribbean.jpeg'); background-size: cover; background-position: center; width:315px;height:155px;">
@@ -399,7 +445,7 @@
                 </div>
               </a>
             </div>
-            <!-- End Customers Card -->
+            <!-- End Pirates of the Caribbean -->
 
             <!-- Haunted Mansion -->
             <div class="col-xxl-4 col-xl-12">
@@ -411,9 +457,9 @@
                 </div>
               </a>
             </div>
-            <!-- End Customers Card -->
+            <!-- End Haunted Mansion -->
 
-            <!-- Seven dwarfs -->
+            <!-- Seven Dwarfs Mine Train -->
             <div class="col-xxl-4 col-xl-12">
               <a>
                 <div class="card info-card customers-card" data-attraction="Seven Dwarfs Mine Train" style="cursor: pointer; background-image: url('/img/seven-dwarfs-mine-train-magic-kingdom-1.jpg'); background-size: cover; background-position: center; width:315px;height:155px;">
@@ -423,9 +469,9 @@
                 </div>
               </a>
             </div>
-            <!-- End Customers Card -->
+            <!-- End Seven Dwarfs Mine Train -->
 
-            <!-- Tomorrow land speedway -->
+            <!-- Tomorrowland Speedway -->
             <div class="col-xxl-4 col-xl-12">
               <a>
                 <div class="card info-card customers-card" data-attraction="Tomorrowland Speedway" style="cursor: pointer; background-image: url('/img/tomorrowland.jpeg'); background-size: cover; background-position: center; width:315px;height:155px;">
@@ -435,24 +481,12 @@
                 </div>
               </a>
             </div>
-            <!-- End Customers Card -->
+            <!-- End Tomorrowland Speedway -->
 
-            <!-- Line Chart -->
+            <!-- Visitor Flow Chart -->
             <div class="col-12">
               <div class="card">
 
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
                 <div class="card-body">
                   <h5 class="card-title">Visitor Flow <span>| Today</span></h5>
 
@@ -494,90 +528,72 @@
                 </div>
               </div>
             </div>
-            <!-- End Line Chart -->
+            <!-- End Visitor Flow Chart -->
 
-            <!-- Reports -->
+            <!-- Map -->
             <div class="col-12">
-
               <div class="card">
-
                 <div class="card-body">
                   <h5 class="card-title">Magic Kingdom Map</h5>
 
                   <div class="d-flex align-items-center">
-                    <img src="/img/magic-kingdom-map.png" alt="Magic Kingdom" width="100%">
+                    <img src="/img/map-magic-kingdom.png" alt="Magic Kingdom" width="100%">
                   </div>
 
                 </div>
               </div>
             </div>
-            <!-- End Reports -->
+            <!-- End Map -->
 
           </div>
         </div>
-        <!-- End Left side columns -->
+        <!-- End Left Side Columns -->
 
-        <!-- Right side columns -->
+        <!-- ======= Right Side Columns ======= -->
         <div class="col-lg-4">
 
-            <!-- Customers Card -->
+          <!-- Visitors -->
+          <div class="card info-card">
 
-              <div class="card info-card">
+            <!-- Visitors Now -->
+            <div class="card-body">
+              <h5 class="card-title">Visitors<span> | Now</span></h5>
 
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-people"></i>
                 </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Visitors<span> | Now</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6 id="visitors">-</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Visitors Expected <span>| Today</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>624 000</h6>
-                      <span class="text-success small pt-1 fw-bold">6%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
-                    </div>
-                  </div>
-
+                <div class="ps-3">
+                  <h6 id="visitors">-</h6>
+                  <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
                 </div>
               </div>
-            <!-- End Customers Card -->
+            </div>
+            <!-- End Visitors Now -->
+
+            <!-- Visitors Expected -->
+            <div class="card-body">
+              <h5 class="card-title">Visitors Expected <span>| Today</span></h5>
+
+              <div class="d-flex align-items-center">
+                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                  <i class="bi bi-people"></i>
+                </div>
+                <div class="ps-3">
+                  <h6>624 000</h6>
+                  <span class="text-success small pt-1 fw-bold">6%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                </div>
+              </div>
+            </div>
+            <!-- End Visitors Expected -->
+
+          </div>
+          <!-- End Visitors -->
 
           <!-- Recent Activity -->
           <div class="card">
-
-
             <div class="card-body">
               <h5 class="card-title">Recent Activity <span>| Attraction and Descripton</span></h5>
-
               <div class="activity">
 
                 <th:block th:each="history : ${maintenanceHistory}">
@@ -585,36 +601,17 @@
                     <div class="activite-label" th:text="${history.date}"></div>
                     <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
                     <div class="activity-content" th:text="|${history.attraction} - ${history.description}|"></div>
-                  </div><!-- End activity item-->
+                  </div>
                 </th:block>
 
-
-
               </div>
-
             </div>
-
           </div>
           <!-- End Recent Activity -->
-
-      <!--  <div th:text="${visitors}"> </div> -->
 
           <!-- Pie Chart -->
           <div class="card">
             <div class="card-body">
-
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
               <h5 class="card-title">Visitor Flow in Each Attraction <span>| Today</span></h5>
 
               <div id="pieChart"></div>

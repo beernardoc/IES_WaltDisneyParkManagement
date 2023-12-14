@@ -47,12 +47,20 @@ function getParkNameFromURL() {
   var url = window.location.href;
   var parts = url.split('/');
   var parkIndex = parts.indexOf('parks');
+  var parkName = null;
 
   if (parkIndex !== -1 && parkIndex < parts.length - 1) {
-    return parts[parkIndex + 1].replace(/%20/g, ' ');
+    parkName = parts[parkIndex + 1].replace(/%20/g, ' ');
   }
 
-  return null; // ou outra lógica padrão caso o nome do parque não seja encontrado
+  var parkLink = document.getElementById('parkLink');
+
+  if (parkLink) {
+    parkLink.textContent = parkName;
+    parkLink.href = '/parks/' + parkName;
+  }
+
+  return parkName; // ou outra lógica padrão caso o nome do parque não seja encontrado
 }
 
 
@@ -455,3 +463,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 })();
+
+function closeUrgentModal() {
+  var modal = $('#urgentModal');
+  modal.modal('hide');
+  window.location.reload();
+}

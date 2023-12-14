@@ -32,10 +32,10 @@ public class EmployeeIMPL implements EmployeeService {
         System.out.println("Received employeeDto: " + employeeDto);
 
         Employee employee = new Employee(
-            employeeDto.getName(),
-            employeeDto.getEmail(),
-            this.passwordEncoder.encode(employeeDto.getPassword()),
-            employeeDto.getRole()
+            employeeDto.Name(),
+            employeeDto.Email(),
+            this.passwordEncoder.encode(employeeDto.Password()),
+            employeeDto.Role()
             
 
             );
@@ -91,16 +91,16 @@ public class EmployeeIMPL implements EmployeeService {
 
     @Override
     public String updateEmployee(EmployeeDto employeeDto) {
-        Employee employee = employeeRepo.findByEmail(employeeDto.getEmail());
+        Employee employee = employeeRepo.findByEmail(employeeDto.Email());
 
         if(employee == null){
             return null;
         }
 
-        employee.setName(employeeDto.getName());
-        employee.setEmail(employeeDto.getEmail());
-        employee.setPassword(this.passwordEncoder.encode(employeeDto.getPassword()));
-        employee.setRole(employeeDto.getRole());
+        employee.setName(employeeDto.Name());
+        employee.setEmail(employeeDto.Email());
+        employee.setPassword(this.passwordEncoder.encode(employeeDto.Password()));
+        employee.setRole(employeeDto.Role());
 
         employeeRepo.save(employee);
 
@@ -110,6 +110,8 @@ public class EmployeeIMPL implements EmployeeService {
     @Override
     public String deleteEmployee(String email) {
         Employee employee = employeeRepo.findByEmail(email);
+
+        System.out.println("Employee: " + employee);
 
         if(employee == null){
             return null;

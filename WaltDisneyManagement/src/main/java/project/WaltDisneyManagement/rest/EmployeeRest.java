@@ -43,11 +43,16 @@ public class EmployeeRest {
         return ResponseEntity.ok("Employee " + name + " updated");
     }
 
-    @DeleteMapping("/api/employee")
-    public ResponseEntity<String> deleteEmployee(@RequestBody String email) {
+    @DeleteMapping("/api/employee/{email}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("email") String email) {
         String name = employeeService.deleteEmployee(email);
-        return ResponseEntity.ok("Employee " + name + " deleted");
+        if (name != null) {
+            return ResponseEntity.ok("Employee " + name + " deleted");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
+
     @GetMapping("/api/employee/{email}")
     public ResponseEntity<Employee> getEmployeeData(@PathVariable("email") String email) {
 

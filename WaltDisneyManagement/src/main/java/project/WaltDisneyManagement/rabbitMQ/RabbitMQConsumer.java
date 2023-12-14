@@ -60,8 +60,6 @@ public class RabbitMQConsumer {
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = jsonParser.parse(message).getAsJsonObject();
 
-        System.out.println("Received message from queue <" + routingKey + ">" + message);
-
 
 
         for(String key : jsonObject.keySet()){
@@ -125,8 +123,6 @@ public class RabbitMQConsumer {
                 } else if (Objects.equals(attraction.getType(), "Carousel")) {
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
-
-                        System.out.println("ca " + attractionObject);
 
 
                         Double velocityKmh = attractionObject.getAsJsonPrimitive("velocity_kmh").getAsDouble();
@@ -207,8 +203,6 @@ public class RabbitMQConsumer {
                 if (jsonObject.get(key) instanceof JsonObject) {
 
                         ParkCars parkingLot = parkCarsService.findByName(key);
-                        System.out.println("Parque de estacionamento criado");
-
 
                         if(parkingLot == null){
                             System.out.println("Parque de estacionamento não encontrado");

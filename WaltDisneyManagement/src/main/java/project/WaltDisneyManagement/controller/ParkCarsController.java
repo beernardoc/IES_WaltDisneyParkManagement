@@ -42,7 +42,7 @@ public class ParkCarsController {
         model.addAttribute("capacity", parkCars.getMaxcap());
         model.addAttribute("atual", parkCars.getAtual());
         model.addAttribute("parkCarName", parkCars.getName());
-        
+
         
 
         return "parking-lot";

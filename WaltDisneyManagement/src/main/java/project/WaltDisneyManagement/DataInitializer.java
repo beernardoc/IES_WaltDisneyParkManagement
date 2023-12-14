@@ -28,7 +28,7 @@ public class DataInitializer implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args, boolean True) throws Exception {
+    public void run(String... args) throws Exception {
         Employee technician = new Employee("Mariana Dias", "marianadias@ua.pt", "12345", "TECHNICIAN");
         technician.setPassword(this.passwordEncoder.encode(technician.getPassword()));
         employeeRepo.save(technician);

@@ -248,7 +248,7 @@ class Generators:
             data = {
                 "Marketplace Train Express" : {
                     "velocity_kmh": velocity_marketplace,
-                    "height_m   ": height_marketplace,
+                    "height_m": height_marketplace,
                     "temperature": temperature_marketplace,
                     "vibration": vibration_marketplace,
                     "people_queue" : people_queue_marketplace,

@@ -16,6 +16,8 @@ public interface ParkService {
 
     Park findByName(String name);
 
+    List<Park> findAll();
+
 
 
 

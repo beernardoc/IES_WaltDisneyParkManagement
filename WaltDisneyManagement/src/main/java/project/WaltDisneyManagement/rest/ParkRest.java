@@ -16,6 +16,8 @@ import project.WaltDisneyManagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import project.WaltDisneyManagement.service.ParkService;
 
+import java.util.List;
+
 
 @RestController
 public class ParkRest {
@@ -32,10 +34,22 @@ public class ParkRest {
         return ResponseEntity.ok(park);
     }
 
+    @GetMapping("/api/park")
+    public ResponseEntity<List<Park>> getParks(){
+        List<Park> parks = parkService.findAll();
+
+        if(!parks.isEmpty()){
+            return ResponseEntity.ok(parks);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 
 
 
-    @GetMapping("/api/parks/{parkName}")
+
+    @GetMapping("/api/park/{parkName}")
     public ResponseEntity<Park> getParkData(@PathVariable("parkName") String parkName) {
 
         Park park = parkService.findByName(parkName);

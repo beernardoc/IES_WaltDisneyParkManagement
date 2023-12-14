@@ -67,18 +67,13 @@ public class RabbitMQConsumer {
 
 
             if (!Objects.equals(key, "Time") && !Objects.equals(key, "ParkingLot1") && !Objects.equals(key, "ParkingLot2") && !Objects.equals(key, "Visitors")) {
-                // System.out.println("key" + key);
                 Attraction attraction = attractionService.findByName(key);
 
-
-
-                if(attraction == null || attraction.getType() == null){
-                    // System.out.println("Attraction not found");
+                if(attraction == null){
                     continue;
                 }
 
                 if(Objects.equals(attraction.getStatus(), "Closed")){
-                    // System.out.println("Attraction is closed");
                     continue;
                 }
 
@@ -111,7 +106,7 @@ public class RabbitMQConsumer {
                 else if (Objects.equals(attraction.getType(), "DarkRide")){
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
-                        System.out.println("dr " + attractionObject);
+
 
                         Double velocityKmh = attractionObject.getAsJsonPrimitive("velocity_kmh").getAsDouble();
                         Double temperature = attractionObject.getAsJsonPrimitive("temperature").getAsDouble();
@@ -196,14 +191,12 @@ public class RabbitMQConsumer {
 
 
 
-                    }
+                }
+
             }
 
-
-
-
         }
-        messagingTemplate.convertAndSend("/topic/atualizacao", message);
+
     }
 
 }

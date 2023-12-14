@@ -11,6 +11,8 @@ import project.WaltDisneyManagement.service.EmployeeService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class EmployeeIMPL implements EmployeeService {
@@ -80,5 +82,15 @@ public class EmployeeIMPL implements EmployeeService {
     @Override
     public Employee findByEmail(String email) {
         return employeeRepo.findByEmail(email);
+    }
+
+    @Override
+    public List<Employee> findAll() {
+        return employeeRepo.findAll();
+    }
+
+    @Override
+    public Employee findById(int id) {
+        return employeeRepo.findById(id);
     }
 }

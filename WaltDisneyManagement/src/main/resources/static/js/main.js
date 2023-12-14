@@ -90,11 +90,11 @@ document.addEventListener('DOMContentLoaded', function () {
       if (parkName) {
         // Lógica para cards com data-parkname
         console.log('Clicou no card para o parque:', parkName);
-        fetch(`/api/parks/${parkName}`)
+        fetch(`/api/park/${parkName}`)
             .then(response => {
               if (response.ok) {
                 // Sucesso - você pode redirecionar ou realizar outras ações conforme necessário
-                window.location.href = `/parks/${parkName}`;
+                window.location.href = `/park/${parkName}`;
               } else {
                 alert("Erro ao obter dados do parque.");
               }
@@ -106,11 +106,11 @@ document.addEventListener('DOMContentLoaded', function () {
       } else if (attractionName) {
         // Lógica para cards com data-attraction
         console.log('Clicou no card para atração:', attractionName);
-        fetch(`/api/attractions/${attractionName}`)
+        fetch(`/api/attraction/${attractionName}`)
             .then(response => {
               if (response.ok) {
                 const currentPath = window.location.pathname;  // Obtém o caminho atual
-                const attractionPath = `/attractions/${attractionName}`;
+                const attractionPath = `/attraction/${attractionName}`;
 
                 window.location.href = currentPath + attractionPath;
 

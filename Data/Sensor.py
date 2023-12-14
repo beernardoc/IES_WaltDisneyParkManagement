@@ -127,6 +127,7 @@ class Generators:
             (velocity_spaceship, temperature_spaceship, vibration_spaceship,people_queue_spaceship, duration_spaceship) = await generate_data("Darkride", previous_spaceship)
             (velocity_cosmic, temperature_cosmic, vibration_cosmic,people_queue_cosmic, duration_cosmic) = await generate_data("Darkride", previous_cosmic)
             (velocity_test, temperature_test, vibration_test,people_queue_test, duration_test) = await generate_data("Darkride", previous_test)
+            People_in_out = await simulate_sensor()
 
             data = {
                 "Spaceship Earth": {
@@ -150,6 +151,9 @@ class Generators:
                     "people_queue": people_queue_test,
                     "duration": duration_test
                 },
+                "Visitors": {
+                    "entry_exit": People_in_out
+                },
                 "Time": time.time()
             }
 
@@ -161,6 +165,7 @@ class Generators:
         while True:
             (velocity_runaway, height_runaway, temperature_runaway,vibration_runaway, people_queue_runaway, duration_runaway) = await generate_data("Rollercoaster", previous_runaway)
             (velocity_rocknroller, height_rocknroller, temperature_rocknroller,vibration_rocknroller, people_queue_rocknroller, duration_rocknroller) = await generate_data("Rollercoaster", previous_rocknroller)
+            People_in_out = await simulate_sensor()
 
             data = {
                 "Mickey & Minnie's Runaway Railway" : {
@@ -179,6 +184,9 @@ class Generators:
                     "people_queue" : people_queue_rocknroller,
                     "duration" : duration_rocknroller
                 },
+                "Visitors": {
+                    "entry_exit": People_in_out
+                },
                 "Time": time.time()
 
             }
@@ -193,6 +201,8 @@ class Generators:
             (velocity_triceratop, rpm_triceratop, temperature_triceratop,vibration_triceratop, people_queue_triceratop, duration_triceratop) = await generate_data("Carousel", previous_triceratop)
             (velocity_kaliriver, height_kaliriver, temperaturewater_kaliriver,vibration_kaliriver, people_queue_kaliriver, duration_kaliriver) = await generate_data("WaterRide", previous_kaliriver)
             (velocity_dinosaur, temperature_dinosaur,vibration_dinosaur, people_queue_dinosaur, duration_dinosaur) = await generate_data("Darkride", previous_dinosaur)
+            People_in_out = await simulate_sensor()
+
             data = {
                 "Triceratop Spin" : {
                     "velocity_kmh": velocity_triceratop,
@@ -217,6 +227,9 @@ class Generators:
                     "people_queue" : people_queue_dinosaur,
                     "duration" : duration_dinosaur
                 },
+                "Visitors": {
+                    "entry_exit": People_in_out
+                },
                 "Time": time.time()
             }
             self.channel.basic_publish(exchange='', routing_key='Animal Kingdom', body=json.dumps(data))
@@ -229,10 +242,11 @@ class Generators:
         while True:
             (velocity_marketplace, height_marketplace, temperature_marketplace,vibration_marketplace, people_queue_marketplace, duration_marketplace) = await generate_data("Rollercoaster", previous_marketplace)
             (velocity_classic, rpm_classic, temperature_classic,vibration_classic, people_queue_classic, duration_classic) = await generate_data("Carousel", previous_classic)
+            People_in_out = await simulate_sensor()
 
 
             data = {
-                "Marketplace Carousel" : {
+                "Marketplace Train Express" : {
                     "velocity_kmh": velocity_marketplace,
                     "height_m": height_marketplace,
                     "temperature": temperature_marketplace,
@@ -248,6 +262,9 @@ class Generators:
                     "people_queue" : people_queue_classic,
                     "duration" : duration_classic
                 },
+                "Visitors": {
+                    "entry_exit": People_in_out
+                },
                 "Time": time.time()
 
             }
@@ -260,6 +277,7 @@ class Generators:
         while True:
             (velocity_summit, height_summit, temperaturewater_summit,vibration_summit, people_queue_summit, duration_summit) = await generate_data("WaterRide", previous_summit)
             (velocity_slush, height_slush, temperaturewater_slush,vibration_slush, people_queue_slush, duration_slush) = await generate_data("WaterRide", previous_slush)
+            People_in_out = await simulate_sensor()
 
 
             data = {
@@ -279,6 +297,9 @@ class Generators:
                     "people_queue" : people_queue_slush,
                     "duration" : duration_slush
                 },
+                "Visitors": {
+                    "entry_exit": People_in_out
+                },
                 "Time": time.time()
 
             }
@@ -292,6 +313,7 @@ class Generators:
         while True:
             (velocity_gangplank, height_gangplank, temperaturewater_gangplank,vibration_gangplank, people_queue_gangplank, duration_gangplank) = await generate_data("WaterRide", previous_gangplank)
             (velocity_humunga, height_humunga, temperaturewater_humunga,vibration_humunga, people_queue_humunga, duration_humunga) = await generate_data("WaterRide", previous_humunga)
+            People_in_out = await simulate_sensor()
 
 
             data = {
@@ -310,6 +332,9 @@ class Generators:
                     "vibration": vibration_humunga,
                     "people_queue" : people_queue_humunga,
                     "duration" : duration_humunga
+                },
+                "Visitors": {
+                    "entry_exit": People_in_out
                 },
                 "Time": time.time()
 

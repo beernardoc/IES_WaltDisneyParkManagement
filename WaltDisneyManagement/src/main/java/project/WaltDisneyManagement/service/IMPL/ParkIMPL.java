@@ -47,5 +47,10 @@ public class ParkIMPL implements ParkService {
         return parkRepo.findByName(name);
     }
 
+    @Override
+    public List<Park> findAll() {
+        return parkRepo.findAll();
+    }
+
 
 }

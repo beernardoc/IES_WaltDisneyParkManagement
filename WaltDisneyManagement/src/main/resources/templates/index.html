@@ -651,25 +651,11 @@
                   <li><a class="dropdown-item" href="#">This Year</a></li>
                 </ul>
               </div>
-              <h5 class="card-title">Visitor Flow in Each Park <span>| Today</span></h5>
+              <h5 class="card-title">Visitor Flow in Each Park <span>| Now</span></h5>
 
               <div id="pieChart"></div>
 
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new ApexCharts(document.querySelector("#pieChart"), {
-                    series: [10, 15, 20, 10, 15, 10, 20],
-                    chart: {
-                      height: 350,
-                      type: 'pie',
-                      toolbar: {
-                        show: true
-                      }
-                    },
-                    labels: ['Magic Kingdom', 'EPCOT', 'Hollywood Studios', 'Animal Kingdom', 'Disney Springs', 'Typhoon Lagoon', 'Blizzard Beach']
-                  }).render();
-                });
-              </script>
+
             </div>
           </div>
           <!-- End Pie Chart -->

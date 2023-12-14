@@ -609,31 +609,6 @@
           </div>
           <!-- End Recent Activity -->
 
-          <!-- Pie Chart -->
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Visitor Flow in Each Attraction <span>| Today</span></h5>
-
-              <div id="pieChart"></div>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new ApexCharts(document.querySelector("#pieChart"), {
-                    series: [20, 25, 30, 10, 15],
-                    chart: {
-                      height: 350,
-                      type: 'pie',
-                      toolbar: {
-                        show: true
-                      }
-                    },
-                    labels: ['Walt Disney World Railroad', 'Pirates of the Caribbean', 'Haunted Mansion', 'Seven Dwarfs Mine Train', 'Tomorrowland Speedway']
-                  }).render();
-                });
-              </script>
-            </div>
-          </div>
-          <!-- End Pie Chart -->
 
         </div>
         <!-- End Right side columns -->

@@ -21,6 +21,7 @@ import project.WaltDisneyManagement.service.AttractionService;
 import project.WaltDisneyManagement.service.ParkCarsService;
 import project.WaltDisneyManagement.service.ParkService;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -59,6 +60,8 @@ public class RabbitMQConsumer {
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = jsonParser.parse(message).getAsJsonObject();
 
+        System.out.println("Received message from queue <" + routingKey + ">" + message);
+
 
 
         for(String key : jsonObject.keySet()){
@@ -67,16 +70,16 @@ public class RabbitMQConsumer {
             if (!Objects.equals(key, "Time") && !Objects.equals(key, "ParkingLot1") && !Objects.equals(key, "ParkingLot2") && !Objects.equals(key, "Visitors")) {
                 Attraction attraction = attractionService.findByName(key);
 
-                if(attraction == null || attraction.getPark() == null ){
+                if (attraction == null || attraction.getPark() == null) {
                     continue;
                 }
 
-                if(Objects.equals(attraction.getStatus(), "Closed")){
+                if (Objects.equals(attraction.getStatus(), "Closed")) {
                     continue;
                 }
 
 
-                if(Objects.equals(attraction.getType(), "RollerCoaster")){
+                if (Objects.equals(attraction.getType(), "RollerCoaster")) {
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
 
@@ -85,22 +88,20 @@ public class RabbitMQConsumer {
                         Double temperature = attractionObject.getAsJsonPrimitive("temperature").getAsDouble();
                         Double vibration = attractionObject.getAsJsonPrimitive("vibration").getAsDouble();
 
-                        if(attraction.testValuesRollerCoaster(velocityKmh, height, temperature, vibration)){
-                            messagingTemplate.convertAndSend("/topic/" +  attraction.getPark().getName() +"/" + attraction.getName(), attractionObject.toString());
+                        if (attraction.testValuesRollerCoaster(velocityKmh, height, temperature, vibration)) {
+                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() + "/" + attraction.getName(), attractionObject.toString());
 
-                        }
-                        else{
+                        } else {
                             attraction.setStatus("Closed");
                             attractionRepo.save(attraction);
-                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() +"/" + attraction.getName() + "/Alert", attraction.getName());
+                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() + "/" + attraction.getName() + "/Alert", attraction.getName());
 
                         }
 
 
                     }
 
-                }
-                else if (Objects.equals(attraction.getType(), "DarkRide")){
+                } else if (Objects.equals(attraction.getType(), "DarkRide")) {
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
 
@@ -109,21 +110,19 @@ public class RabbitMQConsumer {
                         Double temperature = attractionObject.getAsJsonPrimitive("temperature").getAsDouble();
                         Double vibration = attractionObject.getAsJsonPrimitive("vibration").getAsDouble();
 
-                        if(attraction.testValuesDarkRide(velocityKmh, temperature, vibration)){
-                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() +"/" + attraction.getName(), attractionObject.toString());
+                        if (attraction.testValuesDarkRide(velocityKmh, temperature, vibration)) {
+                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() + "/" + attraction.getName(), attractionObject.toString());
 
-                        }
-                        else{
+                        } else {
                             attraction.setStatus("Closed");
                             attractionRepo.save(attraction);
-                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() +"/" + attraction.getName() + "/Alert", attraction.getName());
+                            messagingTemplate.convertAndSend("/topic/" + attraction.getPark().getName() + "/" + attraction.getName() + "/Alert", attraction.getName());
                         }
 
 
                     }
 
-                }
-                else if(Objects.equals(attraction.getType(), "Carousel")) {
+                } else if (Objects.equals(attraction.getType(), "Carousel")) {
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
 
@@ -146,8 +145,7 @@ public class RabbitMQConsumer {
 
 
                     }
-                }
-                else if(Objects.equals(attraction.getType(), "WaterRide")) {
+                } else if (Objects.equals(attraction.getType(), "WaterRide")) {
                     if (jsonObject.get(key) instanceof JsonObject) {
                         JsonObject attractionObject = jsonObject.getAsJsonObject(key);
 
@@ -169,6 +167,7 @@ public class RabbitMQConsumer {
 
                     }
                 }
+            }
 
 
             else if (Objects.equals(key, "Visitors")) {
@@ -184,8 +183,20 @@ public class RabbitMQConsumer {
 
                 park.addVisitor(value);
                 parkRepo.save(park);
-                messagingTemplate.convertAndSend("/topic/Visitors", parkService.getTotalVisitors());
-                messagingTemplate.convertAndSend("/topic/" + park.getName() + "/Visitors", park.getVisitors());
+
+                List<Park> parks = parkService.findAll();
+
+                JsonObject parksJson = new JsonObject();
+                for (Park currentPark : parks) {
+                    String parkName = currentPark.getName();
+                    int totalVisitors = currentPark.getVisitors();
+
+                    // Adicionar a entrada ao JSON
+                    parksJson.addProperty(parkName, totalVisitors);
+                }
+                parksJson.addProperty("total", parkService.getTotalVisitors());
+
+                messagingTemplate.convertAndSend("/topic/Visitors", parksJson.toString());
 
 
             }
@@ -239,4 +250,4 @@ public class RabbitMQConsumer {
     }
 
 }
-}
+

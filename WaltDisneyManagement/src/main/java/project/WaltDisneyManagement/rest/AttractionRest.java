@@ -40,6 +40,27 @@ public class AttractionRest {
 
     }
 
+    @PutMapping("/api/attraction")
+    public ResponseEntity<Attraction> updateAttraction(@RequestBody AttractionDto attractionDto) {
+        Attraction attraction = attractionService.updateAttraction(attractionDto);
+
+        if (attraction != null) {
+            return ResponseEntity.ok(attraction);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/api/attraction/{attractionName}")
+    public ResponseEntity<String> deleteAttraction(@PathVariable("attractionName") String attractionName) {
+        String name = attractionService.deleteAttraction(attractionName);
+        if (name != null) {
+            return ResponseEntity.ok("Attraction " + name + " deleted");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 
     @GetMapping("/api/attraction/{attractionName}")

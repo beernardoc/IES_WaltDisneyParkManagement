@@ -40,6 +40,11 @@ public class EmployeeRest {
     @PutMapping("/api/employee")
     public ResponseEntity<String> updateEmployee(@RequestBody EmployeeDto employeeDto) {
         String name = employeeService.updateEmployee(employeeDto);
+
+        if (name == null) {
+            return ResponseEntity.notFound().build();
+        }
+
         return ResponseEntity.ok("Employee " + name + " updated");
     }
 

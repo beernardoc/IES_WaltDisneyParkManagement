@@ -47,9 +47,6 @@ public class Park {
         }
     }
 
-    public void removeVisitor(int visitors) {
-        this.visitors -= visitors;
-    }
 
     @Override
     public String toString() {

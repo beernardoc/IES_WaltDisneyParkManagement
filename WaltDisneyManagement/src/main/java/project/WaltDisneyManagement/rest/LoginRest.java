@@ -26,7 +26,6 @@ public class LoginRest {
     public ResponseEntity<Employee> loginEmployee(@RequestBody LoginDto loginDto, HttpServletRequest request) {
         boolean loginMessage = employeeService.loginEmployee(loginDto);
         if(loginMessage){
-
             var employee = employeeService.findByEmail(loginDto.getEmail());
             return ResponseEntity.ok(employee);
         }
@@ -48,17 +47,6 @@ public class LoginRest {
         }
 
     }
-
-
-
-    @PostMapping("/register")
-    public ResponseEntity<String> saveEmployee(@RequestBody EmployeeDto employeeDto) {
-        String name = employeeService.addEmployee(employeeDto);
-        return ResponseEntity.ok("Employee " + name + " saved");
-
-    }
-
-
 
 
 

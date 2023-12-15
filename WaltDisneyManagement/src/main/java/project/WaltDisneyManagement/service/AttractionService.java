@@ -17,4 +17,8 @@ public interface AttractionService {
 
     List<Attraction> findAll();
 
+    Attraction updateAttraction(AttractionDto attractionDto);
+
+    String deleteAttraction(String name);
+
 }

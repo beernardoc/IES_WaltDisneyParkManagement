@@ -25,5 +25,9 @@ public interface EmployeeService {
 
     List<Employee> findAll();
 
+    String updateEmployee(EmployeeDto employeeDto);
+
+    String deleteEmployee(String email);
+
 
 }

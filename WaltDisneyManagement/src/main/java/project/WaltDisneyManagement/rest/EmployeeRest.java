@@ -5,6 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
 import project.WaltDisneyManagement.Dto.EmployeeDto;
 import project.WaltDisneyManagement.entity.Employee;
 import project.WaltDisneyManagement.service.EmployeeService;
@@ -17,14 +19,18 @@ public class EmployeeRest {
     @Autowired
     private EmployeeService employeeService;
 
-
+ 
     @PostMapping("/api/employee")
     public ResponseEntity<String> saveEmployee(@RequestBody EmployeeDto employeeDto) {
         String name = employeeService.addEmployee(employeeDto);
-        return ResponseEntity.ok("Employee " + name + " saved");
+        if (name != null) {
+            return ResponseEntity.ok("Employee " + name + " saved");
+        }
+        return ResponseEntity.badRequest().body("Employee not saved");
 
     }
 
+   
     @GetMapping("/api/employee")
     public ResponseEntity<List<Employee>> getEmployees() {
         List<Employee> employees = employeeService.findAll();
@@ -32,11 +38,12 @@ public class EmployeeRest {
         if (!employees.isEmpty()) {
             return ResponseEntity.ok(employees);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().body(null);
         }
 
     }
 
+ 
     @PutMapping("/api/employee")
     public ResponseEntity<String> updateEmployee(@RequestBody EmployeeDto employeeDto) {
         String name = employeeService.updateEmployee(employeeDto);
@@ -48,6 +55,7 @@ public class EmployeeRest {
         return ResponseEntity.ok("Employee " + name + " updated");
     }
 
+    
     @DeleteMapping("/api/employee/{email}")
     public ResponseEntity<String> deleteEmployee(@PathVariable("email") String email) {
         String name = employeeService.deleteEmployee(email);
@@ -58,6 +66,7 @@ public class EmployeeRest {
         }
     }
 
+  
     @GetMapping("/api/employee/{email}")
     public ResponseEntity<Employee> getEmployeeData(@PathVariable("email") String email) {
 

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+
 import project.WaltDisneyManagement.Dto.EmployeeDto;
 import project.WaltDisneyManagement.Dto.LoginDto;
 import project.WaltDisneyManagement.entity.Employee;
@@ -21,7 +23,7 @@ public class LoginRest {
     private EmployeeService employeeService;
 
 
-
+  
     @PostMapping("/api/login")
     public ResponseEntity<Employee> loginEmployee(@RequestBody LoginDto loginDto, HttpServletRequest request) {
         boolean loginMessage = employeeService.loginEmployee(loginDto);
@@ -32,7 +34,7 @@ public class LoginRest {
         return ResponseEntity.badRequest().body(null);
     }
 
-
+   
     @GetMapping("/api/login")
     public ResponseEntity<Employee> loginEmployee(HttpServletRequest request) {
         var email = request.getSession().getAttribute("employee_email");

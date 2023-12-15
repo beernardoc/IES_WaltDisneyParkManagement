@@ -23,7 +23,7 @@ public class Attraction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int attractionId;
 
-    @Column(name = "attraction_name", length = 45)
+    @Column(name = "attraction_name", length = 45, unique = true)
     private String name;
 
     @Column(name = "attraction_status", length = 45)

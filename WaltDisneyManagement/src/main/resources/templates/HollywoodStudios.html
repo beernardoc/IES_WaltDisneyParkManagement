@@ -49,7 +49,7 @@
       <div class="logo d-flex align-items-center">
         <a href="/" class="d-flex align-items-center">
           <img src="/img/disneylogo.png" alt="">
-          <span class="d-none d-lg-block" style="font-size: 20px; margin-left: 5px; margin-right: 15px;">Walt Disney Management</span>
+          <span class="d-none d-lg-block" style="font-size: 18px; margin-left: 5px; margin-right: 30px;">Walt Disney Management</span>
         </a>
       </div>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -317,7 +317,7 @@
 
       <!-- Magic Kingdom Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Magic Kingdom'})}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Magic Kingdom'})}">
           <i class="bi bi-signpost"></i>
           <span>Magic Kingdom</span>
         </a>
@@ -326,7 +326,7 @@
 
       <!-- Epcot Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Epcot'})}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Epcot'})}">
           <i class="bi bi-signpost"></i>
           <span>EPCOT</span>
         </a>
@@ -335,7 +335,7 @@
 
       <!-- Hollywood Studios Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link" th:href="@{/parks/{parkName}(parkName=${'Hollywood Studios'})}">
+        <a class="nav-link" th:href="@{/park/{parkName}(parkName=${'Hollywood Studios'})}">
           <i class="bi bi-signpost"></i>
           <span>Hollywood Studios</span>
         </a>
@@ -344,7 +344,7 @@
 
       <!-- Animal Kingdom Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Animal Kingdom'})}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Animal Kingdom'})}">
           <i class="bi bi-signpost"></i>
           <span>Animal Kingdom</span>
         </a>
@@ -353,7 +353,7 @@
 
       <!-- Disney Springs Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Disney Springs'})}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Disney Springs'})}">
           <i class="bi bi-signpost"></i>
           <span>Disney Springs</span>
         </a>
@@ -362,7 +362,7 @@
 
       <!-- Typhoon Lagoon Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Typhoon Lagoon'})}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Typhoon Lagoon'})}">
           <i class="bi bi-droplet"></i>
           <span>Typhoon Lagoon</span>
         </a>
@@ -371,7 +371,7 @@
 
       <!-- Blizzard Beach Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-        <a class="nav-link collapsed" th:href="@{/parks/{parkName}(parkName=${'Blizzard Beach'})}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Blizzard Beach'})}">
           <i class="bi bi-droplet"></i>
           <span>Blizzard Beach</span>
         </a>
@@ -573,32 +573,6 @@
           </div>
           <!-- End Recent Activity -->
 
-          <!-- Pie Chart -->
-          <div class="card">
-            <div class="card-body">
-
-              <h5 class="card-title">Visitor Flow in Each Attraction <span>| Today</span></h5>
-
-              <div id="pieChart"></div>
-
-              <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                  new ApexCharts(document.querySelector("#pieChart"), {
-                    series: [70, 30],
-                    chart: {
-                      height: 350,
-                      type: 'pie',
-                      toolbar: {
-                        show: true
-                      }
-                    },
-                    labels: ['Mickey & Minnie\'s Runaway', 'Rock ‘n’ Roller Coaster']
-                  }).render();
-                });
-              </script>
-            </div>
-          </div>
-          <!-- End Pie Chart -->
 
         </div>
         <!-- End Right side columns -->

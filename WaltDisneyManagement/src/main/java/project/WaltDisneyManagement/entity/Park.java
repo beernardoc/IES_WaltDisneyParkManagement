@@ -39,12 +39,14 @@ public class Park {
     }
 
     public void addVisitor(int visitors) {
-        this.visitors += visitors;
+
+        if (this.visitors + visitors < 0) {
+            this.visitors = 0;
+        } else {
+            this.visitors += visitors;
+        }
     }
 
-    public void removeVisitor(int visitors) {
-        this.visitors -= visitors;
-    }
 
     @Override
     public String toString() {

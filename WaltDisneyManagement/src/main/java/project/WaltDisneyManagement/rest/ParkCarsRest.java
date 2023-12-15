@@ -3,6 +3,8 @@ package project.WaltDisneyManagement.rest;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+
 import project.WaltDisneyManagement.Dto.ParkCarsDto;
 import project.WaltDisneyManagement.entity.Park;
 import project.WaltDisneyManagement.entity.ParkCars;
@@ -20,12 +22,14 @@ public class ParkCarsRest {
     private ParkCarsService parkCarsService;
 
 
+    
     @PostMapping("/api/parkCars")
     public ResponseEntity<ParkCars> addParkCars(@RequestBody ParkCarsDto parkCarsDto){
         ParkCars parkCars = parkCarsService.addParkCars(parkCarsDto);
         return ResponseEntity.ok(parkCars);
     }
 
+ 
     @GetMapping("/api/parkCars")
     public ResponseEntity<List<ParkCars>> getParkCarsData() {
         List<ParkCars> parkCars = parkCarsService.findAll();
@@ -37,6 +41,7 @@ public class ParkCarsRest {
         }
     }
 
+  
     @GetMapping("/api/parkCars/{parkCarsName}")
     public ResponseEntity<ParkCars> getParkCarsData(@PathVariable("parkCarsName") String parkCarsName) {
 

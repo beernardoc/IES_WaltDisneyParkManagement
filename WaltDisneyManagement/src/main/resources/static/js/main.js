@@ -13,40 +13,53 @@ var socket = new SockJS('/websocket-endpoint');
 stompClient = Stomp.over(socket);
 var parkName = getParkNameFromURL();
 console.log("parkname", parkName);
+var chartInstance = null;
+
 stompClient.connect({}, function (frame) {
+  stompClient.subscribe(`/topic/Visitors`, function (mensagem) {
+    var mensagemJson = JSON.parse(mensagem.body);
+    console.log(mensagemJson);
 
-  if(parkName){
-    stompClient.subscribe(`/topic/${parkName}/Visitors`, function (mensagem) {
-      console.log(mensagem.body); // mensagem.body é o valor do número de visitantes agora
+    if (parkName) {
+      document.getElementById("visitors").innerHTML = mensagemJson[parkName];
+    } else { // index
+      document.getElementById("visitors").innerHTML = mensagemJson["total"];
 
-      document.getElementById("visitors").innerHTML = mensagem.body;
+      // Destruir o gráfico existente, se houver
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
 
+      // Criar um novo gráfico com os novos dados
+      chartInstance = new ApexCharts(document.querySelector("#pieChart"), {
+        series: [
+          mensagemJson["Magic Kingdom"],
+          mensagemJson["Epcot"],
+          mensagemJson["Hollywood Studios"],
+          mensagemJson["Animal Kingdom"],
+          mensagemJson["Disney Springs"],
+          mensagemJson["Typhoon Lagoon"],
+          mensagemJson["Blizzard Beach"]
+        ],
+        chart: {
+          height: 350,
+          type: 'pie',
+          toolbar: {
+            show: true
+          }
+        },
+        labels: ['Magic Kingdom', 'Epcot', 'Hollywood Studios', 'Animal Kingdom', 'Disney Springs', 'Typhoon Lagoon', 'Blizzard Beach']
+      });
 
-    });
-
-  }
-  else{ // para pagina index onde parkname é null
-    stompClient.subscribe(`/topic/Visitors`, function (mensagem) {
-      console.log(mensagem.body); // mensagem.body é o valor do número de visitantes agora
-
-      document.getElementById("visitors").innerHTML = mensagem.body;
-
-
-    });
-
-  }
-
-
-
-
-
-
+      chartInstance.render();
+    }
+  });
 });
 
 function getParkNameFromURL() {
   var url = window.location.href;
   var parts = url.split('/');
-  var parkIndex = parts.indexOf('parks');
+  var parkIndex = parts.indexOf('park');
   var parkName = null;
 
   if (parkIndex !== -1 && parkIndex < parts.length - 1) {
@@ -57,16 +70,11 @@ function getParkNameFromURL() {
 
   if (parkLink) {
     parkLink.textContent = parkName;
-    parkLink.href = '/parks/' + parkName;
+    parkLink.href = '/park/' + parkName;
   }
 
   return parkName; // ou outra lógica padrão caso o nome do parque não seja encontrado
 }
-
-
-
-
-
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -176,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /**
-   * Easy on scroll event listener 
+   * Easy on scroll event listener
    */
   const onscroll = (el, listener) => {
     el.addEventListener('scroll', listener)

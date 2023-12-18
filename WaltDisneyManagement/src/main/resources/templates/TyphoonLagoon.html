@@ -378,23 +378,23 @@
       </li>
       <!-- End Blizzard Beach Nav -->
 
-      <!-- Parking Cars 1 Nav -->
+      <!-- Parking Lot 1 Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'ParkingCars1'})}">
+        <a class="nav-link collapsed" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${'ParkingLot1'})}">
           <i class="bi bi-car-front"></i>
-          <span>Parking Cars 1</span>
+          <span>Parking Lot 1</span>
         </a>
       </li>
-      <!-- End Parking Cars 1 Nav -->
+      <!-- End Parking Lot 1 Nav -->
 
-      <!-- Parking Cars 2 Nav -->
+      <!-- Parking Lot 2 Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" th:href="@{/Cars/{parkName}(parkName=${'ParkingCars2'})}">
+        <a class="nav-link collapsed" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${'ParkingLot2'})}">
           <i class="bi bi-car-front"></i>
-          <span>Parking Cars 2</span>
+          <span>Parking Lot 2</span>
         </a>
       </li>
-      <!-- End Parking Cars 2 Nav -->
+      <!-- End Parking Lot 2 Nav -->
 
     </ul>
 

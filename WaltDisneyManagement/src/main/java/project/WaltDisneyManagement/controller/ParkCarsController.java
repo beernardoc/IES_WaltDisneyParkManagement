@@ -14,6 +14,7 @@ import project.WaltDisneyManagement.repository.ParkCarsRepo;
 import project.WaltDisneyManagement.entity.Attraction;
 import project.WaltDisneyManagement.entity.Employee;
 import project.WaltDisneyManagement.entity.ParkCars;
+import project.WaltDisneyManagement.service.EmployeeService;
 
 
 
@@ -23,6 +24,8 @@ public class ParkCarsController {
     @Autowired
     private ParkCarsRepo ParkCarsRepo;
 
+    @Autowired
+    private EmployeeService employeeService;
 
 
     @GetMapping("/ParkCars/{parkCarsName}")
@@ -34,8 +37,9 @@ public class ParkCarsController {
             return "redirect:/";
         }
 
-        model.addAttribute("role", request.getSession().getAttribute("employee_role"));
-        model.addAttribute("username", request.getSession().getAttribute("employee_username"));
+        Employee employee = employeeService.findByEmail(email.toString());
+        model.addAttribute("role", employee.getRole());
+        model.addAttribute("username", employee.getName());
 
         ParkCars parkCars = ParkCarsRepo.findByName(parkCarsName);
         model.addAttribute("status", parkCars.getStatus());

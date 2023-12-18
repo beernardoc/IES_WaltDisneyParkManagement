@@ -20,38 +20,42 @@ stompClient.connect({}, function (frame) {
     var mensagemJson = JSON.parse(mensagem.body);
     console.log(mensagemJson);
 
-    if (parkName) {
-      document.getElementById("visitors").innerHTML = mensagemJson[parkName];
-    } else { // index
-      document.getElementById("visitors").innerHTML = mensagemJson["total"];
+    var visitorsElement = document.getElementById("visitors");
+    if (visitorsElement) {
+      if (parkName) {
+        visitorsElement.innerHTML = mensagemJson[parkName];
+      } else { // index
+        visitorsElement.innerHTML = mensagemJson["total"];
 
-      // Destruir o gráfico existente, se houver
-      if (chartInstance) {
-        chartInstance.destroy();
+        // Destruir o gráfico existente, se houver
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+
+        // Criar um novo gráfico com os novos dados
+        chartInstance = new ApexCharts(document.querySelector("#pieChart"), {
+          series: [
+            mensagemJson["Magic Kingdom"],
+            mensagemJson["Epcot"],
+            mensagemJson["Hollywood Studios"],
+            mensagemJson["Animal Kingdom"],
+            mensagemJson["Disney Springs"],
+            mensagemJson["Typhoon Lagoon"],
+            mensagemJson["Blizzard Beach"]
+          ],
+          chart: {
+            height: 350,
+            type: 'pie',
+            toolbar: {
+              show: true
+            }
+          },
+          labels: ['Magic Kingdom', 'Epcot', 'Hollywood Studios', 'Animal Kingdom', 'Disney Springs', 'Typhoon Lagoon', 'Blizzard Beach']
+        });
+
+        chartInstance.render();
       }
 
-      // Criar um novo gráfico com os novos dados
-      chartInstance = new ApexCharts(document.querySelector("#pieChart"), {
-        series: [
-          mensagemJson["Magic Kingdom"],
-          mensagemJson["Epcot"],
-          mensagemJson["Hollywood Studios"],
-          mensagemJson["Animal Kingdom"],
-          mensagemJson["Disney Springs"],
-          mensagemJson["Typhoon Lagoon"],
-          mensagemJson["Blizzard Beach"]
-        ],
-        chart: {
-          height: 350,
-          type: 'pie',
-          toolbar: {
-            show: true
-          }
-        },
-        labels: ['Magic Kingdom', 'Epcot', 'Hollywood Studios', 'Animal Kingdom', 'Disney Springs', 'Typhoon Lagoon', 'Blizzard Beach']
-      });
-
-      chartInstance.render();
     }
   });
 });

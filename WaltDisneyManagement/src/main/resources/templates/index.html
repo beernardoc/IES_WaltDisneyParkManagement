@@ -336,19 +336,23 @@
         </a>
       </li><!-- End Error 404 Page Nav -->
 
+      <!-- Parking Lot 1 Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" th:href="@{/ParkCars/{parkName}(parkName=${'ParkingCars1'})}">
+        <a class="nav-link collapsed" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${'ParkingLot1'})}">
           <i class="bi bi-car-front"></i>
-          <span>Parking Cars 1</span>
+          <span>Parking Lot 1</span>
         </a>
-      </li><!-- End Blank Page Nav -->
+      </li>
+      <!-- End Parking Lot 1 Nav -->
 
+      <!-- Parking Lot 2 Nav -->
       <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-        <a class="nav-link collapsed" th:href="@{/ParkCars/{parkName}(parkName=${'ParkingCars2'})}">
+        <a class="nav-link collapsed" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${'ParkingLot2'})}">
           <i class="bi bi-car-front"></i>
-          <span>Parking Cars 2</span>
+          <span>Parking Lot 2</span>
         </a>
-      </li><!-- End Error 404 Page Nav -->
+      </li>
+      <!-- End Parking Lot 2 Nav -->
 
     </ul>
 

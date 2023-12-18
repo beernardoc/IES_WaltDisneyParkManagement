@@ -157,9 +157,11 @@ function showUrgentAlert(message) {
 
 
 function renderDuration() {
-    if (jsonRecebido) {
+
+    durationElement = document.getElementById("duration")
+    if (durationElement && jsonRecebido) {
         duration = parseInt(jsonRecebido.duration);
-        document.getElementById("duration").innerHTML = duration;
+        durationElement.innerHTML = duration;
     }
 }
 
@@ -225,7 +227,10 @@ function renderWaitingTime() {
             waitingTime = additionalWaitTime;
         }
 
-        document.getElementById("waitingTime").innerHTML = waitingTime + " minutes";
+        var waitingTimeElement = document.getElementById("waitingTime");
+        if (waitingTimeElement) {
+            waitingTimeElement.innerHTML = waitingTime + " minutes";
+        }
     }
 }
 

@@ -30,6 +30,13 @@
   <!-- Template Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
 
+  <!-- Dados dinâmicos -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+  <script src="/webjars/sockjs-client/1.5.1/sockjs.min.js"></script>
+
+  <script src="/js/parkingLot.js"></script>
+
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Sep 18 2023 with Bootstrap v5.3.2
@@ -278,233 +285,97 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
+      <!-- Home Nav -->
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link collapsed" th:href="@{/}">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Home</span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li>
+      <!-- End Home Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
+      <li class="nav-heading">Parks</li>
+
+      <!-- Magic Kingdom Nav -->
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Magic Kingdom'})}">
+          <i class="bi bi-signpost"></i>
+          <span>Magic Kingdom</span>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="components-alerts.html">
-              <i class="bi bi-circle"></i><span>Alerts</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-accordion.html">
-              <i class="bi bi-circle"></i><span>Accordion</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-badges.html">
-              <i class="bi bi-circle"></i><span>Badges</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-breadcrumbs.html">
-              <i class="bi bi-circle"></i><span>Breadcrumbs</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-buttons.html">
-              <i class="bi bi-circle"></i><span>Buttons</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-cards.html">
-              <i class="bi bi-circle"></i><span>Cards</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-carousel.html">
-              <i class="bi bi-circle"></i><span>Carousel</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-list-group.html">
-              <i class="bi bi-circle"></i><span>List group</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-modal.html">
-              <i class="bi bi-circle"></i><span>Modal</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-tabs.html">
-              <i class="bi bi-circle"></i><span>Tabs</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-pagination.html">
-              <i class="bi bi-circle"></i><span>Pagination</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-progress.html">
-              <i class="bi bi-circle"></i><span>Progress</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-spinners.html">
-              <i class="bi bi-circle"></i><span>Spinners</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-tooltips.html">
-              <i class="bi bi-circle"></i><span>Tooltips</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
+      </li>
+      <!-- End Magic Kingdom Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
+      <!-- Epcot Nav -->
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Epcot'})}">
+          <i class="bi bi-signpost"></i>
+          <span>EPCOT</span>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Form Elements</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-layouts.html">
-              <i class="bi bi-circle"></i><span>Form Layouts</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Form Editors</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>Form Validation</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Forms Nav -->
+      </li>
+      <!-- End Epcot Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+      <!-- Hollywood Studios Nav -->
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Hollywood Studios'})}">
+          <i class="bi bi-signpost"></i>
+          <span>Hollywood Studios</span>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>General Tables</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Data Tables</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
+      </li>
+      <!-- End Hollywood Studios Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      <!-- Animal Kingdom Nav -->
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Animal Kingdom'})}">
+          <i class="bi bi-signpost"></i>
+          <span>Animal Kingdom</span>
         </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Charts Nav -->
+      </li>
+      <!-- End Animal Kingdom Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
+      <!-- Disney Springs Nav -->
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Disney Springs'})}">
+          <i class="bi bi-signpost"></i>
+          <span>Disney Springs</span>
         </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Remix Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Boxicons</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Icons Nav -->
+      </li>
+      <!-- End Disney Springs Nav -->
 
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
+      <!-- Typhoon Lagoon Nav -->
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Typhoon Lagoon'})}">
+          <i class="bi bi-droplet"></i>
+          <span>Typhoon Lagoon</span>
         </a>
-      </li><!-- End Profile Page Nav -->
+      </li>
+      <!-- End Typhoon Lagoon Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
+      <!-- Blizzard Beach Nav -->
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
+        <a class="nav-link collapsed" th:href="@{/park/{parkName}(parkName=${'Blizzard Beach'})}">
+          <i class="bi bi-droplet"></i>
+          <span>Blizzard Beach</span>
         </a>
-      </li><!-- End F.A.Q Page Nav -->
+      </li>
+      <!-- End Blizzard Beach Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
+      <!-- Parking Lot 1 Nav -->
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
+        <a class="nav-link" th:classappend="${parkCarName eq 'ParkingLot1' ? '' : 'collapsed'}" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${'ParkingLot1'})}">
+          <i class="bi bi-car-front"></i>
+          <span>Parking Lot 1</span>
         </a>
-      </li><!-- End Contact Page Nav -->
+      </li>
+      <!-- End Parking Lot 1 Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
+      <!-- Parking Lot 2 Nav -->
+      <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
+        <a class="nav-link" th:classappend="${parkCarName eq 'ParkingLot2' ? '' : 'collapsed'}" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${'ParkingLot2'})}">
+          <i class="bi bi-car-front"></i>
+          <span>Parking Lot 2</span>
         </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
+      </li>
+      <!-- End Parking Lot 2 Nav -->
 
     </ul>
 
@@ -543,7 +414,7 @@
                       <i class="bi bi-info-circle"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 th:text="${status}"></h6>
+                      <h6 id="carStatus" th:text="${status}"></h6>
                     </div>
                   </div>
                 </div>
@@ -583,7 +454,7 @@
                       <i class="bi bi-car-front"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 th:text="${capacity}"></h6>  
+                      <h6 id="maxCapacity" th:text="${capacity}"></h6>
                     </div>
                   </div>
   
@@ -591,65 +462,6 @@
               </div>
             </div>
             <!-- End Customers Card -->
-
-            <!-- Line Chart -->
-            <div class="col-12">
-              <div class="card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">Cars Flow <span>| Today</span></h5>
-
-                  <div id="lineChart"></div>
-
-                  <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#lineChart"), {
-                        series: [{
-                          name: "Desktops",
-                          data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 120, 80]
-                        }],
-                        chart: {
-                          height: 350,
-                          type: 'line',
-                          zoom: {
-                            enabled: false
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'straight'
-                        },
-                        grid: {
-                          row: {
-                            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                            opacity: 0.5
-                          },
-                        },
-                        xaxis: {
-                          categories: ['8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h'],
-                        }
-                      }).render();
-                    });
-                  </script>
-
-                </div>
-              </div>
-            </div>
-            <!-- End Line Chart -->
 
           </div>
         </div>
@@ -659,32 +471,17 @@
         <div class="col-lg-4">
 
           <!-- Customers Card -->
-
-            <div class="card info-card">
-
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
+          <div class="card info-card">
 
               <div class="card-body">
-                <h5 class="card-title">Visitors Expected <span>| Today</span></h5>
+                <h5 class="card-title">Parked Cars <span>| Now</span></h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-people"></i>
+                    <i class="bi bi-car-front"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>2 000 000</h6>
-                    <span class="text-success small pt-1 fw-bold">20%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                    <h6 id="atualValue" th:text="${atual}"></h6>
 
                   </div>
                 </div>
@@ -693,86 +490,39 @@
             </div>
           <!-- End Customers Card -->
 
-          <!-- Recent Activity -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
+        </div>
+        <!-- End Right side columns -->
 
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
+        <!-- Area Chart -->
+        <div class="col-lg-12">
+          <div class="card">
 
             <div class="card-body">
-              <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+              <h5 class="card-title">Cars Parked <span>| Today</span> </h5>
 
-              <div class="activity">
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">32 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                    Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">56 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    Voluptatem blanditiis blanditiis eveniet
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 hrs</div>
-                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                  <div class="activity-content">
-                    Voluptates corrupti molestias voluptatem
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">1 day</div>
-                  <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                  <div class="activity-content">
-                    Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 days</div>
-                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                  <div class="activity-content">
-                    Est sit eum reiciendis exercitationem
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">4 weeks</div>
-                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
-                    Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                  </div>
-                </div><!-- End activity item-->
-
-              </div>
+              <div id="areaChart"></div>
 
             </div>
           </div>
-          <!-- End Recent Activity -->
-
         </div>
-        <!-- End Right side columns -->
+        <!-- End Area Chart -->
 
       </div>
     </section>
 
+    <div class="modal fade" id="urgentModal" tabindex="-1" role="dialog" aria-labelledby="urgentModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="urgentModalLabel">Alert</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" onclick="closeUrgentCarModal()"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Conteúdo do modal será inserido dinamicamente aqui -->
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <!-- End #main -->
 

@@ -22,6 +22,9 @@ public class EmployeeRest {
  
     @PostMapping("/api/employee")
     public ResponseEntity<String> saveEmployee(@RequestBody EmployeeDto employeeDto) {
+        System.out.println("aq" + employeeDto);
+
+
         String name = employeeService.addEmployee(employeeDto);
         if (name != null) {
             return ResponseEntity.ok("Employee " + name + " saved");
@@ -56,9 +59,10 @@ public class EmployeeRest {
     }
 
     
-    @DeleteMapping("/api/employee/{email}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable("email") String email) {
+    @DeleteMapping("/api/employee")
+    public ResponseEntity<String> deleteEmployee(@RequestBody String email) {
         String name = employeeService.deleteEmployee(email);
+        System.out.println("email " + email);
         if (name != null) {
             return ResponseEntity.ok("Employee " + name + " deleted");
         } else {

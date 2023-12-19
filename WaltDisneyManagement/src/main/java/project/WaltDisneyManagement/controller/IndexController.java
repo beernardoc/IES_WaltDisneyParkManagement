@@ -34,14 +34,12 @@ public class IndexController {
         if (email != null) {
 
             var employee = employeeService.findByEmail(email.toString());
-            var username = employee.getName();
-            var role = employee.getRole();
 
             List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findAll();
 
             model.addAttribute("maintenanceHistory", maintenanceHistory);
-            model.addAttribute("role", role);
-            model.addAttribute("username", username);
+            model.addAttribute("role", employee.getRole());
+            model.addAttribute("username", employee.getName());
 
             return "index";
         }

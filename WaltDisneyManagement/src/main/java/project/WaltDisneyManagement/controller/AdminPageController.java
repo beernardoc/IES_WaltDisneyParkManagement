@@ -54,7 +54,7 @@ public class AdminPageController {
                 model.addAttribute("role", employee.getRole());
                 model.addAttribute("username", employee.getName());
 
-                return "AdminPage";
+                return "adminpage";
             }
             return "login";
 

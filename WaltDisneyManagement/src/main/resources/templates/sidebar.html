@@ -27,86 +27,21 @@
 
         <li class="nav-heading">Parks</li>
 
-        <!-- Magic Kingdom Nav -->
-        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-          <a class="nav-link collapsed park-link" th:href="@{/park/{parkName}(parkName=${'Magic Kingdom'})}">
+        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}" th:each="park : ${parks}">
+          <a class="nav-link collapsed park-link" th:href="@{/park/{parkName}(parkName=${park.name})}">
             <i class="bi bi-signpost"></i>
-            <span th:href="@{/park/{parkName}(parkName=${'Magic Kingdom'})}">Magic Kingdom</span>
+            <span th:href="@{/park/{parkName}(parkName=${park.name})}" th:text="${park.name}"></span>
           </a>
         </li>
-        <!-- End Magic Kingdom Nav -->
 
-        <!-- Epcot Nav -->
-        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-          <a class="nav-link collapsed park-link" th:href="@{/park/{parkName}(parkName=${'Epcot'})}">
+        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}" th:each="parkcar : ${parkCars}">
+          <a class="nav-link collapsed park-link" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${parkcar.name})}">
             <i class="bi bi-signpost"></i>
-            <span>Epcot</span>
+            <span th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${parkcar.name})}" th:text="${parkcar.name}"></span>
           </a>
         </li>
-        <!-- End Epcot Nav -->
 
-        <!-- Hollywood Studios Nav -->
-        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-          <a class="nav-link collapsed park-link" th:href="@{/park/{parkName}(parkName=${'Hollywood Studios'})}">
-            <i class="bi bi-signpost"></i>
-            <span>Hollywood Studios</span>
-          </a>
-        </li>
-        <!-- End Hollywood Studios Nav -->
 
-        <!-- Animal Kingdom Nav -->
-        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-          <a class="nav-link collapsed park-link" th:href="@{/park/{parkName}(parkName=${'Animal Kingdom'})}">
-            <i class="bi bi-signpost"></i>
-            <span>Animal Kingdom</span>
-          </a>
-        </li>
-        <!-- End Animal Kingdom Nav -->
-
-        <!-- Disney Springs Nav -->
-        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-          <a class="nav-link collapsed park-link" th:href="@{/park/{parkName}(parkName=${'Disney Springs'})}">
-            <i class="bi bi-signpost"></i>
-            <span>Disney Springs</span>
-          </a>
-        </li>
-        <!-- End Disney Springs Nav -->
-
-        <!-- Typhoon Lagoon Nav -->
-        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-          <a class="nav-link collapsed park-link" th:href="@{/park/{parkName}(parkName=${'Typhoon Lagoon'})}">
-            <i class="bi bi-droplet"></i>
-            <span>Typhoon Lagoon</span>
-          </a>
-        </li>
-        <!-- End Typhoon Lagoon Nav -->
-
-        <!-- Blizzard Beach Nav -->
-        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}">
-          <a class="nav-link collapsed park-link" th:href="@{/park/{parkName}(parkName=${'Blizzard Beach'})}">
-            <i class="bi bi-droplet"></i>
-            <span>Blizzard Beach</span>
-          </a>
-        </li>
-        <!-- End Blizzard Beach Nav -->
-
-        <!-- Parking Lot 1 Nav -->
-        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-          <a class="nav-link collapsed park-link" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${'ParkingLot1'})}">
-            <i class="bi bi-car-front"></i>
-            <span>Parking Lot 1</span>
-          </a>
-        </li>
-        <!-- End Parking Lot 1 Nav -->
-
-        <!-- Parking Lot 2 Nav -->
-        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}">
-          <a class="nav-link collapsed park-link" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${'ParkingLot2'})}">
-            <i class="bi bi-car-front"></i>
-            <span>Parking Lot 2</span>
-          </a>
-        </li>
-        <!-- End Parking Lot 2 Nav -->
 
       </ul>
 

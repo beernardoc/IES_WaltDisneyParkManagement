@@ -21,4 +21,6 @@ public interface AttractionService {
 
     String deleteAttraction(String name);
 
+    List<Attraction> findByPark(int parkId);
+
 }

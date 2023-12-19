@@ -12,4 +12,4 @@ mvn clean
 mvn package -DskipTests
 
 # Subir o Docker Compose
-docker-compose up --build  # Use a opção -d para executar em segundo plano, se preferir
+docker-compose up --build -d # Use a opção -d para executar em segundo plano, se preferir

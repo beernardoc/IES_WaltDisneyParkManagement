@@ -181,7 +181,7 @@ class Generators:
                     "people_queue": people_queue_spaceship,
                     "duration": duration_spaceship
                 },
-                "Guardians of the Galaxy: Cosmic Rewind": {
+                "Guardians of the Galaxy Cosmic Rewind": {
                     "velocity_kmh": velocity_cosmic,
                     "temperature": temperature_cosmic,
                     "vibration": vibration_cosmic,

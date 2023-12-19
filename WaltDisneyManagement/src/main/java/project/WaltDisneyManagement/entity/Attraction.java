@@ -141,7 +141,7 @@ public class Attraction {
                 "attractionId=" + attractionId +
                 ", name='" + name + '\'' +
                 ", status='" + status + '\'' +
-                ", park=" + park +
+                ", park=" + park.getName() +
                 '}';
     }
 

@@ -319,7 +319,7 @@ class Generators:
                 "Time": time.time()
             }
             self.channel.basic_publish(exchange='', routing_key='Animal Kingdom', body=json.dumps(data))
-            
+
             if velocity_triceratop > 100:
                 previous_triceratop['velocity'] = 0.0
             if velocity_dinosaur > 100:
@@ -347,7 +347,6 @@ class Generators:
 
 
             await asyncio.sleep(20)
-
 
     async def disney_springs(self):
 

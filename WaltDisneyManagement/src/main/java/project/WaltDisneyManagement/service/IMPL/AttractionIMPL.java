@@ -62,6 +62,11 @@ public class AttractionIMPL implements AttractionService {
     }
 
     @Override
+    public List<Attraction> findByPark(int parkId) {
+        return attractionRepo.findByPark_ParkId(parkId);
+    }
+
+    @Override
     public String deleteAttraction(String name) {
         Attraction attraction = attractionRepo.findByName(name);
 

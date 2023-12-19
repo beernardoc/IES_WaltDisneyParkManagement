@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Forms / Layouts - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/img/favicon.png" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: NiceAdmin
+    * Updated: Sep 18 2023 with Bootstrap v5.3.2
+    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<div th:replace="header :: header"></div>
+<!-- End Header -->
+
+<!-- ======= Sidebar ======= -->
+<div th:replace="sidebar :: sidebar"></div>
+<!-- End Sidebar-->
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Admin Page</h1>
+
+    </div><!-- End Page Title -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="card" >
+                    <div class="card-body  align-items-center" >
+                        <h5 class="card-title">Employees</h5>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody th:each="employee : ${employees}">
+
+                            <tr>
+                                <td th:text="${employee.name}"></td>
+                                <td th:text="${employee.email}"></td>
+                                <td th:text="${employee.role}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" th:data-email="${employee.email}" onclick="deleteEmployee(this)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+
+
+                            </tbody>
+                        </table>
+
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addUserModal">ADD EMPLOYEE</button>
+
+                    </div>
+
+
+
+                    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="adduserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="adduserModalLabel">New maintenance</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="row g-3" id="createUserForm" enctype="multipart/form-data">
+                                        <div class="col-12">
+                                            <label for="employeeName" class="form-label">Employee Name</label>
+                                            <input type="text" class="form-control" id="employeeName" name="name">
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="employeeEmail" class="form-label">Email</label>
+                                            <input type="text" class="form-control" id="employeeEmail" name="email">
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="employeePassword" class="form-label">Password</label>
+                                            <input type="text" class="form-control" id="employeePassword" name="password">
+                                        </div>
+                                        <div class="col 12">
+                                            <legend class="col-form-label col-sm-2 pt-0">Role</legend>
+                                            <div class="col-sm-10">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="gridRadios" id="techniciancheck" value="TECHNICIAN">
+                                                    <label class="form-check-label" for="techniciancheck">
+                                                        TECHNICIAN
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="gridRadios" id="parkingcheck" value="PARKING">
+                                                    <label class="form-check-label" for="parkingcheck">
+                                                        PARKING
+                                                    </label>
+                                                </div>
+                                                <div class="form-check disabled">
+                                                    <input class="form-check-input" type="radio" name="gridRadios" id="admincheck" value="ADMIN">
+                                                    <label class="form-check-label" for="admincheck">
+                                                        ADMIN
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-success" onclick="submitForm(
+                                                document.getElementById('employeeName').value,
+                                                document.getElementById('employeeEmail').value,
+                                                document.getElementById('employeePassword').value,
+                                                document.querySelector('input[name=gridRadios]:checked').value
+                                               )">Finish</button>
+
+                                            <button type="reset" class="btn btn-secondary">Reset</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- You can add more modal content as needed -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card " >
+                    <div class="card-body" >
+                        <h5 class="card-title">Parks</h5>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody th:each="park : ${parks}">
+
+                            <tr>
+                                <td th:text="${park.name}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" th:data-parkname="${park.name}" onclick="deletePark(this)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="card" >
+                    <div class="card-body" >
+                        <h5 class="card-title">Parking Lot</h5>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Parking</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody th:each="parkcars : ${parkCars}">
+
+                            <tr>
+                                <td th:text="${parkcars.name}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" th:data-parkcarsname="${parkcars.name}" onclick="deleteParkCar(this)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="card" >
+                    <div class="card-body" >
+                        <h5 class="card-title">Attractions</h5>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Attraction</th>
+                                <th scope="col">Location</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody th:each="attraction : ${attractions}">
+
+                                <tr>
+                                    <td th:text="${attraction.name}"></td>
+                                    <td th:text="${attraction.park.name}"></td>
+                                    <td th:text="${attraction.type}"></td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger" th:data-attractionname="${attraction.name}" onclick="deleteAttraction(this)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+    <div class="copyright">
+        &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/chart.js/chart.umd.js"></script>
+<script src="/vendor/echarts/echarts.min.js"></script>
+<script src="/vendor/quill/quill.min.js"></script>
+<script src="/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="/vendor/tinymce/tinymce.min.js"></script>
+<script src="/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="/js/main.js"></script>
+
+</body>
+
+</html>

@@ -12,7 +12,6 @@ var stompClient = null;
 var socket = new SockJS('/websocket-endpoint');
 stompClient = Stomp.over(socket);
 var parkName = getParkNameFromURL();
-console.log("parkname", parkName);
 var chartInstance = null;
 
 stompClient.connect({}, function (frame) {
@@ -157,7 +156,137 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+function submitForm(name, email, password, role) {
+  if (!name || !email || !password || !role) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
 
+  const apiUrl = `/api/employee`;
+
+  const formData = {
+    Name: name,
+    Email: email,
+    Password: password,
+    Role: role
+  };
+
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+    },
+    body: JSON.stringify(formData)
+  }).then(response => {
+    if (response.ok) {
+        window.location.reload();
+
+    } else {
+      alert("Erro ao criar funcionário.");
+    }
+  })
+
+
+}
+
+function deleteEmployee(button) {
+  var employeeName = button.getAttribute('data-email');
+
+  const apiUrl = `/api/employee`;
+  console.log(employeeName);
+
+
+  fetch(apiUrl, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+    },
+    body: employeeName
+  }).then(response => {
+    if (response.ok) {
+      window.location.reload();
+
+    } else {
+      alert("Erro ao criar funcionário.");
+    }
+  })
+}
+
+function deleteParkCar(button) {
+  var parkCarName = button.getAttribute('data-parkcarsname');
+
+  const apiUrl = `/api/parkCars`;
+
+
+
+  fetch(apiUrl, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+    },
+    body: parkCarName
+  }).then(response => {
+    if (response.ok) {
+      window.location.reload();
+
+    } else {
+      alert("Erro ao apagar estacioanamento.");
+    }
+  })
+}
+
+function deleteAttraction(button) {
+  var attractionName = button.getAttribute('data-attractionname');
+
+  const apiUrl = `/api/attraction`;
+
+
+
+  fetch(apiUrl, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+    },
+    body: attractionName
+  }).then(response => {
+    if (response.ok) {
+      window.location.reload();
+
+    } else {
+      alert("Erro ao apagar atração.");
+    }
+  })
+
+}
+
+function deletePark(button) {
+  var parkName = button.getAttribute('data-parkname');
+
+  const apiUrl = `/api/park`;
+
+
+
+  fetch(apiUrl, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+    },
+    body: parkName
+  }).then(response => {
+    if (response.ok) {
+      window.location.reload();
+
+    } else {
+      alert("Erro ao apagar atração.");
+    }
+  })
+
+
+
+
+
+
+}
 
 
 
@@ -481,3 +610,4 @@ function closeUrgentModal() {
   modal.modal('hide');
   window.location.reload();
 }
+

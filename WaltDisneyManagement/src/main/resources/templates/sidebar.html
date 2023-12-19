@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Header Fragment</title>
+</head>
+<body>
+  <script>
+    alert('Script Executado');
+    console.log('URL:', /*[[${#httpServletRequest.requestURI}]]*/ '');
+  </script>
+
+  <div th:fragment="sidebar">
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+      <ul class="sidebar-nav" id="sidebar-nav">
+
+        <!-- Home Nav -->
+        <li class="nav-item">
+          <a class="nav-link collapsed park-link" th:href="@{/}">
+            <i class="bi bi-grid"></i>
+            <span>Home</span>
+          </a>
+        </li>
+        <!-- End Home Nav -->
+
+        <li class="nav-heading">Parks</li>
+
+        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'TECHNICIAN'}" th:each="park : ${parks}">
+          <a class="nav-link collapsed park-link" th:href="@{/park/{parkName}(parkName=${park.name})}">
+            <i class="bi bi-signpost"></i>
+            <span th:href="@{/park/{parkName}(parkName=${park.name})}" th:text="${park.name}"></span>
+          </a>
+        </li>
+
+        <li class="nav-item" th:if="${role eq 'ADMIN' or role eq 'PARKING'}" th:each="parkcar : ${parkCars}">
+          <a class="nav-link collapsed park-link" th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${parkcar.name})}">
+            <i class="bi bi-signpost"></i>
+            <span th:href="@{/ParkCars/{parkCarsName}(parkCarsName=${parkcar.name})}" th:text="${parkcar.name}"></span>
+          </a>
+        </li>
+
+
+
+      </ul>
+
+    </aside>
+    <!-- End Sidebar-->
+
+    <script>
+
+      var currentUrl = window.location.href;
+      var parkLinks = document.querySelectorAll(".park-link");
+
+      parkLinks.forEach(function (link) {
+
+        var linkText = link.querySelector("span").textContent;
+
+        if (linkText.includes("Parking Lot")) {
+          linkText = linkText.replace(/\s+/g, '');
+        }
+
+        if (!currentUrl.includes("/park/") && !currentUrl.includes("/ParkCars/") && linkText === "Home") {
+          // Home
+          link.classList.remove("collapsed");
+        } else if (currentUrl.includes("/park/") && currentUrl.includes(linkText.replace(/\s/g, '%20'))) {
+          // Attraction
+          link.classList.remove("collapsed");
+        } else if (currentUrl.includes("/ParkCars/") && currentUrl.includes(linkText.replace(/\s/g, '%20'))) {
+          // Parking
+          link.classList.remove("collapsed");
+        }
+      });
+
+    </script>
+
+  </div>
+</body>
+</html>

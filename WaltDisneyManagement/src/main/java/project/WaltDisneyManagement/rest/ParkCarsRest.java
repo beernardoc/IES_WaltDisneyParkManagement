@@ -41,6 +41,17 @@ public class ParkCarsRest {
         }
     }
 
+    @DeleteMapping("/api/parkCars")
+    public ResponseEntity<String> deleteParkCars(@RequestBody String parkcarname) {
+        String name = parkCarsService.deleteParkCars(parkcarname);
+
+        if (name == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok("ParkCars " + name + " deleted");
+    }
+
   
     @GetMapping("/api/parkCars/{parkCarsName}")
     public ResponseEntity<ParkCars> getParkCarsData(@PathVariable("parkCarsName") String parkCarsName) {

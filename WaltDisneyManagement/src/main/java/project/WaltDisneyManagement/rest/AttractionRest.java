@@ -55,8 +55,8 @@ public class AttractionRest {
     }
 
     
-    @DeleteMapping("/api/attraction/{attractionName}")
-    public ResponseEntity<String> deleteAttraction(@PathVariable("attractionName") String attractionName) {
+    @DeleteMapping("/api/attraction")
+    public ResponseEntity<String> deleteAttraction(@RequestBody String attractionName) {
         String name = attractionService.deleteAttraction(attractionName);
         if (name != null) {
             return ResponseEntity.ok("Attraction " + name + " deleted");

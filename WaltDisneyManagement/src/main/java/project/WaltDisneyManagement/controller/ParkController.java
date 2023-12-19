@@ -9,14 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import project.WaltDisneyManagement.entity.Attraction;
-import project.WaltDisneyManagement.entity.Employee;
-import project.WaltDisneyManagement.entity.MaintenanceHistory;
-import project.WaltDisneyManagement.entity.Park;
-import project.WaltDisneyManagement.service.AttractionService;
-import project.WaltDisneyManagement.service.EmployeeService;
-import project.WaltDisneyManagement.service.MaintenanceHistoryService;
-import project.WaltDisneyManagement.service.ParkService;
+import project.WaltDisneyManagement.entity.*;
+import project.WaltDisneyManagement.service.*;
 
 import java.util.List;
 
@@ -31,10 +25,16 @@ public class ParkController {
     private AttractionService attractionService;
 
     @Autowired
-    private MaintenanceHistoryService maintenanceHistoryService;
+    private ParkService parkService;
 
     @Autowired
-    private ParkService parkService;
+    private ParkCarsService parkCarsService;
+
+    @Autowired
+    private MaintenanceHistoryService maintenanceHistoryService;
+
+
+
 
 
 
@@ -50,15 +50,21 @@ public class ParkController {
         }
 
         Employee employee = employeeService.findByEmail(email.toString());
-
+        Park park = parkService.findByName(parkName);
+        List<Park> parks = parkService.findAll();
+        List<ParkCars> parkCars = parkCarsService.findAll();
+        List<Attraction> attractions = attractionService.findByPark(park.getParkId());
         List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findByPark(parkName);
 
-
+        model.addAttribute("parks", parks);
+        model.addAttribute("parkCars", parkCars);
+        model.addAttribute("park", park.getName());
+        model.addAttribute("attractions", attractions);
         model.addAttribute("maintenanceHistory", maintenanceHistory);
         model.addAttribute("role", employee.getRole());
         model.addAttribute("username", employee.getName());
 
-        return parkName.replace(" ", "");
+        return "park";
     }
 
     @GetMapping("/park/{parkName}/attraction/{attractionName}")
@@ -74,9 +80,12 @@ public class ParkController {
         Attraction attraction = attractionService.findByName(attractionName);
         Employee employee = employeeService.findByEmail(email.toString());
         List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findByAttraction(attractionName);
+        List<Park> parks = parkService.findAll();
+        List<ParkCars> parkCars = parkCarsService.findAll();
 
+        model.addAttribute("parks", parks);
+        model.addAttribute("parkCars", parkCars);
         model.addAttribute("maintenanceHistory", maintenanceHistory);
-
         model.addAttribute("NextMaintenance", attraction.getNextMaintenance());
         model.addAttribute("lastMaintenance", attraction.getLastMaintenance());
         model.addAttribute("type", attraction.getType());

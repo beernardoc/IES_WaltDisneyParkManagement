@@ -38,6 +38,19 @@ public class ParkIMPL implements ParkService {
     }
 
     @Override
+    public String deletePark(String parkName) {
+        Park park = parkRepo.findByName(parkName);
+
+        if(park == null){
+            return null;
+        }
+
+        parkRepo.delete(park);
+
+        return park.getName();
+    }
+
+    @Override
     public int getTotalVisitors() {
         return parkRepo.getTotalVisitors();
     }
@@ -51,6 +64,8 @@ public class ParkIMPL implements ParkService {
     public List<Park> findAll() {
         return parkRepo.findAll();
     }
+
+
 
 
 }

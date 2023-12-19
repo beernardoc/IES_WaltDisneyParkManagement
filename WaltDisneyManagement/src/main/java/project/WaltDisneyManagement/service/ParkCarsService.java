@@ -14,4 +14,6 @@ public interface ParkCarsService {
     ParkCars findByName(String parkName);
 
     List<ParkCars> findAll();
+
+    String deleteParkCars(String parkCarsName);
 }

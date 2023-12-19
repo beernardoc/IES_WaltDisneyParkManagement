@@ -29,6 +29,19 @@ public class ParkCarsIMPL implements ParkCarsService {
 
         return parkCars;
     }
+
+    @Override
+    public String deleteParkCars(String parkCarsName) {
+        ParkCars parkCars = parkCarsRepo.findByName(parkCarsName);
+
+        if (parkCars == null) {
+            return null;
+        }
+
+        parkCarsRepo.delete(parkCars);
+
+        return parkCars.getName();
+    }
     
 
     @Override
@@ -40,4 +53,6 @@ public class ParkCarsIMPL implements ParkCarsService {
     public List<ParkCars> findAll() {
         return parkCarsRepo.findAll();
     }
+
+
 }

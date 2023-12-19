@@ -115,9 +115,53 @@ class Generators:
 
 
             self.channel.basic_publish(exchange='', routing_key='Magic Kingdom', body=json.dumps(data))
+            if velocity_walt_disney > 100:
+                previous_railroad['velocity'] = 0.0
+            if velocity_pirates > 100:
+                previous_pirates['velocity'] = 0.0
+            if velocity_haunted_mansion > 100:
+                previous_haunted['velocity'] = 0.0
+            if velocity_seven_dwarfs > 100:
+                previous_dwarfs['velocity'] = 0.0
+            if velocity_tomorrowland > 100:
+                previous_tomorrowland['velocity'] = 0.0
+            
+            if height_walt_disney > 100:
+                previous_railroad['height'] = 0.0
+            if height_seven_dwarfs > 100:
+                previous_dwarfs['height'] = 0.0
+            if height_tomorrowland > 100:
+                previous_tomorrowland['height'] = 0.0
+            
+            if temperature_walt_disney > 100:
+                previous_railroad['temperature'] = 0.0
+            if temperature_pirates > 100:
+                previous_pirates['temperature'] = 0.0
+            if temperature_haunted_mansion > 100:
+                previous_haunted['temperature'] = 0.0
+            if temperature_seven_dwarfs > 100:
+                previous_dwarfs['temperature'] = 0.0
+            if temperature_tomorrowland > 100:
+                previous_tomorrowland['temperature'] = 0.0
+            
+
+            if vibration_walt_disney > 100:
+                previous_railroad['vibration'] = 0.0
+            if vibration_pirates > 100:
+                previous_pirates['vibration'] = 0.0
+            if vibration_haunted_mansion > 100:
+                previous_haunted['vibration'] = 0.0
+            if vibration_seven_dwarfs > 100:
+                previous_dwarfs['vibration'] = 0.0
+            if vibration_tomorrowland > 100:
+                previous_tomorrowland['vibration'] = 0.0
+            
+            
+            
+            
 
 
-            await asyncio.sleep(5)
+            await asyncio.sleep(20)
 
 
 
@@ -159,7 +203,29 @@ class Generators:
 
             self.channel.basic_publish(exchange='', routing_key='Epcot', body=json.dumps(data))
 
-            await asyncio.sleep(5)
+            if velocity_spaceship > 100:
+                previous_spaceship['velocity'] = 0.0
+            if velocity_cosmic > 100:
+                previous_cosmic['velocity'] = 0.0
+            if velocity_test > 100:
+                previous_test['velocity'] = 0.0
+            
+            if temperature_spaceship > 100:
+                previous_spaceship['temperature'] = 0.0
+            if temperature_cosmic > 100:
+                previous_cosmic['temperature'] = 0.0
+            if temperature_test > 100:
+                previous_test['temperature'] = 0.0
+            
+            if vibration_spaceship > 100:
+                previous_spaceship['vibration'] = 0.0
+            if vibration_cosmic > 100:
+                previous_cosmic['vibration'] = 0.0
+            if vibration_test > 100:
+                previous_test['vibration'] = 0.0
+            
+
+            await asyncio.sleep(20)
 
     async def hollywood_studios(self):
         while True:
@@ -192,7 +258,27 @@ class Generators:
             }
             self.channel.basic_publish(exchange='', routing_key='Hollywood Studios', body=json.dumps(data))
 
-            await asyncio.sleep(5)
+            if velocity_runaway > 100:
+                previous_runaway['velocity'] = 0.0
+            if velocity_rocknroller > 100:
+                previous_rocknroller['velocity'] = 0.0
+            
+            if height_runaway > 100:
+                previous_runaway['height'] = 0.0
+            if height_rocknroller > 100:
+                previous_rocknroller['height'] = 0.0
+            
+            if temperature_runaway > 100:
+                previous_runaway['temperature'] = 0.0
+            if temperature_rocknroller > 100:
+                previous_rocknroller['temperature'] = 0.0
+            
+            if vibration_runaway > 100:
+                previous_runaway['vibration'] = 0.0
+            if vibration_rocknroller > 100:
+                previous_rocknroller['vibration'] = 0.0
+            
+            await asyncio.sleep(20)
 
     async def animal_kingdom(self):
 
@@ -233,8 +319,34 @@ class Generators:
                 "Time": time.time()
             }
             self.channel.basic_publish(exchange='', routing_key='Animal Kingdom', body=json.dumps(data))
-            print(f'Message sent to AnimalKingdom queue: {data}')
-            await asyncio.sleep(5)
+            
+            if velocity_triceratop > 100:
+                previous_triceratop['velocity'] = 0.0
+            if velocity_dinosaur > 100:
+                previous_dinosaur['velocity'] = 0.0
+            if velocity_kaliriver > 100:
+                previous_kaliriver['velocity'] = 0.0
+            
+            if rpm_triceratop > 100:
+                previous_triceratop['rpm'] = 0.0
+            
+            if temperature_triceratop > 50:
+                previous_triceratop['temperature'] = 0.0
+            if temperature_dinosaur > 100:
+                previous_dinosaur['temperature'] = 0.0
+            if temperaturewater_kaliriver > 100:
+                previous_kaliriver['temperaturewater'] = 0.0
+
+            if vibration_triceratop > 100:
+                previous_triceratop['vibration'] = 0.0
+            if vibration_dinosaur > 100:
+                previous_dinosaur['vibration'] = 0.0
+            if vibration_kaliriver > 100:
+                previous_kaliriver['vibration'] = 0.0
+            
+
+
+            await asyncio.sleep(20)
 
 
     async def disney_springs(self):
@@ -270,7 +382,28 @@ class Generators:
             }
             self.channel.basic_publish(exchange='', routing_key='Disney Springs', body=json.dumps(data))
 
-            await asyncio.sleep(5)
+            if velocity_marketplace > 100:
+                previous_marketplace['velocity'] = 0.0
+            if velocity_classic > 100:
+                previous_classic['velocity'] = 0.0
+            
+            if height_marketplace > 100:
+                previous_marketplace['height'] = 0.0
+            
+            if rpm_classic > 100:
+                previous_classic['rpm'] = 0.0
+            
+            if temperature_marketplace > 100:
+                previous_marketplace['temperature'] = 0.0
+            if temperature_classic > 50:
+                previous_classic['temperature'] = 0.0
+
+            if vibration_marketplace > 100:
+                previous_marketplace['vibration'] = 0.0
+            if vibration_classic > 100:
+                previous_classic['vibration'] = 0.0
+
+            await asyncio.sleep(20)
 
     async def blizzard_beach(self):
 
@@ -305,8 +438,27 @@ class Generators:
             }
             self.channel.basic_publish(exchange='', routing_key='Blizzard Beach', body=json.dumps(data))
 
+            if velocity_summit > 100:
+                previous_summit['velocity'] = 0.0
+            if velocity_slush > 100:
+                previous_slush['velocity'] = 0.0
 
-            await asyncio.sleep(5)
+            if height_summit > 100:
+                previous_summit['height'] = 0.0
+            if height_slush > 100:
+                previous_slush['height'] = 0.0
+            
+            if temperaturewater_summit > 100:
+                previous_summit['temperaturewater'] = 0.0
+            if temperaturewater_slush > 100:
+                previous_slush['temperaturewater'] = 0.0
+
+            if vibration_summit > 100:
+                previous_summit['vibration'] = 0.0
+            if vibration_slush > 100:
+                previous_slush['vibration'] = 0.0
+
+            await asyncio.sleep(20)
 
     async def typhoon_lagoon(self):
 
@@ -340,9 +492,29 @@ class Generators:
 
             }
             self.channel.basic_publish(exchange='', routing_key='Typhoon Lagoon', body=json.dumps(data))
+            
+            if velocity_gangplank > 100:
+                previous_gangplank['velocity'] = 0.0
+            if velocity_humunga > 100:
+                previous_humunga['velocity'] = 0.0
+
+            if height_gangplank > 100:
+                previous_gangplank['height'] = 0.0
+            if height_humunga > 100:
+                previous_humunga['height'] = 0.0
+
+            if temperaturewater_gangplank > 100:
+                previous_gangplank['temperaturewater'] = 0.0
+            if temperaturewater_humunga > 100:
+                previous_humunga['temperaturewater'] = 0.0
+
+            if vibration_gangplank > 100:
+                previous_gangplank['vibration'] = 0.0
+            if vibration_humunga > 100:
+                previous_humunga['vibration'] = 0.0
 
 
-            await asyncio.sleep(5)
+            await asyncio.sleep(20)
 
     async def parkingLot(self):
 

@@ -610,3 +610,4 @@ function closeUrgentModal() {
   modal.modal('hide');
   window.location.reload();
 }
+

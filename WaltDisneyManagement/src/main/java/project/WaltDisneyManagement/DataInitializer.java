@@ -62,7 +62,7 @@ public class DataInitializer implements CommandLineRunner {
         Attraction SpaceshipEarth = new Attraction("Spaceship Earth", Epcot, "DarkRide");
         attractionRepo.save(SpaceshipEarth);
 
-        Attraction GuardiansoftheGalaxy = new Attraction("Guardians of the Galaxy: Cosmic Rewind", Epcot, "DarkRide");
+        Attraction GuardiansoftheGalaxy = new Attraction("Guardians of the Galaxy Cosmic Rewind", Epcot, "DarkRide");
         attractionRepo.save(GuardiansoftheGalaxy);
 
         Attraction TestTrack = new Attraction("Test Track", Epcot, "DarkRide");

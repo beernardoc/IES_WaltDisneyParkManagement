@@ -233,7 +233,6 @@ class Generators:
                 "Time": time.time()
             }
             self.channel.basic_publish(exchange='', routing_key='Animal Kingdom', body=json.dumps(data))
-            print(f'Message sent to AnimalKingdom queue: {data}')
             await asyncio.sleep(5)
 
 

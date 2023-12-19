@@ -45,10 +45,6 @@ public class EmployeeIMPL implements EmployeeService {
             employeeRepo.save(employee);
 
 
-            request.getSession().setAttribute("employee_email", employee.getEmail());
-
-            System.out.println("Employee saved successfully.");
-
             return employee.getName();
 
 

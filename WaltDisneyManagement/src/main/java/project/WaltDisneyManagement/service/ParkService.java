@@ -18,6 +18,8 @@ public interface ParkService {
 
     List<Park> findAll();
 
+    String deletePark(String parkName);
+
 
 
 

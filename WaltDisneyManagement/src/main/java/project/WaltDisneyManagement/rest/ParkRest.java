@@ -49,6 +49,17 @@ public class ParkRest {
 
     }
 
+    @DeleteMapping("/api/park")
+    public ResponseEntity<String> deletePark(@RequestBody String parkName) {
+        String name = parkService.deletePark(parkName);
+
+        if (name != null) {
+            return ResponseEntity.ok("Park " + name + " deleted");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 
    

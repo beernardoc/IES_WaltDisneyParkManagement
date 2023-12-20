@@ -223,9 +223,12 @@ public class RabbitMQConsumer {
 
                         if (parkingLot.isFull(parkingLot.getAtual(), parkingLot.getMaxcap())) {
                             parkingLot.setStatus("Closed");
+                            parkingLot.setAtual(parkingLot.getMaxcap());
                         } else {
                             parkingLot.setStatus("Open");
                         }
+
+                        parkingObject.addProperty("atual", parkingLot.getAtual());
                         
                         
 

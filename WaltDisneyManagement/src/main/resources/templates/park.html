@@ -74,8 +74,10 @@
                     <!-- Walt Disney World Railroad -->
                     <div class="col-xxl-4 col-xl-12" th:each="attraction : ${attractions}">
                         <a>
-                            <div class="card info-card customers-card" th:data-attraction="${attraction.name}" th:style="'cursor: pointer; background-image: url(\'/img/' + ${attraction.name.replace(' ', '').toLowerCase()} + '.jpg\')'">
-                                <div class="card-body">
+                            <div class="card info-card customers-card" th:data-attraction="${attraction.name}" th:style="'cursor: pointer; background-image: url(\'/img/attractions/' + ${#strings.replace(#strings.replace(#strings.replace(attraction.name, '''', '@'), '@', ''), ' ', '').toLowerCase()} + '.jpg\')'">
+
+
+                        <div class="card-body">
                                     <h5 class="card-title" style="color: white; font-size: 20px; font-weight: bold; text-shadow: 2px 2px #8a898f;" th:text="${attraction.name}"></h5>
                                 </div>
                             </div>

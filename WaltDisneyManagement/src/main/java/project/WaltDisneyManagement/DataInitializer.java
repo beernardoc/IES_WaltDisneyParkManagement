@@ -116,7 +116,7 @@ public class DataInitializer implements CommandLineRunner {
         Attraction HumungaKowabunga = new Attraction("Humunga Kowabunga", typhoonlagoon, "WaterRide");
         attractionRepo.save(HumungaKowabunga);
 
-        ParkCars ParkingLot1 = new ParkCars("ParkingLot1", 700, 699, "Open");
+        ParkCars ParkingLot1 = new ParkCars("ParkingLot1", 1000, 999, "Open");
         parkCarsRepo.save(ParkingLot1);
 
         ParkCars ParkingLot2 = new ParkCars("ParkingLot2", 700, 600, "Open");

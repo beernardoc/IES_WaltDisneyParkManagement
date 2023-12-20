@@ -6,8 +6,6 @@
 * License: https://bootstrapmade.com/license/
 */
 
-
-
 var stompClient = null;
 var socket = new SockJS('/websocket-endpoint');
 stompClient = Stomp.over(socket);
@@ -161,13 +159,6 @@ function getParkNameFromURL() {
 }
 
 
-// Gráficos Vazios
-$(document).ready(function () {
-  if (parkName) renderVisitorsLineChart(parkName);
-  else renderVisitorsLineChart("total");
-});
-
-
 // Links
 document.addEventListener('DOMContentLoaded', function () {
   // Encontrar todos os elementos com a classe customers-card
@@ -246,171 +237,66 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// Admin
-function CreateEmployee(name, email, password, role) {
-  if (!name || !email || !password || !role) {
-    alert("Por favor, preencha todos os campos.");
-    return;
+// Close Modal
+function closeUrgentModal() {
+  var modal = $('#urgentModal');
+  modal.modal('hide');
+  window.location.reload();
+}
+
+
+// Next Maintenance
+function nextMaintenanceDate() {
+
+  var nextMaintenanceElement = document.getElementById("nextMaintenanceValue");
+
+  if (nextMaintenanceElement) {
+
+    var maintenanceDate = new Date(nextMaintenanceElement.textContent);
+    var currentDate = new Date();
+
+    if (maintenanceDate < currentDate) {
+
+      nextMaintenanceElement = document.getElementById("nextMaintenance");
+      nextMaintenanceElement.style.backgroundColor = "#b32222";
+      nextMaintenanceElement.style.color = "#ffffff";
+      nextMaintenanceElement.querySelectorAll("*").forEach(function (child) {child.style.color = "#ffffff";});
+      nextMaintenanceElement.style.marginLeft = "10px";
+      nextMaintenanceElement.style.marginRight = "10px";
+      nextMaintenanceElement.style.borderRadius = "10px";
+    }
   }
-
-  const apiUrl = `/api/employee`;
-
-  const formData = {
-    Name: name,
-    Email: email,
-    Password: password,
-    Role: role
-  };
-
-  fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
-    },
-    body: JSON.stringify(formData)
-  }).then(response => {
-    if (response.ok) {
-        window.location.reload();
-
-    } else {
-      alert("Erro ao criar funcionário.");
-    }
-  })
 }
 
-function UpdateEmployee(name, email, password, role) {
 
-  if (!name || !email || !password || !role) {
-    alert("Por favor, preencha todos os campos.");
-    return;
+// Attraction Closed
+function checkAttractionStatus() {
+
+  var statusElement = document.getElementById("statusCardValue");
+
+  if (statusElement) {
+    var status = statusElement.innerText
+
+    if (status === 'Closed') {
+
+      statusElement = document.getElementById("statusCard");
+      statusElement.style.backgroundColor = "#b32222";
+      statusElement.style.color = "#ffffff";
+      statusElement.querySelectorAll("*").forEach(function (child) {
+        child.style.color = "#ffffff";
+      });
+    }
   }
-
-  const apiUrl = `/api/employee`;
-
-  const formData = {
-    Name: name,
-    Email: email,
-    Password: password,
-    Role: role
-  };
-
-  fetch(apiUrl, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData)
-  }).then(response => {
-    if (response.ok) {
-      window.location.reload();
-
-    } else {
-      alert("Erro ao atualizar funcionário.");
-    }
-  })
 }
 
-function deleteEmployee(button) {
-  var employeeName = button.getAttribute('data-email');
 
-  const apiUrl = `/api/employee`;
-  console.log(employeeName);
-
-
-  fetch(apiUrl, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
-    },
-    body: employeeName
-  }).then(response => {
-    if (response.ok) {
-      window.location.reload();
-
-    } else {
-      alert("Erro ao criar funcionário.");
-    }
-  })
-}
-
-function fillForm(button) {
-    var employeeName = button.getAttribute('data-name');
-    var employeerole = button.getAttribute('data-role');
-
-  var email = button.getAttribute('data-email');
-
-    document.getElementById('Name').value = employeeName;
-    document.getElementById('Email').value = email;
-
-    // Verifica qual opção de role corresponde e marca o rádio correspondente
-    document.querySelector('input[name=Radios][value=' + employeerole + ']').checked = true;
-}
-
-function deleteParkCar(button) {
-
-  var parkCarName = button.getAttribute('data-parkcarsname');
-
-  const apiUrl = `/api/parkCars`;
-
-  fetch(apiUrl, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
-    },
-    body: parkCarName
-  }).then(response => {
-    if (response.ok) {
-      window.location.reload();
-
-    } else {
-      alert("Erro ao apagar estacioanamento.");
-    }
-  })
-}
-
-function deleteAttraction(button) {
-
-  var attractionName = button.getAttribute('data-attractionname');
-
-  const apiUrl = `/api/attraction`;
-
-  fetch(apiUrl, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
-    },
-    body: attractionName
-  }).then(response => {
-    if (response.ok) {
-      window.location.reload();
-
-    } else {
-      alert("Erro ao apagar atração.");
-    }
-  })
-}
-
-function deletePark(button) {
-
-  var parkName = button.getAttribute('data-parkname');
-
-  const apiUrl = `/api/park`;
-
-  fetch(apiUrl, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
-    },
-    body: parkName
-  }).then(response => {
-    if (response.ok) {
-      window.location.reload();
-
-    } else {
-      alert("Erro ao apagar atração.");
-    }
-  })
-}
+// Início da Página
+$(document).ready(function () {
+  if (parkName) renderVisitorsLineChart(parkName);
+  else renderVisitorsLineChart("total");
+  nextMaintenanceDate();
+  checkAttractionStatus();
+});
 
 
 // Template
@@ -551,22 +437,22 @@ function deletePark(button) {
           }],
           ["bold", "italic", "underline", "strike"],
           [{
-              color: []
-            },
+            color: []
+          },
             {
               background: []
             }
           ],
           [{
-              script: "super"
-            },
+            script: "super"
+          },
             {
               script: "sub"
             }
           ],
           [{
-              list: "ordered"
-            },
+            list: "ordered"
+          },
             {
               list: "bullet"
             },
@@ -609,27 +495,27 @@ function deletePark(button) {
     autosave_retention: '2m',
     image_advtab: true,
     link_list: [{
-        title: 'My page 1',
-        value: 'https://www.tiny.cloud'
-      },
+      title: 'My page 1',
+      value: 'https://www.tiny.cloud'
+    },
       {
         title: 'My page 2',
         value: 'http://www.moxiecode.com'
       }
     ],
     image_list: [{
-        title: 'My page 1',
-        value: 'https://www.tiny.cloud'
-      },
+      title: 'My page 1',
+      value: 'https://www.tiny.cloud'
+    },
       {
         title: 'My page 2',
         value: 'http://www.moxiecode.com'
       }
     ],
     image_class_list: [{
-        title: 'None',
-        value: ''
-      },
+      title: 'None',
+      value: ''
+    },
       {
         title: 'Some class',
         value: 'class-name'
@@ -660,10 +546,10 @@ function deletePark(button) {
       }
     },
     templates: [{
-        title: 'New Table',
-        description: 'creates a new table',
-        content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'
-      },
+      title: 'New Table',
+      description: 'creates a new table',
+      content: '<div class="mceTmpl"><table width="98%%"  border="0" cellspacing="0" cellpadding="0"><tr><th scope="col"> </th><th scope="col"> </th></tr><tr><td> </td><td> </td></tr></table></div>'
+    },
       {
         title: 'Starting my story',
         description: 'A cure for writers block',
@@ -694,16 +580,16 @@ function deletePark(button) {
   var needsValidation = document.querySelectorAll('.needs-validation')
 
   Array.prototype.slice.call(needsValidation)
-    .forEach(function(form) {
-      form.addEventListener('submit', function(event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
+      .forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
+          form.classList.add('was-validated')
+        }, false)
+      })
 
   /**
    * Initiate Datatables
@@ -728,12 +614,3 @@ function deletePark(button) {
   }
 
 })();
-
-
-// Close Modal
-function closeUrgentModal() {
-  var modal = $('#urgentModal');
-  modal.modal('hide');
-  window.location.reload();
-}
-

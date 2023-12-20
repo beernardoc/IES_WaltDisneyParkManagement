@@ -161,7 +161,7 @@ class Generators:
             
 
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
 
 
@@ -225,7 +225,7 @@ class Generators:
                 previous_test['vibration'] = 0.0
             
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def hollywood_studios(self):
         while True:
@@ -278,7 +278,7 @@ class Generators:
             if vibration_rocknroller > 100:
                 previous_rocknroller['vibration'] = 0.0
             
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def animal_kingdom(self):
 
@@ -346,7 +346,7 @@ class Generators:
             
 
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def disney_springs(self):
 
@@ -402,7 +402,7 @@ class Generators:
             if vibration_classic > 100:
                 previous_classic['vibration'] = 0.0
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def blizzard_beach(self):
 
@@ -457,7 +457,7 @@ class Generators:
             if vibration_slush > 100:
                 previous_slush['vibration'] = 0.0
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def typhoon_lagoon(self):
 
@@ -513,7 +513,7 @@ class Generators:
                 previous_humunga['vibration'] = 0.0
 
 
-            await asyncio.sleep(20)
+            await asyncio.sleep(5)
 
     async def parkingLot(self):
 
@@ -547,7 +547,7 @@ async def random_value(previous, max_difference, precision=2):
 
 async def random_value_people(previous, max_difference):
     lower_limit = max(0, previous - max_difference)
-    upper_limit = min(1000, previous + max_difference)
+    upper_limit = min(200, previous + max_difference)
     value = random.uniform(lower_limit, upper_limit)
     return round(value)
 
@@ -579,7 +579,7 @@ async def simulate_sensor():
 
 
 
-async def generate_data(type, previous_data, max_difference=20.0):
+async def generate_data(type, previous_data, max_difference=5.0):
     if type == "Rollercoaster":
         velocity = await random_value(previous_data['velocity'], max_difference)
         previous_data['velocity'] = velocity

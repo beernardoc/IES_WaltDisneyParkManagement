@@ -12,53 +12,134 @@ var stompClient = null;
 var socket = new SockJS('/websocket-endpoint');
 stompClient = Stomp.over(socket);
 var parkName = getParkNameFromURL();
-var chartInstance = null;
+var chartInstance = {};
+var mensagemJson = {"Magic Kingdom": 0, "Epcot": 0, "Hollywood Studios": 0, "Animal Kingdom": 0, "Disney Springs": 0, "Blizzard Beach": 0, "Typhoon Lagoon": 0, "total": 0}
 
+
+// Visitors
 stompClient.connect({}, function (frame) {
   stompClient.subscribe(`/topic/Visitors`, function (mensagem) {
-    var mensagemJson = JSON.parse(mensagem.body);
+
+    mensagemJson = JSON.parse(mensagem.body);
     console.log(mensagemJson);
 
     var visitorsElement = document.getElementById("visitors");
     if (visitorsElement) {
       if (parkName) {
         visitorsElement.innerHTML = mensagemJson[parkName];
+        renderVisitorsLineChart(parkName);
       } else { // index
         visitorsElement.innerHTML = mensagemJson["total"];
-
-        // Destruir o gráfico existente, se houver
-        if (chartInstance) {
-          chartInstance.destroy();
-        }
-
-        // Criar um novo gráfico com os novos dados
-        chartInstance = new ApexCharts(document.querySelector("#pieChart"), {
-          series: [
-            mensagemJson["Magic Kingdom"],
-            mensagemJson["Epcot"],
-            mensagemJson["Hollywood Studios"],
-            mensagemJson["Animal Kingdom"],
-            mensagemJson["Disney Springs"],
-            mensagemJson["Typhoon Lagoon"],
-            mensagemJson["Blizzard Beach"]
-          ],
-          chart: {
-            height: 350,
-            type: 'pie',
-            toolbar: {
-              show: true
-            }
-          },
-          labels: ['Magic Kingdom', 'Epcot', 'Hollywood Studios', 'Animal Kingdom', 'Disney Springs', 'Typhoon Lagoon', 'Blizzard Beach']
-        });
-
-        chartInstance.render();
+        renderVisitorsPieChart();
+        renderVisitorsLineChart("total");
       }
-
     }
   });
 });
 
+
+// Pie Chart
+function renderVisitorsPieChart() {
+
+  // Destruir o gráfico existente, se houver
+  if (chartInstance.pieChart) {
+    chartInstance.pieChart.destroy();
+  }
+
+  let parques = Object.keys(mensagemJson);
+  let labelsValues = parques.slice(0, parques.length - 1);
+  let seriesValues = labelsValues.map(parque => mensagemJson[parque]);
+
+  // Criar um novo gráfico com os novos dados
+  chartInstance.pieChart = new ApexCharts(document.querySelector("#pieChart"), {
+    series: seriesValues,
+    chart: {
+      height: 350,
+      type: 'pie',
+      toolbar: {
+        show: true
+      }
+    },
+    labels: labelsValues
+  });
+
+  chartInstance.pieChart.render();
+}
+
+
+// Area Chart
+var dadosGrafico = [0];
+var tempo = [""];
+
+function renderVisitorsLineChart(parkVisitors) {
+  if (mensagemJson) {
+
+    if (chartInstance.areaChart) {
+      chartInstance.areaChart.destroy();
+    }
+
+    var now = getCurrentTime();
+
+    if (tempo.length > 0 && now === tempo[tempo.length - 1]) {
+      dadosGrafico[dadosGrafico.length - 1] = mensagemJson[parkVisitors];
+    } else {
+      dadosGrafico.push(mensagemJson[parkVisitors]);
+      tempo.push(now);
+    }
+
+    if (dadosGrafico.length > 11) {
+      dadosGrafico.shift();
+      tempo.shift();
+    }
+
+
+    chartInstance.areaChart = new ApexCharts(document.querySelector("#visitorsChart"), {
+      series: [{
+        name: "Visitors",
+        data: dadosGrafico
+      }],
+      chart: {
+        height: 350,
+        type: 'area',
+        zoom: {
+          enabled: false
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'straight'
+      },
+      grid: {
+        row: {
+          colors: ['#f3f3f3', 'transparent'],
+          opacity: 0.5
+        },
+      },
+      xaxis: {
+        categories: tempo,
+      },
+      colors: ['#00008b']
+    });
+
+    chartInstance.areaChart.render();
+
+  }
+}
+
+
+// Current Time
+function getCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const seconds = now.getSeconds().toString().padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+
+// Park Name
 function getParkNameFromURL() {
   var url = window.location.href;
   var parts = url.split('/');
@@ -76,10 +157,18 @@ function getParkNameFromURL() {
     parkLink.href = '/park/' + parkName;
   }
 
-  return parkName; // ou outra lógica padrão caso o nome do parque não seja encontrado
+  return parkName;
 }
 
 
+// Gráficos Vazios
+$(document).ready(function () {
+  if (parkName) renderVisitorsLineChart(parkName);
+  else renderVisitorsLineChart("total");
+});
+
+
+// Links
 document.addEventListener('DOMContentLoaded', function () {
   // Encontrar todos os elementos com a classe customers-card
   const cardElements = document.querySelectorAll('.customers-card');
@@ -156,6 +245,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+
+// Admin
 function CreateEmployee(name, email, password, role) {
   if (!name || !email || !password || !role) {
     alert("Por favor, preencha todos os campos.");
@@ -185,11 +276,10 @@ function CreateEmployee(name, email, password, role) {
       alert("Erro ao criar funcionário.");
     }
   })
-
-
 }
 
 function UpdateEmployee(name, email, password, role) {
+
   if (!name || !email || !password || !role) {
     alert("Por favor, preencha todos os campos.");
     return;
@@ -218,9 +308,6 @@ function UpdateEmployee(name, email, password, role) {
       alert("Erro ao atualizar funcionário.");
     }
   })
-
-
-
 }
 
 function deleteEmployee(button) {
@@ -260,11 +347,10 @@ function fillForm(button) {
 }
 
 function deleteParkCar(button) {
+
   var parkCarName = button.getAttribute('data-parkcarsname');
 
   const apiUrl = `/api/parkCars`;
-
-
 
   fetch(apiUrl, {
     method: 'DELETE',
@@ -283,11 +369,10 @@ function deleteParkCar(button) {
 }
 
 function deleteAttraction(button) {
+
   var attractionName = button.getAttribute('data-attractionname');
 
   const apiUrl = `/api/attraction`;
-
-
 
   fetch(apiUrl, {
     method: 'DELETE',
@@ -303,15 +388,13 @@ function deleteAttraction(button) {
       alert("Erro ao apagar atração.");
     }
   })
-
 }
 
 function deletePark(button) {
+
   var parkName = button.getAttribute('data-parkname');
 
   const apiUrl = `/api/park`;
-
-
 
   fetch(apiUrl, {
     method: 'DELETE',
@@ -327,16 +410,10 @@ function deletePark(button) {
       alert("Erro ao apagar atração.");
     }
   })
-
-
-
-
-
-
 }
 
 
-
+// Template
 (function() {
   "use strict";
 
@@ -652,6 +729,8 @@ function deletePark(button) {
 
 })();
 
+
+// Close Modal
 function closeUrgentModal() {
   var modal = $('#urgentModal');
   modal.modal('hide');

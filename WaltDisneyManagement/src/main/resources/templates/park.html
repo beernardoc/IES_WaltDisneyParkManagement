@@ -92,60 +92,12 @@
                             <div class="card-body">
                                 <h5 class="card-title">Visitor Flow <span>| Today</span></h5>
 
-                                <div id="lineChart"></div>
-
-                                <script>
-                                    document.addEventListener("DOMContentLoaded", () => {
-                                        new ApexCharts(document.querySelector("#lineChart"), {
-                                            series: [{
-                                                name: "Desktops",
-                                                data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 120, 80]
-                                            }],
-                                            chart: {
-                                                height: 350,
-                                                type: 'line',
-                                                zoom: {
-                                                    enabled: false
-                                                }
-                                            },
-                                            dataLabels: {
-                                                enabled: false
-                                            },
-                                            stroke: {
-                                                curve: 'straight'
-                                            },
-                                            grid: {
-                                                row: {
-                                                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                                                    opacity: 0.5
-                                                },
-                                            },
-                                            xaxis: {
-                                                categories: ['8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h'],
-                                            }
-                                        }).render();
-                                    });
-                                </script>
+                                <div id="visitorsChart"></div>
 
                             </div>
                         </div>
                     </div>
                     <!-- End Visitor Flow Chart -->
-
-                    <!-- Map -->
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Magic Kingdom Map</h5>
-
-                                <div class="d-flex align-items-center">
-                                    <img src="/img/map-magic-kingdom.png" alt="Magic Kingdom" width="100%">
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Map -->
 
                 </div>
             </div>
@@ -167,27 +119,10 @@
                             </div>
                             <div class="ps-3">
                                 <h6 id="visitors">-</h6>
-                                <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
                             </div>
                         </div>
                     </div>
                     <!-- End Visitors Now -->
-
-                    <!-- Visitors Expected -->
-                    <div class="card-body">
-                        <h5 class="card-title">Visitors Expected <span>| Today</span></h5>
-
-                        <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-people"></i>
-                            </div>
-                            <div class="ps-3">
-                                <h6>624 000</h6>
-                                <span class="text-success small pt-1 fw-bold">6%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Visitors Expected -->
 
                 </div>
                 <!-- End Visitors -->
@@ -202,7 +137,10 @@
                                 <div class="activity-item d-flex">
                                     <div class="activite-label" th:text="${history.date}"></div>
                                     <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                                    <div class="activity-content" th:text="|${history.attraction} - ${history.description}|"></div>
+                                    <div class="activity-content">
+                                        <strong><span th:text="${history.attraction}"></span></strong>
+                                        <span th:text="| - ${history.description}|"></span>
+                                    </div>
                                 </div>
                             </th:block>
 

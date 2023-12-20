@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-function submitForm(name, email, password, role) {
+function CreateEmployee(name, email, password, role) {
   if (!name || !email || !password || !role) {
     alert("Por favor, preencha todos os campos.");
     return;
@@ -189,6 +189,40 @@ function submitForm(name, email, password, role) {
 
 }
 
+function UpdateEmployee(name, email, password, role) {
+  if (!name || !email || !password || !role) {
+    alert("Por favor, preencha todos os campos.");
+    return;
+  }
+
+  const apiUrl = `/api/employee`;
+
+  const formData = {
+    Name: name,
+    Email: email,
+    Password: password,
+    Role: role
+  };
+
+  fetch(apiUrl, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData)
+  }).then(response => {
+    if (response.ok) {
+      window.location.reload();
+
+    } else {
+      alert("Erro ao atualizar funcionário.");
+    }
+  })
+
+
+
+}
+
 function deleteEmployee(button) {
   var employeeName = button.getAttribute('data-email');
 
@@ -210,6 +244,19 @@ function deleteEmployee(button) {
       alert("Erro ao criar funcionário.");
     }
   })
+}
+
+function fillForm(button) {
+    var employeeName = button.getAttribute('data-name');
+    var employeerole = button.getAttribute('data-role');
+
+  var email = button.getAttribute('data-email');
+
+    document.getElementById('Name').value = employeeName;
+    document.getElementById('Email').value = email;
+
+    // Verifica qual opção de role corresponde e marca o rádio correspondente
+    document.querySelector('input[name=Radios][value=' + employeerole + ']').checked = true;
 }
 
 function deleteParkCar(button) {

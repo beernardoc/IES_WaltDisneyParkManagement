@@ -14,19 +14,17 @@ var chartInstance = {};
 var mensagemJson = {"Magic Kingdom": 0, "Epcot": 0, "Hollywood Studios": 0, "Animal Kingdom": 0, "Disney Springs": 0, "Blizzard Beach": 0, "Typhoon Lagoon": 0, "total": 0}
 
 
-// Visitors
 stompClient.connect({}, function (frame) {
   stompClient.subscribe(`/topic/Visitors`, function (mensagem) {
 
     mensagemJson = JSON.parse(mensagem.body);
-    console.log(mensagemJson);
 
     var visitorsElement = document.getElementById("visitors");
     if (visitorsElement) {
       if (parkName) {
         visitorsElement.innerHTML = mensagemJson[parkName];
         renderVisitorsLineChart(parkName);
-      } else { // index
+      } else {
         visitorsElement.innerHTML = mensagemJson["total"];
         renderVisitorsPieChart();
         renderVisitorsLineChart("total");
@@ -36,10 +34,9 @@ stompClient.connect({}, function (frame) {
 });
 
 
-// Pie Chart
+
 function renderVisitorsPieChart() {
 
-  // Destruir o gráfico existente, se houver
   if (chartInstance.pieChart) {
     chartInstance.pieChart.destroy();
   }
@@ -48,7 +45,6 @@ function renderVisitorsPieChart() {
   let labelsValues = parques.slice(0, parques.length - 1);
   let seriesValues = labelsValues.map(parque => mensagemJson[parque]);
 
-  // Criar um novo gráfico com os novos dados
   chartInstance.pieChart = new ApexCharts(document.querySelector("#pieChart"), {
     series: seriesValues,
     chart: {
@@ -65,7 +61,6 @@ function renderVisitorsPieChart() {
 }
 
 
-// Area Chart
 var dadosGrafico = [0];
 var tempo = [""];
 
@@ -127,7 +122,6 @@ function renderVisitorsLineChart(parkVisitors) {
 }
 
 
-// Current Time
 function getCurrentTime() {
   const now = new Date();
   const hours = now.getHours().toString().padStart(2, '0');
@@ -137,7 +131,7 @@ function getCurrentTime() {
 }
 
 
-// Park Name
+
 function getParkNameFromURL() {
   var url = window.location.href;
   var parts = url.split('/');
@@ -159,32 +153,22 @@ function getParkNameFromURL() {
 }
 
 
-// Links
 document.addEventListener('DOMContentLoaded', function () {
-  // Encontrar todos os elementos com a classe customers-card
   const cardElements = document.querySelectorAll('.customers-card');
-  console.log(cardElements);
 
   cardElements.forEach(function (cardElement) {
     cardElement.addEventListener('click', function () {
-      // Verificar se existe o atributo data-parkname no card
         const parkName = cardElement.dataset.parkname;
 
-      // Verificar se existe o atributo data-attraction no card
       const attractionName = cardElement.dataset.attraction;
 
       const parkinglotName = cardElement.dataset.parkinglotname;
-      console.log(parkinglotName);
 
 
-      // Executar a lógica correspondente com base na verificação
       if (parkName) {
-        // Lógica para cards com data-parkname
-        console.log('Clicou no card para o parque:', parkName);
         fetch(`/api/park/${parkName}`)
             .then(response => {
               if (response.ok) {
-                // Sucesso - você pode redirecionar ou realizar outras ações conforme necessário
                 window.location.href = `/park/${parkName}`;
               } else {
                 alert("Erro ao obter dados do parque.");
@@ -195,12 +179,10 @@ document.addEventListener('DOMContentLoaded', function () {
               alert("Erro ao processar a solicitação.");
             });
       } else if (attractionName) {
-        // Lógica para cards com data-attraction
-        console.log('Clicou no card para atração:', attractionName);
         fetch(`/api/attraction/${attractionName}`)
             .then(response => {
               if (response.ok) {
-                const currentPath = window.location.pathname;  // Obtém o caminho atual
+                const currentPath = window.location.pathname;
                 const attractionPath = `/attraction/${attractionName}`;
 
                 window.location.href = currentPath + attractionPath;
@@ -214,10 +196,8 @@ document.addEventListener('DOMContentLoaded', function () {
               alert("Erro ao processar a solicitação.");
             });
       } else if (parkinglotName) {
-        console.log('Clicou no card para estacionamento:', parkinglotName);
         fetch(`/api/parkCars/${parkinglotName}`)
             .then(response => {
-              console.log(response);
               if (response.ok) {
                 const parkinglotPath = `/ParkCars/${parkinglotName}`;
 
@@ -237,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// Close Modal
+
 function closeUrgentModal() {
   var modal = $('#urgentModal');
   modal.modal('hide');
@@ -245,7 +225,7 @@ function closeUrgentModal() {
 }
 
 
-// Next Maintenance
+
 function nextMaintenanceDate() {
 
   var nextMaintenanceElement = document.getElementById("nextMaintenanceValue");
@@ -269,7 +249,6 @@ function nextMaintenanceDate() {
 }
 
 
-// Attraction Closed
 function checkAttractionStatus() {
 
   var statusElement = document.getElementById("statusCardValue");
@@ -290,7 +269,6 @@ function checkAttractionStatus() {
 }
 
 
-// Início da Página
 $(document).ready(function () {
   if (parkName) renderVisitorsLineChart(parkName);
   else renderVisitorsLineChart("total");
@@ -299,7 +277,7 @@ $(document).ready(function () {
 });
 
 
-// Template
+
 (function() {
   "use strict";
 

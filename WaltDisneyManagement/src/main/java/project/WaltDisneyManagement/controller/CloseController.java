@@ -52,10 +52,8 @@ public class CloseController {
         }
 
 
-        // Construa o destino dinâmico com base na atração
         String destination = "/topic/" + attraction.getPark().getName() + "/" + attractionName + "/Reload";
 
-        // Envie uma mensagem para o destino dinâmico
         simpMessagingTemplate.convertAndSend(destination, "/park/" + attraction.getPark().getName() + "/attraction/" + attraction.getName());
 
 

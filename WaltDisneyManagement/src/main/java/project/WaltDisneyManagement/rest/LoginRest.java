@@ -7,14 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-
-import project.WaltDisneyManagement.Dto.EmployeeDto;
-import project.WaltDisneyManagement.Dto.LoginDto;
 import project.WaltDisneyManagement.entity.Employee;
-import project.WaltDisneyManagement.repository.EmployeeRepo;
 import project.WaltDisneyManagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import project.WaltDisneyManagement.Dto.LoginDto;
 
 @RestController
 public class LoginRest {
@@ -28,7 +24,7 @@ public class LoginRest {
     public ResponseEntity<Employee> loginEmployee(@RequestBody LoginDto loginDto, HttpServletRequest request) {
         boolean loginMessage = employeeService.loginEmployee(loginDto);
         if(loginMessage){
-            var employee = employeeService.findByEmail(loginDto.getEmail());
+            var employee = employeeService.findByEmail(loginDto.email());
             return ResponseEntity.ok(employee);
         }
         return ResponseEntity.badRequest().body(null);

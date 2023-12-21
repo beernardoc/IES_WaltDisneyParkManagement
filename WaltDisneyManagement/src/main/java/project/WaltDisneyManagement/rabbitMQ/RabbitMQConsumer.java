@@ -173,7 +173,6 @@ public class RabbitMQConsumer {
                 Park park = parkService.findByName(routingKey);
 
                 if(park == null){
-                    // System.out.println("Attraction not found");
                     continue;
                 }
 
@@ -210,12 +209,9 @@ public class RabbitMQConsumer {
                         }
 
                         JsonObject parkingObject = jsonObject.getAsJsonObject(key);
-                        // System.out.println("dr " + parkingObject);
 
                         int cars_in = parkingObject.getAsJsonPrimitive("cars_in").getAsInt();
-                        // System.out.println(cars_in);
                         int cars_out = parkingObject.getAsJsonPrimitive("cars_out").getAsInt();
-                        // System.out.println(cars_out);
 
 
                         int atual = parkingLot.getCarsUpdate(cars_in, cars_out, parkingLot.getAtual());

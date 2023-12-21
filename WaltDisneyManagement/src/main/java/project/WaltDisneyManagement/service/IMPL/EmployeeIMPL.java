@@ -29,8 +29,6 @@ public class EmployeeIMPL implements EmployeeService {
     @Override
     public String addEmployee(EmployeeDto employeeDto) {
 
-        System.out.println("Received employeeDto: " + employeeDto);
-
         Employee employee = new Employee(
             employeeDto.Name(),
             employeeDto.Email(),
@@ -52,13 +50,13 @@ public class EmployeeIMPL implements EmployeeService {
 
     @Override
     public boolean loginEmployee(LoginDto loginDto){
-        Employee employee = employeeRepo.findByEmail(loginDto.getEmail());
+        Employee employee = employeeRepo.findByEmail(loginDto.email());
 
         if(employee == null){
             return false;
         }
 
-        if(!this.passwordEncoder.matches(loginDto.getPassword(), employee.getPassword())){
+        if(!this.passwordEncoder.matches(loginDto.password(), employee.getPassword())){
             return false;
         }
 
@@ -106,8 +104,6 @@ public class EmployeeIMPL implements EmployeeService {
     @Override
     public String deleteEmployee(String email) {
         Employee employee = employeeRepo.findByEmail(email);
-
-        System.out.println("Employee: " + employee);
 
         if(employee == null){
             return null;

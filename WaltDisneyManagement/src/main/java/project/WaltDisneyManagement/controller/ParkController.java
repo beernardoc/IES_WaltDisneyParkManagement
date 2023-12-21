@@ -31,7 +31,7 @@ public class ParkController {
     private ParkCarsService parkCarsService;
 
     @Autowired
-    private MaintenanceHistoryService maintenanceHistoryService;
+    private MaintenanceService maintenanceService;
 
 
 
@@ -54,13 +54,13 @@ public class ParkController {
         List<Park> parks = parkService.findAll();
         List<ParkCars> parkCars = parkCarsService.findAll();
         List<Attraction> attractions = attractionService.findByPark(park.getParkId());
-        List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findByPark(parkName);
+        List<Maintenance> maintenance = maintenanceService.findByPark(parkName);
 
         model.addAttribute("parks", parks);
         model.addAttribute("parkCars", parkCars);
         model.addAttribute("park", park.getName());
         model.addAttribute("attractions", attractions);
-        model.addAttribute("maintenanceHistory", maintenanceHistory);
+        model.addAttribute("maintenanceHistory", maintenance);
         model.addAttribute("role", employee.getRole());
         model.addAttribute("username", employee.getName());
 
@@ -79,13 +79,13 @@ public class ParkController {
 
         Attraction attraction = attractionService.findByName(attractionName);
         Employee employee = employeeService.findByEmail(email.toString());
-        List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findByAttraction(attractionName);
+        List<Maintenance> maintenance = maintenanceService.findByAttraction(attractionName);
         List<Park> parks = parkService.findAll();
         List<ParkCars> parkCars = parkCarsService.findAll();
 
         model.addAttribute("parks", parks);
         model.addAttribute("parkCars", parkCars);
-        model.addAttribute("maintenanceHistory", maintenanceHistory);
+        model.addAttribute("maintenanceHistory", maintenance);
         model.addAttribute("NextMaintenance", attraction.getNextMaintenance());
         model.addAttribute("lastMaintenance", attraction.getLastMaintenance());
         model.addAttribute("type", attraction.getType());

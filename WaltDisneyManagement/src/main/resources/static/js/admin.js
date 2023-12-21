@@ -16,7 +16,7 @@ function CreateEmployee(name, email, password, role) {
     fetch(apiUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData)
     }).then(response => {
@@ -65,13 +65,12 @@ function deleteEmployee(button) {
     var employeeName = button.getAttribute('data-email');
 
     const apiUrl = `/api/employee`;
-    console.log(employeeName);
 
 
     fetch(apiUrl, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+            'Content-Type': 'application/json',
         },
         body: employeeName
     }).then(response => {
@@ -93,7 +92,6 @@ function fillForm(button) {
     document.getElementById('Name').value = employeeName;
     document.getElementById('Email').value = email;
 
-    // Verifica qual opção de role corresponde e marca o rádio correspondente
     document.querySelector('input[name=Radios][value=' + employeerole + ']').checked = true;
 }
 
@@ -106,7 +104,7 @@ function deleteParkCar(button) {
     fetch(apiUrl, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+            'Content-Type': 'application/json',
         },
         body: parkCarName
     }).then(response => {
@@ -128,7 +126,7 @@ function deleteAttraction(button) {
     fetch(apiUrl, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+            'Content-Type': 'application/json',
         },
         body: attractionName
     }).then(response => {
@@ -150,7 +148,7 @@ function deletePark(button) {
     fetch(apiUrl, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json', // Defina o tipo de conteúdo para formulário
+            'Content-Type': 'application/json',
         },
         body: parkName
     }).then(response => {

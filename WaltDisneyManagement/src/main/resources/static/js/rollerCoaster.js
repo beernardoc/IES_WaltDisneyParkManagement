@@ -1,6 +1,6 @@
 var stompClient = null;
-var jsonRecebido = {"velocity_kmh":0,"height_m":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0};  // Variável para armazenar o JSON recebido
-var charts = {};  // Objeto para armazenar instâncias de gráficos
+var jsonRecebido = {"velocity_kmh":0,"height_m":0,"temperature":0,"vibration":0,"people_queue":0,"duration":0};
+var charts = {};
 
 function connect() {
     var socket = new SockJS('/websocket-endpoint');
@@ -11,7 +11,7 @@ function connect() {
         var attractionName, parkName;
         [attractionName, parkName] = getAttractionNameFromURL();
 
-        stompClient.subscribe(`/topic/${parkName}/${attractionName}`, function (mensagem) { // essa pagina funciona para qualquer Roller Coaster, por exemplo trocar o nome para /topic/MagicKingdom/Seven Dwarfs Mine Train
+        stompClient.subscribe(`/topic/${parkName}/${attractionName}`, function (mensagem) {
             try {
 
                 jsonRecebido = JSON.parse(mensagem.body);
@@ -54,41 +54,34 @@ function connect() {
 
 
 function sendMaintenance() {
-    // Obtenha os dados do formulário
     const maintenanceDetails = document.getElementById('maintenanceDetails').value;
 
     var attractionName, parkName;
     [attractionName, parkName] = getAttractionNameFromURL();
 
-    // Construa a URL da API
     const apiUrl = `/api/park/${encodeURIComponent(parkName)}/attraction/${encodeURIComponent(attractionName)}/SetMaintenance`;
 
-    // Construa a descrição formatada para URL
     const formattedDescription = encodeURIComponent(maintenanceDetails);
 
-    // Enviar a solicitação usando fetch
     fetch(apiUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded', // Defina o tipo de conteúdo para formulário
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `description=${formattedDescription}`, // Use o formato de formulário para os dados
+        body: `description=${formattedDescription}`,
     })
         .then(response => response.json())
         .then(result => {
             $('#maintenanceModal').modal('hide');
-            // Faça qualquer outra coisa que você queira após o registro bem-sucedido
             document.getElementById('maintenanceDetails').value = '';
             window.location.reload();
         })
         .catch(error => {
             console.error('Erro no registro de manutenção:', error);
-            // Lide com o erro conforme necessário
         });
 }
 
 
-// Função para obter o nome da atração a partir da URL
 function getAttractionNameFromURL() {
 
     var url = window.location.href;
@@ -136,22 +129,17 @@ function sendCloseOrOpenMessage(element) {
 
 
 function showUrgentAlert(message) {
-    // Obtenha a referência para o modal existente
     var modal = document.getElementById('urgentModal');
     message = "A atracção " + message + " está com problemas técnicos e o seu funcionamento foi interrompido. Por favor, dirija-se ao local";
-    // Atualize o conteúdo do modal com a mensagem recebida
     var modalBody = modal.querySelector('.modal-body');
     modalBody.innerHTML = '<div class="alert alert-danger">' + message + '</div>';
 
-    // Mostrar o modal
     $(modal).modal('show');
 
-    // Adicione um temporizador para esconder o modal após alguns segundos (opcional)
     setTimeout(function() {
-        // Esconder o modal
         $(modal).modal('hide');
         window.location.reload();
-    }, 10000); // Esconder após 5 segundos, ajuste conforme necessário
+    }, 10000);
 }
 
 
@@ -201,7 +189,7 @@ function renderChart() {
             colors: ['#00008b', '#00008b', '#00008b']
         });
 
-        charts.barChart.render(); // Renderize o gráfico
+        charts.barChart.render();
 
     }
 }
@@ -216,7 +204,6 @@ function getCurrentTime() {
 
 function renderWaitingTime() {
     if (jsonRecebido) {
-        // Obtenha o número de pessoas na fila
         const peopleInQueue = parseInt(jsonRecebido.people_queue);
 
         let waitingTime = 0;
@@ -234,7 +221,6 @@ function renderWaitingTime() {
     }
 }
 
-// Array para armazenar os dados do gráficos
 var dadosGrafico = [0];
 var tempo = [""];
 
@@ -254,19 +240,16 @@ function renderVel() {
         }
 
 
-        // Adicione o novo valor ao array
         dadosGrafico.push(jsonRecebido.velocity_kmh);
         var now = getCurrentTime();
         tempo.push(now);
 
-        // Mantenha apenas os últimos 11 elementos
         if (dadosGrafico.length > 11) {
-            dadosGrafico.shift(); // Remova o primeiro elemento
+            dadosGrafico.shift();
             tempo.shift();
         }
 
 
-        // Renderize o novo gráfico
         charts.lineChart = new ApexCharts(document.querySelector("#lineChart"), {
             series: [{
                 name: "Velocity",
@@ -297,7 +280,7 @@ function renderVel() {
             colors: ['#00008b']
         });
 
-        charts.lineChart.render(); // Renderize o gráfico
+        charts.lineChart.render();
 
     }
 }
@@ -310,19 +293,16 @@ function renderQueue() {
         }
 
 
-        // Adicione o novo valor ao array
         dadosGraficoQueue.push(jsonRecebido.people_queue);
         var now = getCurrentTime();
         tempoQueue.push(now);
 
-        // Mantenha apenas os últimos 11 elementos
         if (dadosGraficoQueue.length > 11) {
-            dadosGraficoQueue.shift(); // Remova o primeiro elemento
+            dadosGraficoQueue.shift();
             tempoQueue.shift();
         }
 
 
-        // Renderize o novo gráfico
         charts.areaChart = new ApexCharts(document.querySelector("#areaChart"), {
             series: [{
                 name: "Number of People",
@@ -353,17 +333,14 @@ function renderQueue() {
             colors: ['#00008b']
         });
 
-        charts.areaChart.render(); // Renderize o gráfico
+        charts.areaChart.render();
 
     }
 }
 
 function calculateExpectedVisitors() {
-    // Lógica para calcular o número esperado de visitantes para o dia atual
-    // Vamos usar um valor de exemplo, você precisará adaptar isso com dados reais
-    const averageVisitorsPerDay = 500;  // Substitua pelo valor real
+    const averageVisitorsPerDay = 500;
 
-    // Calcula a média dos últimos 10 anos (exemplo)
     const expectedVisitors = Math.round(averageVisitorsPerDay * 10);
 
     return expectedVisitors;
@@ -372,19 +349,6 @@ function calculateExpectedVisitors() {
 function renderVisitorsExpected() {
     if (jsonRecebido) {
         const expectedVisitors = calculateExpectedVisitors();
-
-       /* // Exibe o número esperado de visitantes
-        document.getElementById("expectedVisitors").innerHTML = expectedVisitors;
-
-        // Atualiza a porcentagem de mudança (exemplo: 100% de decréscimo)
-        const decreasePercentage = 5;  // Substitua pelo valor real
-        document.getElementById("decreasePercentage").innerHTML = `${decreasePercentage}%`;
-
-        // Atualiza o texto de status (exemplo: "decrease")
-        const statusText = decreasePercentage > 0 ? "decrease" : "increase";  // Substitua pela lógica real
-        document.getElementById("statusText").innerHTML = statusText;
-        */
-
     }
 }
 

@@ -7,14 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import project.WaltDisneyManagement.Dto.EmployeeDto;
-import project.WaltDisneyManagement.Dto.LoginDto;
 import project.WaltDisneyManagement.Dto.ParkDto;
-import project.WaltDisneyManagement.entity.Employee;
 import project.WaltDisneyManagement.entity.Park;
-import project.WaltDisneyManagement.repository.EmployeeRepo;
-import project.WaltDisneyManagement.repository.ParkRepo;
-import project.WaltDisneyManagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import project.WaltDisneyManagement.service.ParkService;
 

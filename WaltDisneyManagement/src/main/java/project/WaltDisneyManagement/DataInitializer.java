@@ -37,6 +37,11 @@ public class DataInitializer implements CommandLineRunner {
         admin.setPassword(this.passwordEncoder.encode(admin.getPassword()));
         employeeRepo.save(admin);
 
+        Employee parking = new Employee("Maria Silva", "maria@ua.pt", "12345", "PARKING");
+        parking.setPassword(this.passwordEncoder.encode(parking.getPassword()));
+        employeeRepo.save(parking);
+
+
         Park magicKingdomPark = new Park("Magic Kingdom", null);
         parkRepo.save(magicKingdomPark);
 

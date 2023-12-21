@@ -40,3 +40,5 @@ bash run.sh
 | marianadias@ua.pt| 12345    | TECHNICIAN |
 | maria@ua.pt | 12345    | PARKING    |
 
+#### Observation:
+- Developed for Firefox web brownser

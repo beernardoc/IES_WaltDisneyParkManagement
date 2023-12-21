@@ -1,5 +1,5 @@
 var stompClient = null;
-var jsonRecebido = {"cars_in":0,"cars_out":0};  // Variável para armazenar o JSON recebido
+var jsonRecebido = {"cars_in":0, "cars_out":0, "atual":0};  // Variável para armazenar o JSON recebido
 var charts = {};  // Objeto para armazenar instâncias de gráficos
 
 function connect() {
@@ -15,7 +15,6 @@ function connect() {
             try {
 
                 jsonRecebido = JSON.parse(mensagem.body);
-
                 updateValueCars();
 
 
@@ -71,44 +70,58 @@ var tempoCars = [""];
 
 function getValueCars() {
 
-    var novoValor = 0
+    var atualValue = 0;
+    var status = document.getElementById("carStatus").innerText;
+    var statusElement = document.getElementById("carStatusCard");
 
     if (jsonRecebido) {
 
-        var h6Element = document.getElementById('atualValue');
-        var atualValue = parseInt(h6Element.innerText);
-        var status = document.getElementById('carStatus').innerText;
-
-        novoValor = atualValue + jsonRecebido.cars_in - jsonRecebido.cars_out;
+        status = document.getElementById('carStatus').innerText;
+        atualValue = jsonRecebido.atual;
     }
 
     var capacity = parseInt(document.getElementById("maxCapacity").innerText);
 
-    if (novoValor > capacity) {
-        document.getElementById("atualValue").style.color = "#9c1717";
+    if (atualValue > capacity) {
+        document.getElementById("atualValue").style.color = "#b32222";
     }
     else {
         document.getElementById("atualValue").style.color = "#00008b";
     }
 
-    if (novoValor >= capacity && status === "Open") {
-        document.getElementById('carStatus').innerText = "Closed";
+    if (atualValue >= capacity && status === "Open") {
+        document.getElementById("carStatus").innerText = "Closed";
+
+        statusElement.style.backgroundColor = "#b32222";
+        statusElement.style.color = "#ffffff";
+        statusElement.querySelectorAll("*").forEach(function (child) {
+            child.style.color = "#ffffff";
+        });
+
         showUrgentAlert();
     }
-    else if (novoValor < capacity && status === "Closed") {
-        document.getElementById('carStatus').innerText = "Open";
+    else if (atualValue < capacity && status === "Closed") {
+        document.getElementById("carStatus").innerText = "Open";
+
+        statusElement.style.backgroundColor = "#ffffff";
+        statusElement.style.color = "#00008b";
+        statusElement.querySelectorAll("*").forEach(function (child) {
+            child.style.color = "#00008b";
+        });
+
         closeUrgentCarModal()
     }
 
-    return novoValor;
+    if (atualValue > 0) {
+        document.getElementById("atualValue").innerText = atualValue;
+    }
+
+    return atualValue;
 }
 
 function updateValueCars() {
 
     var parkedCarsNow = getValueCars();
-
-    var h6Element = document.getElementById('atualValue');
-    h6Element.innerText = parkedCarsNow;
 
     if (charts.areaChart) {
         charts.areaChart.destroy();

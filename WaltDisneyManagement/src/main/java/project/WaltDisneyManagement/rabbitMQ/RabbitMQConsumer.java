@@ -230,7 +230,6 @@ public class RabbitMQConsumer {
 
                         parkingObject.addProperty("atual", parkingLot.getAtual());
                         
-                        
 
                         
                         parkingRepo.save(parkingLot);

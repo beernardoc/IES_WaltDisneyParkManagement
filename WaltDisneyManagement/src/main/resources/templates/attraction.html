@@ -100,15 +100,16 @@
 
             <!-- Customers Card -->
             <div class="col-xxl-4 col-xl-12">
-              <div id="statusCard" class="card info-card" style="cursor: pointer;" th:data-attraction="${attraction}" th:status="${status}" onclick="sendCloseOrOpenMessage(this)"><div class="card-body">                  <h5 class="card-title">Status</h5>
+              <div id="statusCard" class="card info-card" style="cursor: pointer;" th:data-attraction="${attraction}" th:status="${status}" onclick="sendCloseOrOpenMessage(this)"><div class="card-body">
+                <h5 class="card-title">Status</h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-info-circle"></i>
                     </div>
                     <div class="ps-3">
-                      <h6 th:text="${status}"></h6>
+                      <h6 id="statusCardValue" th:text="${status}" ></h6>
                       <span th:if="${status == 'Open'}" class="text-danger small pt-1 fw-bold">Click to close</span>
-                      <span th:if="${status == 'Closed'}" class="text-success small pt-1 fw-bold">Click to open</span>
+                      <span th:if="${status == 'Closed'}" class="small pt-1 fw-bold">Click to open</span>
                     </div>
                   </div>
                 </div>
@@ -143,7 +144,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Duration</h5>
   
-                  <div th:if="${status == 'Open'}" class="d-flex align-items-center">
+                  <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-hourglass-split"></i>
                     </div>
@@ -151,12 +152,6 @@
                       <h6 id="duration"></h6>
                     </div>
 
-                  </div>
-
-                  <div th:if="${status == 'Closed'}" class="d-flex align-items-center">
-                    <div style="background-color: #00008b; color: #fff; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 18px; width: 100%; padding-top: 5px">
-                      <p>Attraction Closed</p>
-                    </div>
                   </div>
   
                 </div>
@@ -170,11 +165,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Velocity <span>| Km/h</span> </h5>
 
-                  <div th:if="${status == 'Open'}" id="lineChart"></div>
-
-                  <div th:if="${status == 'Closed'}" style="background-color: #00008b; color: #fff; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 18px; margin-top: 24px;">
-                    <p>Attraction Closed</p>
-                  </div>
+                  <div id="lineChart"></div>
 
 
                 </div>
@@ -201,12 +192,8 @@
                 <div class="card-body">
                   <h5 class="card-title">People in Queue <span>| Now</span> </h5>
 
-                  <div th:if="${status == 'Closed'}" style="background-color: #00008b; color: #fff; padding: 10px; border-radius: 5px; text-align: center; text-align: center; font-weight: bold;">
-                    <p>Attraction Closed</p>
-                  </div>
 
-
-                  <div th:if="${status == 'Open'}" id="areaChart"></div>
+                  <div id="areaChart"></div>
 
                 </div>
               </div>
@@ -220,11 +207,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Other Parameters<span> | Now</span></h5>
 
-                  <div th:if="${status == 'Closed'}" style="background-color: #00008b; color: #fff; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 18px; margin-top: 24px;">
-                    <p>Attraction Closed</p>
-                  </div>
-
-                  <div th:if="${status == 'Open'}" id="barChart"></div>
+                  <div id="barChart"></div>
 
                 </div>
               </div>
@@ -250,18 +233,12 @@
             <div class="card-body">
               <h5 class="card-title">Waiting Time</h5>
 
-              <div th:if="${status == 'Open'}" class="d-flex align-items-center">
+              <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                   <i class="bi bi-clock"></i>
                 </div>
                 <div class="ps-3">
                   <h6 id="waitingTime"> </h6>
-                </div>
-              </div>
-
-              <div th:if="${status == 'Closed'}" class="d-flex align-items-center">
-                <div style="background-color: #00008b; color: #fff; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 18px; width: 100%">
-                  <p>Attraction Closed</p>
                 </div>
               </div>
 
@@ -289,12 +266,7 @@
 
               </div>
 
-
-
-
-
-
-            <div class="card-body">
+            <div class="card-body" id="nextMaintenance">
               <h5 class="card-title">Next Maintenance</h5>
 
               <div class="d-flex align-items-center">
@@ -302,7 +274,7 @@
                   <i class="bi bi-tools"></i>
                 </div>
                 <div class="ps-3">
-                  <h6 th:text="${NextMaintenance}"></h6>
+                  <h6 id="nextMaintenanceValue" th:text="${NextMaintenance}"></h6>
                   <!--<span class="text-danger small pt-1 fw-bold">Urgently needs maintenancee</span> -->
 
                 </div>

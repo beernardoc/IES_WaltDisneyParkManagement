@@ -23,13 +23,11 @@ public class ParkIMPL implements ParkService {
 
     @Override
     public Park addPark(ParkDto parkDto) {
-        System.out.println("Received parkDto: " + parkDto);
 
         Park park = new Park(parkDto.name(),parkDto.attractions());
 
         parkRepo.save(park);
 
-        System.out.println("park saved successfully.");
 
         return park;
 

@@ -2,19 +2,15 @@ package project.WaltDisneyManagement.controller;
 
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import project.WaltDisneyManagement.entity.MaintenanceHistory;
+import project.WaltDisneyManagement.entity.Maintenance;
 import project.WaltDisneyManagement.entity.Park;
 import project.WaltDisneyManagement.entity.ParkCars;
-import project.WaltDisneyManagement.repository.EmployeeRepo;
-import project.WaltDisneyManagement.repository.MaintenanceHistoryRepo;
 import project.WaltDisneyManagement.service.EmployeeService;
-import project.WaltDisneyManagement.service.MaintenanceHistoryService;
+import project.WaltDisneyManagement.service.MaintenanceService;
 import project.WaltDisneyManagement.service.ParkCarsService;
 import project.WaltDisneyManagement.service.ParkService;
 
@@ -27,7 +23,7 @@ public class IndexController {
     private EmployeeService employeeService;
 
     @Autowired
-    private MaintenanceHistoryService maintenanceHistoryService;
+    private MaintenanceService maintenanceService;
 
     @Autowired
     private ParkService parkService;
@@ -47,12 +43,12 @@ public class IndexController {
             var username = employee.getName();
             var role = employee.getRole();
 
-            List<MaintenanceHistory> maintenanceHistory = maintenanceHistoryService.findAll();
+            List<Maintenance> maintenance = maintenanceService.findAll();
             List<Park> parks = parkService.findAll();
             List<ParkCars> parkCars = parkCarsService.findAll();
             model.addAttribute("parks", parks);
             model.addAttribute("parkCars", parkCars);
-            model.addAttribute("maintenanceHistory", maintenanceHistory);
+            model.addAttribute("maintenanceHistory", maintenance);
             model.addAttribute("role", role);
             model.addAttribute("username", username);
 

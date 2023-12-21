@@ -25,8 +25,6 @@ import java.util.List;
 @Controller
 public class ParkCarsController {
 
-    @Autowired
-    private ParkCarsRepo ParkCarsRepo;
 
     @Autowired
     private EmployeeService employeeService;
@@ -51,7 +49,7 @@ public class ParkCarsController {
         model.addAttribute("role", employee.getRole());
         model.addAttribute("username", employee.getName());
 
-        ParkCars parkCar = ParkCarsRepo.findByName(parkCarsName);
+        ParkCars parkCar = parkCarsService.findByName(parkCarsName);
         model.addAttribute("status", parkCar.getStatus());
         model.addAttribute("capacity", parkCar.getMaxcap());
         model.addAttribute("atual", parkCar.getAtual());

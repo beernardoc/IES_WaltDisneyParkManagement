@@ -78,17 +78,12 @@
         // Obter os valores do formulário
         var email = document.getElementById("email").value;
         var password = document.getElementById("password").value;
-        console.log(email);
-        console.log(password);
-        // Criar objeto para enviar ao servidor
+
         var loginDto = {
             email: email,
             password: password
         };
 
-        console.log(loginDto);
-        console.log(JSON.stringify(loginDto));
-        // Fazer uma requisição ao servidor (pode usar AJAX ou Fetch API)
         fetch("/api/login", {
             method: "POST",
             headers: {

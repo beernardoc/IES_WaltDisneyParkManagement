@@ -25,15 +25,12 @@ public class AttractionIMPL implements AttractionService {
 
     @Override
     public Attraction addAttraction(AttractionDto attractionDto) {
-        System.out.println("Received attractionDto: " + attractionDto);
 
         Park park = parkRepo.findById(attractionDto.parkID()).orElse(null);
 
         Attraction attraction = new Attraction(attractionDto.name(),park, attractionDto.type());
 
         attractionRepo.save(attraction);
-
-        System.out.println("attraction saved successfully.");
 
         return attraction;
     }

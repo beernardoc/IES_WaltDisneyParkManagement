@@ -19,13 +19,10 @@ public class ParkCarsIMPL implements ParkCarsService {
 
     @Override
     public ParkCars addParkCars(ParkCarsDto parkCarsDto) {
-        System.out.println("Received ParkCarsDto: " + parkCarsDto);
 
         ParkCars parkCars = new ParkCars(parkCarsDto.name(), parkCarsDto.maxcap(), parkCarsDto.atual(), parkCarsDto.status());
 
         parkCarsRepo.save(parkCars);
-
-        System.out.println("ParkCar saved sucessufly.");
 
         return parkCars;
     }

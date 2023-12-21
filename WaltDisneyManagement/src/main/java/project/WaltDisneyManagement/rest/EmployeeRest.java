@@ -22,7 +22,6 @@ public class EmployeeRest {
  
     @PostMapping("/api/employee")
     public ResponseEntity<String> saveEmployee(@RequestBody EmployeeDto employeeDto) {
-        System.out.println("aq" + employeeDto);
 
 
         String name = employeeService.addEmployee(employeeDto);
@@ -62,7 +61,6 @@ public class EmployeeRest {
     @DeleteMapping("/api/employee")
     public ResponseEntity<String> deleteEmployee(@RequestBody String email) {
         String name = employeeService.deleteEmployee(email);
-        System.out.println("email " + email);
         if (name != null) {
             return ResponseEntity.ok("Employee " + name + " deleted");
         } else {

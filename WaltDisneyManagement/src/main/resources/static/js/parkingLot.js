@@ -1,7 +1,6 @@
 var stompClient = null;
-var jsonRecebido = {"cars_in":0, "cars_out":0, "atual":0};  // Variável para armazenar o JSON recebido
-var charts = {};  // Objeto para armazenar instâncias de gráficos
-
+var jsonRecebido = {"cars_in":0, "cars_out":0, "atual":0};
+var charts = {};
 function connect() {
 
     var socket = new SockJS('/websocket-endpoint');
@@ -11,7 +10,7 @@ function connect() {
 
         var parkName = getCarParkNameFromURL();
 
-        stompClient.subscribe(`/topic/${parkName}`, function (mensagem) { // essa pagina funciona para qualquer Roller Coaster, por exemplo trocar o nome para /topic/MagicKingdom/Seven Dwarfs Mine Train
+        stompClient.subscribe(`/topic/${parkName}`, function (mensagem) {
             try {
 
                 jsonRecebido = JSON.parse(mensagem.body);
@@ -34,7 +33,6 @@ function connect() {
 }
 
 
-// Função para obter o nome da atração a partir da URL
 function getCarParkNameFromURL() {
 
     var url = window.location.href;
@@ -62,7 +60,6 @@ function getCurrentTime() {
 }
 
 
-// Array para armazenar os dados do gráficos
 
 var dadosGraficoCars = [0];
 var tempoCars = [""];
@@ -128,20 +125,17 @@ function updateValueCars() {
     }
 
 
-    // Adicione o novo valor ao array
     dadosGraficoCars.push(parkedCarsNow);
     var now = getCurrentTime();
     tempoCars.push(now);
 
-    // Mantenha apenas os últimos 11 elementos
     if (dadosGraficoCars.length > 11) {
-        dadosGraficoCars.shift(); // Remova o primeiro elemento
+        dadosGraficoCars.shift();
         tempoCars.shift();
     }
 
     var capacity = parseInt(document.getElementById("maxCapacity").innerText);
 
-    // Renderize o novo gráfico
     charts.areaChart = new ApexCharts(document.querySelector("#areaChart"), {
         series: [{
             name: "Number of Cars",
@@ -176,27 +170,22 @@ function updateValueCars() {
         colors: ['#00008b']
     });
 
-    charts.areaChart.render(); // Renderize o gráfico
+    charts.areaChart.render();
 
 }
 
 
 function showUrgentAlert() {
-    // Obtenha a referência para o modal existente
     var modal = document.getElementById('urgentModal');
     var message = "O " + getCarParkNameFromURL() + " foi temporariamente fechado devido à sua capacidade atual estar totalmente ocupada.";
-    // Atualize o conteúdo do modal com a mensagem recebida
     var modalBody = modal.querySelector('.modal-body');
     modalBody.innerHTML = '<div class="alert alert-danger">' + message + '</div>';
 
-    // Mostrar o modal
     $(modal).modal('show');
 
-    // Adicione um temporizador para esconder o modal após alguns segundos (opcional)
     setTimeout(function() {
-        // Esconder o modal
         $(modal).modal('hide');
-    }, 10000); // Esconder após 5 segundos, ajuste conforme necessário
+    }, 10000);
 }
 
 function closeUrgentCarModal() {

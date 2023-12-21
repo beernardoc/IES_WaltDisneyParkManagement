@@ -68,7 +68,6 @@ public class AttractionRest {
 
     @GetMapping("/api/attraction/{attractionName}")
     public ResponseEntity<Attraction> getAttractionByName(@PathVariable("attractionName") String attractionName) {
-        System.out.println(attractionName);
         Attraction attraction = attractionService.findByName(attractionName);
 
         if (attraction != null) {

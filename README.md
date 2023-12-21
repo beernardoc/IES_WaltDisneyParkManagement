@@ -28,7 +28,7 @@ API Documentation:
 bash run.sh
 ```
 
-(on the root folder of the springboot project)
+(on the root folder of the springboot project - [run.sh](WaltDisneyManagement/run.sh))
 
 
 

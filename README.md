@@ -12,6 +12,8 @@ As heart of Walt Disney World's operations, our system optimizes activities thro
 | Team Manager  | Mariana Perna  | marianaperna@ua.pt       | 108067 |
 | Architect     | João Santos    | joao.carlos.santos@ua.pt | 110555 |
 
+### Grade: 18/20
+
 ### Project resources:
 
 VM link: (accessible only on the University of Aveiro network)

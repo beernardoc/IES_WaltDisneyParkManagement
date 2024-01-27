@@ -14,9 +14,14 @@ As heart of Walt Disney World's operations, our system optimizes activities thro
 
 ### Grade: 18/20
 
+
+### Demonstration video:
+
+- https://uapt33090-my.sharepoint.com/:v:/g/personal/bernardopinto_ua_pt/EXzq4zn8Cp9PsZeTxwI4GpcBbGMLDdVJNaJ8sBN1_bxO1Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=kAwMx7
+
 ### Project resources:
 
-VM link: (accessible only on the University of Aveiro network)
+Deployment: (accessible only on the University of Aveiro network)
 - http://192.168.160.218:8080
 
 API Documentation: 
